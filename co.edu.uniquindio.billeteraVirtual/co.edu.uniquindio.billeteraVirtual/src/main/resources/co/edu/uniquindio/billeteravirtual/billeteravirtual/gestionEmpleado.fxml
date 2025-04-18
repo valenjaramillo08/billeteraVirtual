@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.viewController.GestionEmpleadoViewController">
+   <children>
+      <Button fx:id="btn_iniciar_empleado" layoutX="240.0" layoutY="279.0" mnemonicParsing="false" onAction="#onIniciarEmpleado" text="Iniciar sesion" />
+      <TextField fx:id="txt_nombre" layoutX="208.0" layoutY="124.0" />
+      <Label layoutX="231.0" layoutY="79.0" text="Nombre de usuario">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="268.0" layoutY="183.0" text="Clave">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Button fx:id="btn_regresar" layoutX="102.0" layoutY="340.0" mnemonicParsing="false" onAction="#onCallRegresar" text="Regresar" />
+      <PasswordField fx:id="txt_clave" layoutX="208.0" layoutY="210.0" />
+   </children>
+</Pane>

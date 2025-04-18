@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.viewController.GestionEmpleadoVerificadoViewController">
+   <children>
+      <Button fx:id="btn_realizar_alquiler" layoutX="84.0" layoutY="113.0" mnemonicParsing="false" onAction="#onRealizarAlquiler" prefHeight="25.0" prefWidth="110.0" text="Realizar alquiler" />
+      <Button fx:id="btn_compra_venta_vehiculo" layoutX="84.0" layoutY="152.0" mnemonicParsing="false" onAction="#onCompraVentaVehiculo" prefHeight="25.0" prefWidth="110.0" text="Comprar vehiculo" />
+      <Button layoutX="342.0" layoutY="113.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Cambiar clave" />
+      <Button fx:id="btn_cerrar_sesion" layoutX="341.0" layoutY="152.0" mnemonicParsing="false" onAction="#onCallRergesar" prefHeight="25.0" prefWidth="101.0" text="Cerrar sesion" />
+      <Button fx:id="btn_registrar_cliente" layoutX="84.0" layoutY="188.0" mnemonicParsing="false" onAction="#onCallRegistrarCliente" prefHeight="25.0" prefWidth="110.0" text="Registrar cliente" />
+      <Label layoutX="84.0" layoutY="60.0" text="Transaccion a realizar:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="347.0" layoutY="60.0" text="Acción a realizar:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="173.0" fitWidth="290.0" layoutX="256.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../../../concesionarios-coches-gran-zona-urbana_674594-14204.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

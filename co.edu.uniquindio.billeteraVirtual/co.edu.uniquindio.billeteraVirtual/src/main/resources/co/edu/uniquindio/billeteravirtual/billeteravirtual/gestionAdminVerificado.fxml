@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.viewController.GestionAdminVerificadoViewController">
+   <children>
+      <Button fx:id="btn_test" layoutX="229.0" layoutY="194.0" mnemonicParsing="false" onAction="#onTest" text="Button" />
+      <Button fx:id="btn_cerrar_sesion" layoutX="110.0" layoutY="93.0" mnemonicParsing="false" onAction="#onCallRegresar" text="Cerrar sesion" />
+   </children>
+</Pane>

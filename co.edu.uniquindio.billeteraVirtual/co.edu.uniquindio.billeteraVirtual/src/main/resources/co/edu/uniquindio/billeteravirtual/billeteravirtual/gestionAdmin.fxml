@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.viewController.GestionAdminViewController">
+   <children>
+      <Button fx:id="btn_iniciar_admin" layoutX="240.0" layoutY="279.0" mnemonicParsing="false" onAction="#onIniciarAdmin" text="Iniciar sesion" />
+      <TextField fx:id="txt_nombre" layoutX="208.0" layoutY="124.0" />
+      <Label layoutX="231.0" layoutY="79.0" text="Nombre de usuario" />
+      <Label layoutX="268.0" layoutY="183.0" text="Clave" />
+      <Button fx:id="btn_regresar" layoutX="89.0" layoutY="337.0" mnemonicParsing="false" onAction="#onCallRegresar" text="Regresar" />
+      <PasswordField fx:id="txt_clave" layoutX="208.0" layoutY="223.0" />
+   </children>
+</Pane>
