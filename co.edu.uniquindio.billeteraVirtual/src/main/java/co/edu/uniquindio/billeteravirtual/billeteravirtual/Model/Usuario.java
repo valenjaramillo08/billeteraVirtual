@@ -35,13 +35,15 @@ public class Usuario extends Persona implements IVisitable {
                     String telefono,
                     String idUsuario,
                     String direccion,
-                    double saldoDisponible
+                    double saldoDisponible,
+                    String contrasenaUsuario
     ){
         super(nombre,apellido,correo);
         this.telefono = telefono;
         this.idUsuario = idUsuario;
         this.direccion = direccion;
         this.saldoDisponible = saldoDisponible;
+        this.contrasenaUsuario = contrasenaUsuario;
 
     }
     public static UsuarioBuilder builder(){
@@ -93,6 +95,10 @@ public class Usuario extends Persona implements IVisitable {
 
     public List<Presupuesto> getListaPresupuestos() {
         return listaPresupuestos;
+    }
+
+    public String getContrasenaUsuario() {
+        return contrasenaUsuario;
     }
 
     @Override

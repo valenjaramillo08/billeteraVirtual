@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.LoginUsuarioViewController">
+   <children>
+      <Button fx:id="btn_iniciar_usuario" layoutX="246.0" layoutY="231.0" mnemonicParsing="false" onAction="#onIniciarUsuario" prefHeight="25.0" prefWidth="91.0" text="Iniciar sesion" />
+      <TextField fx:id="txt_id_usuario" layoutX="208.0" layoutY="83.0" prefHeight="25.0" prefWidth="158.0" />
+      <Label layoutX="202.0" layoutY="54.0" text="Identificación del usuario:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="269.0" layoutY="150.0" text="Clave:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Button fx:id="btn_regresar" layoutX="468.0" layoutY="340.0" mnemonicParsing="false" onAction="#onCallRegresar" prefHeight="25.0" prefWidth="72.0" text="Regresar" />
+      <PasswordField fx:id="txt_clave" layoutX="208.0" layoutY="175.0" prefHeight="25.0" prefWidth="158.0" />
+   </children>
+</Pane>

@@ -7,7 +7,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICuentaServic
 import java.util.ArrayList;
 import java.util.List;
 
-public class Administrador extends Persona implements IUsuarioServices {
+public class Administrador extends Persona implements IUsuarioServices, ICuentaServices{
     public String idAdministrador;
     public String contrasenaAdm;
     List<Usuario> listaUsuarios = new ArrayList<>();
@@ -18,11 +18,54 @@ public class Administrador extends Persona implements IUsuarioServices {
     public Administrador (String nombre,
                           String apellido,
                           String correo,
-                          String idAdministrador){
+                          String idAdministrador,
+                          String contrasenaAdm) {
         super(nombre,apellido,correo);
         this.idAdministrador = idAdministrador;
+        this.contrasenaAdm = contrasenaAdm;
 
 
+    }
+
+    public boolean crearUsuario(String nombre,
+                                String apellido,
+                                String correo,
+                                String telefono,
+                                String idUsuario,
+                                String direccion,
+                                double saldoDisponible,
+                                String contrasenaUsuario){
+        Usuario usuarioEncontrado = obtenerUsuario(idUsuario);
+        if(usuarioEncontrado == null){
+            Usuario usuario = getBuildUsuario(nombre, apellido, correo, telefono,idUsuario,direccion, saldoDisponible,contrasenaUsuario);
+            getListaUsuarios().add(usuario);
+            return true;
+        }else{
+            return  false;
+        }
+    }
+
+    public boolean crearUsuario(Usuario nuevoUsuario){
+        Usuario usuarioEncontrado = obtenerUsuario(nuevoUsuario.getIdUsuario());
+        if(usuarioEncontrado == null){
+            getListaUsuarios().add(nuevoUsuario);
+            return true;
+        }else{
+            return  false;
+        }
+    }
+
+    private Usuario getBuildUsuario(String nombre, String apellido, String correo, String telefono, String idUsuario, String direccion, double saldoDisponible, String contrasenaUsuario) {
+        return Usuario.builder()
+                .nombre(nombre)
+                .apellido(apellido)
+                .correo(correo)
+                .telefono(telefono)
+                .idUsuario(idUsuario)
+                .direccion(direccion)
+                .saldoDisponible(saldoDisponible)
+                .contrasenaUsuario(contrasenaUsuario)
+                .build();
     }
 
     @Override
@@ -84,6 +127,20 @@ public class Administrador extends Persona implements IUsuarioServices {
         }
     }
 
+    @Override
+    public boolean autorizarLoginUsuario(String idUsuario, String contrasena){
+        boolean usuarioEncontrado = false;
+        for (Usuario usuario: getListaUsuarios()) {
+            if(usuario.getIdUsuario().equalsIgnoreCase(idUsuario) && usuario.getContrasenaUsuario().equalsIgnoreCase(contrasena)){
+                usuarioEncontrado = true;
+                break;
+            }
+        }
+
+        return usuarioEncontrado;
+    }
+
+
     public String getIdAdministrador() {
         return idAdministrador;
     }
@@ -116,6 +173,23 @@ public class Administrador extends Persona implements IUsuarioServices {
         this.listaCuentas = listaCuentas;
     }
 
+    public String getContrasenaAdm() {
+        return contrasenaAdm;
+    }
 
+    @Override
+    public boolean agregarCuenta(String idCuenta, String nombreBanco, String numeroCuenta, TipoCuenta tipoCuenta, Usuario usuarioAsociado, Administrador administradorAsociado) {
+        return false;
+    }
+
+    @Override
+    public boolean actualizarCuenta(String idCuenta, String idCuentaActual, String nombreBanco, String numeroCuenta, TipoCuenta tipoCuenta, Usuario usuarioAsociado, Administrador administradorAsociado) {
+        return false;
+    }
+
+    @Override
+    public boolean eliminarCuenta(String idCuenta, String nombreBanco, String numeroCuenta, TipoCuenta tipoCuenta) {
+        return false;
+    }
 }
 

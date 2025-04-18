@@ -10,6 +10,7 @@ public class UsuarioBuilder {
     protected String idUsuario;
     protected String direccion;
     protected double saldoDisponible;
+    protected String contrasenaUsuario;
 
 
 
@@ -48,8 +49,13 @@ public class UsuarioBuilder {
         return this;
     }
 
+    public UsuarioBuilder contrasenaUsuario(String contrasenaUsuario) {
+        this.contrasenaUsuario = contrasenaUsuario;
+        return this;
+    }
+
     public Usuario build(){
-        return new Usuario(nombre, apellido,correo, telefono, idUsuario, direccion, saldoDisponible);
+        return new Usuario(nombre, apellido,correo, telefono, idUsuario, direccion, saldoDisponible, contrasenaUsuario);
     }
 
 

@@ -1,5 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Service;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
+
 import java.util.List;
 
 public interface IModelFactoryServices {

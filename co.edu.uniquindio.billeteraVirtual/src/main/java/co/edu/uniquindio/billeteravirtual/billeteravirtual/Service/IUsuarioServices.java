@@ -21,4 +21,5 @@ public interface IUsuarioServices {
                               String idUsuarioActual,
                               String idUsuario,
                               String direccion);
+    boolean autorizarLoginUsuario(String idUsuario, String pass);
 }

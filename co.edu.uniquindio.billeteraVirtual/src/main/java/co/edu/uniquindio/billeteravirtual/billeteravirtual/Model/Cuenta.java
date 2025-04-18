@@ -6,18 +6,22 @@ public class Cuenta {
     public String numeroCuenta;
     public TipoCuenta tipoCuenta;
     public Usuario usuarioAsociado;
-    public co.edu.uniquindio.proyectobilletera.proyectobilletera.model.Administrador administradorAsociado;
+    public Administrador administradorAsociado;
 
     public Cuenta(){}
 
     public Cuenta(String idCuenta,
                   String nombreBanco,
                   String numeroCuenta,
-                  TipoCuenta tipoCuenta) {
+                  TipoCuenta tipoCuenta,
+                  Usuario usuarioAsociado,
+                  Administrador administradorAsociado) {
         this.idCuenta = idCuenta;
         this.nombreBanco = nombreBanco;
         this.numeroCuenta = numeroCuenta;
         this.tipoCuenta = tipoCuenta;
+        this.usuarioAsociado = usuarioAsociado;
+        this.administradorAsociado = administradorAsociado;
     }
 
     public String getIdCuenta() {
@@ -60,11 +64,11 @@ public class Cuenta {
         this.usuarioAsociado = usuarioAsociado;
     }
 
-    public co.edu.uniquindio.proyectobilletera.proyectobilletera.model.Administrador getAdministradorAsociado() {
+    public Administrador getAdministradorAsociado() {
         return administradorAsociado;
     }
 
-    public void setAdministradorAsociado(co.edu.uniquindio.proyectobilletera.proyectobilletera.model.Administrador administradorAsociado) {
+    public void setAdministradorAsociado(Administrador administradorAsociado) {
         this.administradorAsociado = administradorAsociado;
     }
 

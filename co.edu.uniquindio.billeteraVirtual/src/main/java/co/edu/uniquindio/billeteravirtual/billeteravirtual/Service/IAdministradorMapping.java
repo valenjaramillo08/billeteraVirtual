@@ -9,4 +9,5 @@ public interface IAdministradorMapping {
     List<UsuarioDto> getUsuariosDto (List<Usuario> listaUsuarios);
     UsuarioDto usuarioToUsuarioDto(Usuario usuario);
     Usuario usuarioDtoToUsuario(UsuarioDto usuarioDto);
+
 }

@@ -1,14 +1,17 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IAdministradorServices;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICuentaServices;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Billetera {
+public class Billetera implements IAdministradorServices, ICuentaServices {
     List<Cuenta> listaCuentas = new ArrayList<>();
     List<Presupuesto> listaPresupuestos = new ArrayList<>();
     List<Transaccion> listaTransaccioness = new ArrayList<>();
     List<Usuario> listaUsuarios = new ArrayList<>();
-    List<co.edu.uniquindio.proyectobilletera.proyectobilletera.model.Administrador> listaAdministradores = new ArrayList<>();
+    List<Administrador> listaAdministradores = new ArrayList<>();
     List<Categoria> listaCategorias = new ArrayList<>();
 
     public boolean crearUsuario(String nombre,
@@ -17,10 +20,11 @@ public class Billetera {
                                 String telefono,
                                 String idUsuario,
                                 String direccion,
-                                double saldoDisponible){
+                                double saldoDisponible,
+                                String contrasenaUsuario){
         Usuario usuarioEncontrado = obtenerUsuario(idUsuario);
         if(usuarioEncontrado == null){
-            Usuario usuario = getBuildUsuario(nombre, apellido, correo, telefono,idUsuario,direccion, saldoDisponible);
+            Usuario usuario = getBuildUsuario(nombre, apellido, correo, telefono,idUsuario,direccion, saldoDisponible,contrasenaUsuario);
             getListaUsuarios().add(usuario);
             return true;
         }else{
@@ -38,7 +42,7 @@ public class Billetera {
         }
     }
 
-    private Usuario getBuildUsuario(String nombre, String apellido, String correo, String telefono, String idUsuario, String direccion, double saldoDisponible) {
+    private Usuario getBuildUsuario(String nombre, String apellido, String correo, String telefono, String idUsuario, String direccion, double saldoDisponible, String contrasenaUsuario) {
         return Usuario.builder()
                 .nombre(nombre)
                 .apellido(apellido)
@@ -47,6 +51,7 @@ public class Billetera {
                 .idUsuario(idUsuario)
                 .direccion(direccion)
                 .saldoDisponible(saldoDisponible)
+                .contrasenaUsuario(contrasenaUsuario)
                 .build();
     }
 
@@ -102,7 +107,7 @@ public class Billetera {
     }
 
     @Override
-    public boolean agregarCuenta(String idCuenta,String nombreBanco, String numeroCuenta,TipoCuenta tipoCuenta) {
+    public boolean agregarCuenta(String idCuenta, String nombreBanco, String numeroCuenta, TipoCuenta tipoCuenta, Usuario usuarioAsociado, Administrador administradorAsociado) {
         Cuenta cuenta = obtenerCuenta(idCuenta);
         if(cuenta == null){
             cuenta = new Cuenta();
@@ -116,12 +121,10 @@ public class Billetera {
         }else{
             return false;
         }
-
     }
 
     @Override
-    public boolean actualizarCuenta(String idCuenta, String idCuentaActual, String nombreBanco, String numeroCuenta,
-                                    TipoCuenta tipoCuenta) {
+    public boolean actualizarCuenta(String idCuenta, String idCuentaActual, String nombreBanco, String numeroCuenta, TipoCuenta tipoCuenta, Usuario usuarioAsociado, Administrador administradorAsociado) {
         Cuenta cuenta = obtenerCuenta(idCuentaActual);
         if(cuenta != null){
             cuenta.setNombreBanco(nombreBanco);
@@ -130,7 +133,6 @@ public class Billetera {
         }else{
             return false;
         }
-
     }
 
     @Override
@@ -188,11 +190,11 @@ public class Billetera {
         this.listaUsuarios = listaUsuarios;
     }
 
-    public List<co.edu.uniquindio.proyectobilletera.proyectobilletera.model.Administrador> getListaAdministradores() {
+    public List<Administrador> getListaAdministradores() {
         return listaAdministradores;
     }
 
-    public void setListaAdministradores(List<co.edu.uniquindio.proyectobilletera.proyectobilletera.model.Administrador> listaAdministradores) {
+    public void setListaAdministradores(List<Administrador> listaAdministradores) {
         this.listaAdministradores = listaAdministradores;
     }
 
@@ -204,4 +206,16 @@ public class Billetera {
         this.listaCategorias = listaCategorias;
     }
 
+    @Override
+    public Administrador autorizarLoginAdministrador(String idAdministrador, String pass) {
+        Administrador administradorEncontrado = null;
+        for (Administrador administrador: getListaAdministradores()) {
+            if(administrador.getIdAdministrador().equalsIgnoreCase(idAdministrador) && administrador.getContrasenaAdm().equalsIgnoreCase(pass)){
+                administradorEncontrado = administrador;
+                break;
+            }
+        }
+
+        return administradorEncontrado;
+    }
 }
