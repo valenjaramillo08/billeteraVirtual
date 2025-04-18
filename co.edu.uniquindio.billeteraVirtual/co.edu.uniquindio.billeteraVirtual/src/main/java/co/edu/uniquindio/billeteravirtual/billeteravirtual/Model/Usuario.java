@@ -18,6 +18,7 @@ public class Usuario extends Persona implements IVisitable {
     public String idUsuario;
     public String direccion;
     public double saldoDisponible;
+    public String contrasenaUsuario;
     public List<Cuenta> listaCuentas = new ArrayList<>();
     public List<Transaccion> listaTransacciones = new ArrayList<>();
     public List<Presupuesto> listaPresupuestos = new ArrayList<>();
