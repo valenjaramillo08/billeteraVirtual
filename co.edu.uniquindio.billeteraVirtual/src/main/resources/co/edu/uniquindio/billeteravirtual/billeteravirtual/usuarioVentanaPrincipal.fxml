@@ -6,13 +6,41 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.UsuarioVentanaPrincipalViewController">
+<AnchorPane prefHeight="603.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.UsuarioVentanaPrincipalViewController">
    <children>
-      <Pane layoutX="185.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <Button layoutX="74.0" layoutY="147.0" mnemonicParsing="false" text="Button" />
-         </children>
-      </Pane>
+      <Pane layoutX="185.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0" />
+      <TabPane layoutX="13.0" layoutY="8.0" prefHeight="549.0" prefWidth="844.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="perfilTab" text="Perfil">
+           <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
+                   <children>
+                      <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
+                         <items>
+                            <fx:include source="perfilUsuario.fxml" />
+                         </items>
+                      </SplitPane>
+                   </children>
+                </AnchorPane>
+             </content>
+          </Tab>
+          <Tab text="Transacciones">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab text="Mis presupuestos">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Mis cuentas">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="729.0" layoutY="565.0" mnemonicParsing="false" text="Cerrrar sesión" />
    </children>
 </AnchorPane>

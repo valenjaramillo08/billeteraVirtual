@@ -77,7 +77,7 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
 
     @Override
     public Usuario obtenerUsuario(String idUsuario) {
-        return null;
+        return administrador.obtenerUsuario(idUsuario);
     }
 
     @Override
@@ -98,5 +98,10 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
     @Override
     public Administrador autorizarLoginAdministrador(String idAdministrador, String pass) {
         return billetera.autorizarLoginAdministrador(idAdministrador, pass);
+    }
+
+    @Override
+    public boolean actualizarUsuarioPerfil(String nombre, String apellido, String correo, String idUsuarioActual) {
+        return administrador.actualizarUsuarioPerfil(nombre, apellido, correo, idUsuarioActual);
     }
 }

@@ -191,5 +191,19 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     public boolean eliminarCuenta(String idCuenta, String nombreBanco, String numeroCuenta, TipoCuenta tipoCuenta) {
         return false;
     }
+
+    @Override
+    public boolean actualizarUsuarioPerfil(String nombre, String apellido, String correo, String idUsuarioActual) {
+        Usuario usuario = obtenerUsuario(idUsuarioActual);
+        if(usuario != null){
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setCorreo(correo);
+
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
