@@ -4,7 +4,8 @@ public record UsuarioDto(
     String nombre,
     String apellido,
     String idUsuario,
-    String correo
+    String correo,
+    String contrasena
 ){
 
 }

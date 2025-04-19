@@ -4,9 +4,45 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.AdministradorVentanaPrincipalViewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.AdministradorVentanaPrincipalViewController">
    <children>
-      <Button fx:id="btn_test" layoutX="229.0" layoutY="194.0" mnemonicParsing="false" onAction="#onTest" text="Button" />
-      <Button fx:id="btn_cerrar_sesion" layoutX="110.0" layoutY="93.0" mnemonicParsing="false" onAction="#onCallRegresar" text="Cerrar sesion" />
+      <Button fx:id="btn_cerrar_sesion" layoutX="785.0" layoutY="602.0" mnemonicParsing="false" onAction="#onCallRegresar" text="Cerrar sesion" />
+      <TabPane layoutX="20.0" layoutY="10.0" prefHeight="569.0" prefWidth="884.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Gestionar Usuarios">
+             <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
+                   <children>
+                      <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
+                         <items>
+                            <fx:include source="adminFolder/gestionUsuarios.fxml" />
+                         </items>
+                      </SplitPane>
+                   </children>
+                </AnchorPane>
+             </content>
+          </Tab>
+          <Tab text="Gestionar Cuentas">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab text="Gestionar Transacciones">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Mostrar estadisticas">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Graficas">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </Pane>

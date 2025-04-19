@@ -28,7 +28,8 @@ public class AdministradorMapping implements IAdministradorMapping {
                 usuario.getNombre(),
                 usuario.getApellido(),
                 usuario.getIdUsuario(),
-                usuario.getCorreo());
+                usuario.getCorreo(),
+                usuario.getContrasenaUsuario());
     }
 
     @Override
@@ -38,6 +39,7 @@ public class AdministradorMapping implements IAdministradorMapping {
                 .apellido(usuarioDto.apellido())
                 .correo(usuarioDto.correo())
                 .idUsuario(usuarioDto.idUsuario())
+                .contrasenaUsuario(usuarioDto.contrasena())
                 .build();
 
 

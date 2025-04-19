@@ -26,7 +26,6 @@ public class HelloApplication extends Application {
         this.primaryStage = stage;
         this.primaryStage.setTitle("Billetera Virtual");
 
-        // 2. Mostrar la vista principal
         showPrimaryView();
     }
     public void showPrimaryView() throws IOException {
@@ -34,7 +33,7 @@ public class HelloApplication extends Application {
         Pane root = loader.load();
 
         PrimaryViewController controller = loader.getController();
-        controller.setApp(this);  // inyecta la referencia a la app
+        controller.setApp(this);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -45,7 +44,7 @@ public class HelloApplication extends Application {
         Pane root = loader.load();
 
         LoginAdminViewController controller = loader.getController();
-        controller.setApp(this);  // inyecta la referencia a la app
+        controller.setApp(this);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -56,7 +55,7 @@ public class HelloApplication extends Application {
         Pane root = loader.load();
 
         LoginUsuarioViewController controller = loader.getController();
-        controller.setApp(this);  // inyecta la referencia a la app
+        controller.setApp(this);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -68,7 +67,7 @@ public class HelloApplication extends Application {
         Pane root = loader.load();
 
         UsuarioVentanaPrincipalViewController controller = loader.getController();
-        controller.setApp(this, usuario);  // inyecta la referencia a la app
+        controller.setApp(this, usuario);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -80,7 +79,7 @@ public class HelloApplication extends Application {
         Pane root = loader.load();
 
         AdministradorVentanaPrincipalViewController controller = loader.getController();
-        controller.setApp(this, administrador);  // inyecta la referencia a la app
+        controller.setApp(this, administrador);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
