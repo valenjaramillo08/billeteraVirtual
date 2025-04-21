@@ -67,7 +67,7 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
     }
 
     public List<Cuenta> obtenerCuentas() {
-        return billetera.getListaCuentas();
+        return administrador.getListaCuentas();
     }
 
     @Override

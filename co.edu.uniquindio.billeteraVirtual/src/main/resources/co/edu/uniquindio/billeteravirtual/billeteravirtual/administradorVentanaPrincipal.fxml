@@ -23,9 +23,18 @@
              </content>
           </Tab>
           <Tab text="Gestionar Cuentas">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
+                      <children>
+                          <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
+                              <items>
+                                  <AnchorPane fx:id="placeholder"
+                                              prefWidth="739.0" prefHeight="538.0"/>
+                              </items>
+                          </SplitPane>
+                      </children>
+                  </AnchorPane>
+              </content>
           </Tab>
             <Tab text="Gestionar Transacciones">
               <content>

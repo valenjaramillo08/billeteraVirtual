@@ -4,25 +4,38 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.LoginAdmin
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.HelloApplication;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Administrador;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class AdministradorVentanaPrincipalViewController {
     LoginAdminController loginAdminController;
     HelloApplication helloApp;
     Administrador administrador;
 
+    @FXML private AnchorPane placeholder; // un <AnchorPane fx:id="placeholder"/> en tu FXML
+    private GestionCuentasViewController childCtrl;
 
-    public void setApp(HelloApplication helloApplication, Administrador administrador) {
-        this.helloApp = helloApplication;
-        administrador = administrador;
+    public void setApp(HelloApplication app,
+                       Administrador admin,
+                       URL rutaGestionCuentas) throws IOException {
+
+        this.helloApp     = app;
+        this.administrador = admin;
+
+        FXMLLoader loader = new FXMLLoader(rutaGestionCuentas);
+        AnchorPane root   = loader.load();
+
+        childCtrl = loader.getController();
+        childCtrl.initData(administrador);
+
+        placeholder.getChildren().setAll(root);
     }
 
-
-    public void onTest(ActionEvent actionEvent) {
-    }
-
-    public void onCallRegresar(ActionEvent actionEvent) throws IOException {
-        this.helloApp.onCallLoginAdmin(actionEvent);
+    @FXML
+    public void onCallRegresar(ActionEvent actionEvent) {
     }
 }

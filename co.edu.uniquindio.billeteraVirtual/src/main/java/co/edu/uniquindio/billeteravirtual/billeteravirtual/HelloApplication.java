@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 import static javafx.application.Application.launch;
 
@@ -74,15 +75,20 @@ public class HelloApplication extends Application {
         primaryStage.show();
     }
 
-    public void onCallAdministradorVentanaPrincipal(ActionEvent event, Administrador administrador) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("administradorVentanaPrincipal.fxml"));
+    public void onCallAdministradorVentanaPrincipal(ActionEvent e,
+                                                    Administrador administrador) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("administradorVentanaPrincipal.fxml"));
         Pane root = loader.load();
 
-        AdministradorVentanaPrincipalViewController controller = loader.getController();
-        controller.setApp(this, administrador);
+        URL rutaGC = getClass().getResource("adminFolder/gestionCuentas.fxml");
+        if (rutaGC == null) throw new IllegalStateException("No se encontró gestionCuentas.fxml");
 
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+        AdministradorVentanaPrincipalViewController c = loader.getController();
+        c.setApp(this, administrador, rutaGC);
+
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
