@@ -37,9 +37,8 @@ public class DataUtil {
         billetera.getListaUsuarios().add(usuario2);
         billetera.getListaUsuarios().add(usuario3);
         administrador.getListaUsuarios().add(usuario3);
+        administrador.agregarCuenta("567", "bogota", "889", TipoCuenta.AHORROS, usuario3, administrador);
         billetera.getListaAdministradores().add(administrador);
-
-        billetera.agregarCuenta("567", "bogota", "889", TipoCuenta.AHORROS, usuario3, administrador);
 
 
         return billetera;
