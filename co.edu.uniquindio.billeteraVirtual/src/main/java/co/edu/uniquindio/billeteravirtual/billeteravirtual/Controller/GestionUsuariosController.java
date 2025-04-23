@@ -12,6 +12,7 @@ public class GestionUsuariosController {
         modelFactory = ModelFactory.getInstancia();
     }
 
+
     public List<UsuarioDto> obtenerUsuarios() {
 
         return modelFactory.obtenerUsuarios();

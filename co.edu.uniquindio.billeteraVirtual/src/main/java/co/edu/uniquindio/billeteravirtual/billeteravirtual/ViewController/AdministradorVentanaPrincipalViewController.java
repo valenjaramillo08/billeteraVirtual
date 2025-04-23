@@ -1,38 +1,58 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.GestionUsuariosController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.LoginAdminController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.HelloApplication;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Administrador;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
 
 public class AdministradorVentanaPrincipalViewController {
-    LoginAdminController loginAdminController;
-    HelloApplication helloApp;
-    Administrador administrador;
+    public void setApp(HelloApplication helloApplication, Administrador administrador) {
+    }
+
+    @FXML
+    private Tab gestionCuentasTab;
+
+    @FXML
+    private Tab mostrarEstadisticasTab;
+
+    @FXML
+    private Tab gestionTransaccionesTab;
+
+    @FXML
+    private Tab gestionUsuariosTab;
 
     @FXML private AnchorPane placeholder; // un <AnchorPane fx:id="placeholder"/> en tu FXML
-    private GestionCuentasViewController childCtrl;
 
-    public void setApp(HelloApplication app,
-                       Administrador admin,
-                       URL rutaGestionCuentas) throws IOException {
+    private Administrador administradorLogueado;
 
-        this.helloApp     = app;
-        this.administrador = admin;
 
-        FXMLLoader loader = new FXMLLoader(rutaGestionCuentas);
-        AnchorPane root   = loader.load();
+    public void setAdministradorLogueado(Administrador administrador) throws IOException {
 
-        childCtrl = loader.getController();
-        childCtrl.initData(administrador);
+        this.administradorLogueado = administrador;
+        cargarVistaPerfil();
 
-        placeholder.getChildren().setAll(root);
+    }
+
+    private void cargarVistaPerfil() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billeteravirtual/billeteravirtual/adminFolder/gestionUsuarios.fxml"));
+            AnchorPane vistaPerfil = loader.load();
+
+            GestionUsuariosViewController controller = loader.getController();
+
+            gestionUsuariosTab.setContent(vistaPerfil);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
