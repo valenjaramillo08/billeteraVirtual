@@ -87,14 +87,7 @@ public class LoginUsuarioViewController {
     
 
 
-    /**private void validarCredenciales(ActionEvent event) throws IOException {
-        boolean valid = loginUsuarioController.autorizarLoginUsuario(txt_id_usuario.getText(), txt_clave.getText());
-        if (valid) {
-            Usuario usuario = loginUsuarioController.obtenerUsuario(txt_id_usuario.getText());
-            this.helloApp.onCallUsuarioVentanaPrincipal(event, usuario);
-        }
-    } 
-    /* */
+
 }
 
 

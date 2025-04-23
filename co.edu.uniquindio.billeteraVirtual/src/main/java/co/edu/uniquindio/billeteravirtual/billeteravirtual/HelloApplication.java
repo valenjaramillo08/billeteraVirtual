@@ -86,7 +86,7 @@ public class HelloApplication extends Application {
         if (rutaGC == null) throw new IllegalStateException("No se encontró gestionCuentas.fxml");
 
         AdministradorVentanaPrincipalViewController c = loader.getController();
-        c.setApp(this, administrador, rutaGC);
+        c.setApp(this, administrador);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

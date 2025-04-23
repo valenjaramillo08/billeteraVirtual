@@ -2,6 +2,7 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.GestionUsuariosController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Administrador;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils.AdministradorConstantes;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,7 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GestionUsuariosViewController {
-
+    Administrador admin;
     GestionUsuariosController gestionUsuariosController;
     ObservableList<UsuarioDto> listaUsuarios = FXCollections.observableArrayList();
     UsuarioDto usuarioSeleccionado;
@@ -157,6 +158,8 @@ public class GestionUsuariosViewController {
         initView();
 
     }
+
+
 
     private void initView() {
         initDataBinding();
