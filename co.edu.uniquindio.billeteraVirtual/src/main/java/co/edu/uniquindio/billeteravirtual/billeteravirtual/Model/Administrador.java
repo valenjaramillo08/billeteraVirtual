@@ -7,7 +7,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICuentaServic
 import java.util.ArrayList;
 import java.util.List;
 
-public class Administrador extends Persona implements IUsuarioServices, ICuentaServices{
+public class Administrador extends Persona implements IUsuarioServices, ICuentaServices {
     public String idAdministrador;
     public String contrasenaAdm;
     List<Usuario> listaUsuarios = new ArrayList<>();
@@ -15,12 +15,12 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     List<Cuenta> listaCuentas = new ArrayList<>();
 
 
-    public Administrador (String nombre,
-                          String apellido,
-                          String correo,
-                          String idAdministrador,
-                          String contrasenaAdm) {
-        super(nombre,apellido,correo);
+    public Administrador(String nombre,
+                         String apellido,
+                         String correo,
+                         String idAdministrador,
+                         String contrasenaAdm) {
+        super(nombre, apellido, correo);
         this.idAdministrador = idAdministrador;
         this.contrasenaAdm = contrasenaAdm;
 
@@ -34,24 +34,24 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
                                 String idUsuario,
                                 String direccion,
                                 double saldoDisponible,
-                                String contrasenaUsuario){
+                                String contrasenaUsuario) {
         Usuario usuarioEncontrado = obtenerUsuario(idUsuario);
-        if(usuarioEncontrado == null){
-            Usuario usuario = getBuildUsuario(nombre, apellido, correo, telefono,idUsuario,direccion, saldoDisponible,contrasenaUsuario);
+        if (usuarioEncontrado == null) {
+            Usuario usuario = getBuildUsuario(nombre, apellido, correo, telefono, idUsuario, direccion, saldoDisponible, contrasenaUsuario);
             getListaUsuarios().add(usuario);
             return true;
-        }else{
-            return  false;
+        } else {
+            return false;
         }
     }
 
-    public boolean crearUsuario(Usuario nuevoUsuario){
+    public boolean crearUsuario(Usuario nuevoUsuario) {
         Usuario usuarioEncontrado = obtenerUsuario(nuevoUsuario.getIdUsuario());
-        if(usuarioEncontrado == null){
+        if (usuarioEncontrado == null) {
             getListaUsuarios().add(nuevoUsuario);
             return true;
-        }else{
-            return  false;
+        } else {
+            return false;
         }
     }
 
@@ -71,7 +71,7 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     @Override
     public boolean agregarUsuario(String nombre, String apellido, String correo, String telefono, String idUsuario, String direccion) {
         Usuario usuario = obtenerUsuario(idUsuario);
-        if(usuario == null){
+        if (usuario == null) {
             usuario = new Usuario();
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
@@ -80,7 +80,7 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             getListaUsuarios().add(usuario);
 
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -89,8 +89,8 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     public Usuario obtenerUsuario(String idUsuario) {
 
         Usuario usuarioEncontrado = null;
-        for (Usuario usuario: getListaUsuarios()) {
-            if(usuario.getIdUsuario().equalsIgnoreCase(idUsuario)){
+        for (Usuario usuario : getListaUsuarios()) {
+            if (usuario.getIdUsuario().equalsIgnoreCase(idUsuario)) {
                 usuarioEncontrado = usuario;
                 break;
             }
@@ -104,10 +104,10 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     public boolean eliminarUsuario(String idUsuario) {
 
         Usuario usuario = obtenerUsuario(idUsuario);
-        if(usuario != null){
+        if (usuario != null) {
             getListaUsuarios().remove(usuario);
             return true;
-        }else{
+        } else {
             return false;
         }
 
@@ -116,22 +116,22 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     @Override
     public boolean actualizarUsuario(String nombre, String apellido, String correo, String telefono, String idUsuarioActual, String idUsuario, String direccion) {
         Usuario usuario = obtenerUsuario(idUsuarioActual);
-        if(usuario != null){
+        if (usuario != null) {
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setCorreo(correo);
 
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public boolean autorizarLoginUsuario(String idUsuario, String contrasena){
+    public boolean autorizarLoginUsuario(String idUsuario, String contrasena) {
         boolean usuarioEncontrado = false;
-        for (Usuario usuario: getListaUsuarios()) {
-            if(usuario.getIdUsuario().equalsIgnoreCase(idUsuario) && usuario.getContrasenaUsuario().equalsIgnoreCase(contrasena)){
+        for (Usuario usuario : getListaUsuarios()) {
+            if (usuario.getIdUsuario().equalsIgnoreCase(idUsuario) && usuario.getContrasenaUsuario().equalsIgnoreCase(contrasena)) {
                 usuarioEncontrado = true;
                 break;
             }
@@ -179,31 +179,70 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
 
     @Override
     public boolean agregarCuenta(String idCuenta, String nombreBanco, String numeroCuenta, TipoCuenta tipoCuenta, Usuario usuarioAsociado, Administrador administradorAsociado) {
-        return false;
+        Cuenta cuenta = obtenerCuenta(idCuenta);
+        if (cuenta == null) {
+            cuenta = new Cuenta();
+            cuenta.setIdCuenta(idCuenta);
+            cuenta.setNombreBanco(nombreBanco);
+            cuenta.setNumeroCuenta(numeroCuenta);
+            cuenta.setTipoCuenta(tipoCuenta);
+            getListaCuentas().add(cuenta);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private Cuenta obtenerCuenta(String idCuenta) {
+        Cuenta cuentaEncontrada = null;
+        for (Cuenta cuenta : getListaCuentas()) {
+            if (cuenta.getIdCuenta().equalsIgnoreCase(idCuenta)) {
+                cuentaEncontrada = cuenta;
+                break;
+            }
+        }
+
+        return cuentaEncontrada;
     }
 
     @Override
     public boolean actualizarCuenta(String idCuenta, String idCuentaActual, String nombreBanco, String numeroCuenta, TipoCuenta tipoCuenta, Usuario usuarioAsociado, Administrador administradorAsociado) {
-        return false;
+        Cuenta cuenta = obtenerCuenta(idCuentaActual);
+        if (cuenta != null) {
+            cuenta.setNombreBanco(nombreBanco);
+            cuenta.setNumeroCuenta(numeroCuenta);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean eliminarCuenta(String idCuenta, String nombreBanco, String numeroCuenta, TipoCuenta tipoCuenta) {
-        return false;
+        Cuenta cuenta = obtenerCuenta(idCuenta);
+        if (cuenta != null) {
+            getListaCuentas().remove(cuenta);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean actualizarUsuarioPerfil(String nombre, String apellido, String correo, String idUsuarioActual) {
         Usuario usuario = obtenerUsuario(idUsuarioActual);
-        if(usuario != null){
+        if (usuario != null) {
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setCorreo(correo);
 
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 }
+
+
 

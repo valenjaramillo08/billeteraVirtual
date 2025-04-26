@@ -22,13 +22,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GestionCuentasViewController {
-
+    GestionCuentasController gestionCuentasController;
     Administrador administrador;
     private Cuenta cuentaSeleccionado;
     private ObservableList<Cuenta> listaCuentas = FXCollections.observableArrayList();
 
-    @FXML
-    GestionCuentasController gestionCuentasController;
 
     @FXML
     private ResourceBundle resources;
@@ -91,26 +89,39 @@ public class GestionCuentasViewController {
     private TextField tfIdUsuario;
 
     @FXML
+    private TableColumn<Cuenta, String> columIdUsuario;
+
+    @FXML
     public void initialize() {
+        gestionCuentasController = new GestionCuentasController();
+
+        // 1) columnas y combo
         cbTipoCuenta.getItems().addAll(TipoCuenta.values());
-        columIdCuenta.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getIdCuenta()));
-        columNCuenta.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNumeroCuenta()));
-        columBanco.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNombreBanco()));
+        columIdCuenta .setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getIdCuenta()));
+        columNCuenta  .setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNumeroCuenta()));
+        columBanco    .setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNombreBanco()));
         ColumTpoCuenta.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTipoCuenta().name()));
+        columIdUsuario.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getUsuarioAsociado().getIdUsuario()));
+
+        // 2) ENLAZAR UNA SOLA VEZ
+        tabCuenta.setItems(listaCuentas);
+
         listenerSelection();
     }
 
     /** Invocado desde el padre, ya tenemos el Administrador */
     public void initData(Administrador administrador) {
         this.administrador = administrador;
-        this.gestionCuentasController = new GestionCuentasController();
-        initView();
+
+        // 3) Cargar las cuentas solo aquí
+        listaCuentas.clear();
+        listaCuentas.addAll( gestionCuentasController.obtenerCuentas() );
     }
 
     /** Carga lista de cuentas y muestra en la tabla */
     private void initView() {
         listaCuentas.clear();
-        listaCuentas.addAll( gestionCuentasController.obtenerCuentas() );
         tabCuenta.setItems(listaCuentas);
     }
 
@@ -144,6 +155,7 @@ public class GestionCuentasViewController {
             Label banco = new Label("Banco: " + cuentaSeleccionada.getNombreBanco());
             Label numero = new Label("Número: " + cuentaSeleccionada.getNumeroCuenta());
             Label tipo = new Label("Tipo: " + cuentaSeleccionada.getTipoCuenta());
+            Label usuario = new Label("Usuario: " + cuentaSeleccionada.getUsuarioAsociado().getIdUsuario());
 
             layout.getChildren().addAll(id, banco, numero, tipo);
 
@@ -179,7 +191,78 @@ public class GestionCuentasViewController {
         }
     }
 
+    /** Verifica que la cuenta y todos sus campos esenciales sean válidos */
+    private boolean datosValidos(Cuenta c) {
+
+        if (c == null)                          return false;
+        if (c.getIdCuenta()      == null || c.getIdCuenta().isBlank())      return false;
+        if (c.getNombreBanco()   == null || c.getNombreBanco().isBlank())   return false;
+        if (c.getNumeroCuenta()  == null || c.getNumeroCuenta().isBlank())  return false;
+        if (c.getTipoCuenta()    == null)                                   return false;
+        if (c.getUsuarioAsociado() == null)                                 return false; // ← evita NPE
+        return true;
+    }
+
+    /** Handler del botón “Agregar” */
     private void agregarCuenta() {
+
+        // 1. Validar que el usuario exista
+        String idUsuario = tfIdUsuario.getText().trim();
+        Usuario usuario  = gestionCuentasController.obtenerUsuario(idUsuario);
+
+        if (usuario == null) {
+            mostrarMensaje("Usuario no encontrado", null,
+                    "No existe un usuario con ID «" + idUsuario + "».",
+                    Alert.AlertType.WARNING);
+            return;
+        }
+
+        // 2. Construir la cuenta con los datos del formulario
+        Cuenta nueva = new Cuenta(
+                tfIdCuenta.getText().trim(),
+                tfBanco.getText().trim(),
+                tfNumeroCuenta.getText().trim(),
+                cbTipoCuenta.getValue(),
+                usuario,
+                administrador           // ← debe haberse establecido con initData(...)
+        );
+
+        // 3. Validar campos obligatorios
+        if (!datosValidos(nueva)) {
+            mostrarMensaje("Datos incompletos", null,
+                    "Todos los campos son obligatorios y deben ser válidos.",
+                    Alert.AlertType.WARNING);
+            return;
+        }
+
+        // 4. Intentar persistir la cuenta
+        boolean insertada = gestionCuentasController.agregarCuenta(
+                nueva.getIdCuenta(),
+                nueva.getNombreBanco(),
+                nueva.getNumeroCuenta(),
+                nueva.getTipoCuenta(),
+                usuario,
+                administrador
+        );
+
+        // 5. Refrescar UI según el resultado
+        if (insertada) {
+            listaCuentas.add(nueva);     // la tabla está enlazada con listaCuentas
+            tabCuenta.refresh();
+            mostrarMensaje("Éxito", null,
+                    "La cuenta se guardó correctamente.",
+                    Alert.AlertType.INFORMATION);
+            limpiarCampos();
+        } else {
+            mostrarMensaje("Error", null,
+                    "No se pudo guardar la cuenta (podría estar duplicada).",
+                    Alert.AlertType.ERROR);
+        }
+    }
+
+
+
+   /* private void agregarCuenta() {
         Cuenta cuenta = crearCuenta();
         Usuario usuario = gestionCuentasController.obtenerUsuario(tfIdUsuario.getText());
 
@@ -194,7 +277,7 @@ public class GestionCuentasViewController {
             mostrarMensaje(AdministradorConstantes.TITULO_INCOMPLETO,AdministradorConstantes.HEADER,AdministradorConstantes.BODY_INCOMPLETO, Alert.AlertType.WARNING);
 
         }
-    }
+    }*/
 
     public void actualizarCuenta() {
 
@@ -243,13 +326,31 @@ public class GestionCuentasViewController {
         );
     }
 
-    private boolean datosValidos(Cuenta cuenta) {
+    /*private boolean datosValidos(Cuenta cuenta) {
         return cuenta != null &&
                 cuenta.getIdCuenta() != null && !cuenta.getIdCuenta().isEmpty() &&
                 cuenta.getNombreBanco() != null && !cuenta.getNombreBanco().isEmpty() &&
                 cuenta.getNumeroCuenta() != null && !cuenta.getNumeroCuenta().isEmpty() &&
+                cuenta.getUsuarioAsociado().getIdUsuario() != null && !cuenta.getUsuarioAsociado().getIdUsuario().isEmpty() &&
                 cuenta.getTipoCuenta() != null;
+    }*/
+
+   /* private boolean datosValidos(Cuenta c) {
+        if (c == null) return false;
+
+        if (c.getIdCuenta() == null || c.getIdCuenta().isBlank()) return false;
+        if (c.getNombreBanco() == null || c.getNombreBanco().isBlank()) return false;
+        if (c.getNumeroCuenta() == null || c.getNumeroCuenta().isBlank()) return false;
+        if (c.getTipoCuenta() == null) return false;
+
+        // usuario asociado
+        Usuario u = c.getUsuarioAsociado();
+        if (u == null) return false;                      // ← evita el NPE
+        if (u.getIdUsuario() == null || u.getIdUsuario().isBlank()) return false;
+
+        return true;
     }
+*/
 
 
 
@@ -275,6 +376,7 @@ public class GestionCuentasViewController {
         columNCuenta.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumeroCuenta()));
         columBanco.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreBanco()));
         ColumTpoCuenta.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipoCuenta().name()));
+
     }
 
     private void obtenerCuentas() {
@@ -296,6 +398,14 @@ public class GestionCuentasViewController {
             tfIdCuenta.setText(cuentaSeleccionado.getIdCuenta());
             tfBanco.setText(cuentaSeleccionado.getNombreBanco());
             tfNumeroCuenta.setText(cuentaSeleccionado.getNumeroCuenta());
+            tfIdUsuario.setText(cuentaSeleccionado.getUsuarioAsociado().getIdUsuario());
+
         }
+    }
+
+    public void onCrearTransaccion(ActionEvent actionEvent) {
+    }
+
+    public void onListarTransacciones(ActionEvent actionEvent) {
     }
 }

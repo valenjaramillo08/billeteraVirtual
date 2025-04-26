@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="519.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.GestionTransaccionesViewController">
+   <children>
+      <Label contentDisplay="TOP" layoutX="37.0" layoutY="40.0" text="Nueva Transacción:">
+         <effect>
+            <Blend />
+         </effect>
+      </Label>
+      <Label layoutX="37.0" layoutY="83.0" text="Usuario:" />
+      <Label layoutX="38.0" layoutY="122.0" text="Fecha:" />
+      <Label layoutX="36.0" layoutY="159.0" text="Tipo:" />
+      <Label layoutX="36.0" layoutY="195.0" text="Monto:" />
+      <Label layoutX="36.0" layoutY="254.0" text="Descripción:" />
+      <ChoiceBox fx:id="comboUsuarioNuevaTransaccion" layoutX="95.0" layoutY="79.0" prefWidth="150.0" />
+      <TextField fx:id="labelTipoTransaccion" layoutX="96.0" layoutY="155.0" />
+      <TextField fx:id="labelMontoTransaccion" layoutX="96.0" layoutY="191.0" />
+      <TextArea fx:id="txtAreaDescripcion" layoutX="36.0" layoutY="295.0" prefHeight="140.0" prefWidth="241.0" />
+      <Button layoutX="213.0" layoutY="492.0" mnemonicParsing="false" onAction="#onCrearTransaccion" prefHeight="25.0" prefWidth="65.0" text="Crear" />
+      <Separator layoutX="286.0" orientation="VERTICAL" prefHeight="542.0" prefWidth="16.0" />
+      <TableView layoutX="302.0" layoutY="236.0" prefHeight="281.0" prefWidth="437.0">
+        <columns>
+          <TableColumn fx:id="columIdUsuario" prefWidth="108.0" text="Id Usuario" />
+          <TableColumn fx:id="columTransaccionFecha" prefWidth="115.0" text="Fecha Transaccion" />
+            <TableColumn fx:id="columTipoTransaccion" prefWidth="110.0" text="Tipo" />
+            <TableColumn fx:id="columMonto" prefWidth="103.0" text="Monto" />
+        </columns>
+      </TableView>
+      <Label layoutX="323.0" layoutY="122.0" text="Desde:" />
+      <Label layoutX="317.0" layoutY="40.0" text="Listar transacciones:">
+         <effect>
+            <Blend />
+         </effect>
+      </Label>
+      <DatePicker fx:id="dateDesde" layoutX="370.0" layoutY="118.0" prefHeight="17.0" prefWidth="150.0" />
+      <DatePicker fx:id="dateHasta" layoutX="370.0" layoutY="155.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="325.0" layoutY="159.0" text="Hasta:" />
+      <Button layoutX="494.0" layoutY="200.0" mnemonicParsing="false" onAction="#onListarTransacciones" prefHeight="25.0" prefWidth="65.0" text="Listar" />
+      <Label layoutX="319.0" layoutY="83.0" text="Usuario:" />
+      <ChoiceBox fx:id="comboUsuarioLista" layoutX="370.0" layoutY="79.0" prefWidth="150.0" />
+      <DatePicker fx:id="fechaTransaccion" layoutX="95.0" layoutY="118.0" prefHeight="25.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
