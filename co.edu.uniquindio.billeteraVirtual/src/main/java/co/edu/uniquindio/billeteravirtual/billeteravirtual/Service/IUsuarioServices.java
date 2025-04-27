@@ -2,7 +2,11 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.Service;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 
+import java.util.List;
+
 public interface IUsuarioServices {
+    public List<Usuario> getListaUsuarios();
+
     boolean agregarUsuario(String nombre,
                            String apellido,
                            String correo,

@@ -1,13 +1,14 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ITransaccionServices;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IUsuarioServices;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICuentaServices;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Administrador extends Persona implements IUsuarioServices, ICuentaServices {
+public class Administrador extends Persona implements IUsuarioServices, ICuentaServices, ITransaccionServices {
     public String idAdministrador;
     public String contrasenaAdm;
     List<Usuario> listaUsuarios = new ArrayList<>();
@@ -240,6 +241,16 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public boolean agregarTransaccion(Transaccion transaccion) {
+        if (transaccion != null) {
+            listaTransacciones.add(transaccion);
+            return true; // Indica que se agregó exitosamente
+        } else {
+            return false; // No se pudo agregar porque la transacción es nula
         }
     }
 }

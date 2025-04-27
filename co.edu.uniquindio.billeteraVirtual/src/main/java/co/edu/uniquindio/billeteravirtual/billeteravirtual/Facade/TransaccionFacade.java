@@ -12,6 +12,7 @@ public class TransaccionFacade {
             String tipoTransaccion,
             double monto,
             String descripcion,
+            LocalDate fechaTransaccion,
             TipoCuenta tipoCuenta,
             TipoCuentaOrigen cuentaOrigen,
             Usuario usuario,

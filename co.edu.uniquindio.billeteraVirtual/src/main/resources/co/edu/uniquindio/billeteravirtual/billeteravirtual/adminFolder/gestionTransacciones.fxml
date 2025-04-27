@@ -20,7 +20,6 @@
       <Label layoutX="36.0" layoutY="195.0" text="Monto:" />
       <Label layoutX="36.0" layoutY="254.0" text="Descripción:" />
       <ChoiceBox fx:id="comboUsuarioNuevaTransaccion" layoutX="95.0" layoutY="79.0" prefWidth="150.0" />
-      <TextField fx:id="labelTipoTransaccion" layoutX="96.0" layoutY="155.0" />
       <TextField fx:id="labelMontoTransaccion" layoutX="96.0" layoutY="191.0" />
       <TextArea fx:id="txtAreaDescripcion" layoutX="36.0" layoutY="295.0" prefHeight="140.0" prefWidth="241.0" />
       <Button layoutX="213.0" layoutY="492.0" mnemonicParsing="false" onAction="#onCrearTransaccion" prefHeight="25.0" prefWidth="65.0" text="Crear" />
@@ -46,5 +45,6 @@
       <Label layoutX="319.0" layoutY="83.0" text="Usuario:" />
       <ChoiceBox fx:id="comboUsuarioLista" layoutX="370.0" layoutY="79.0" prefWidth="150.0" />
       <DatePicker fx:id="fechaTransaccion" layoutX="95.0" layoutY="118.0" prefHeight="25.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceBox" layoutX="96.0" layoutY="155.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

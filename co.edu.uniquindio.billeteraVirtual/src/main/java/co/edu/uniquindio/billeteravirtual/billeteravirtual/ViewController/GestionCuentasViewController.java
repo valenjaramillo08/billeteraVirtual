@@ -407,5 +407,6 @@ public class GestionCuentasViewController {
     }
 
     public void onListarTransacciones(ActionEvent actionEvent) {
+
     }
 }

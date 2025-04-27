@@ -1,18 +1,22 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Singleton;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Facade.TransaccionFacade;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Mappers.AdministradorMapping;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils.DataUtil;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUsuarioServices, IAdministradorServices {
+public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUsuarioServices, IAdministradorServices, ITransaccionServices {
     private static ModelFactory modelFactory;
     private Billetera billetera;
     private IAdministradorMapping mapper;
     private Administrador administrador;
+    private TransaccionFacade transaccionFacade;
 
     public static ModelFactory getInstancia() {
         if(modelFactory == null) {
@@ -71,6 +75,11 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
     }
 
     @Override
+    public List<Usuario> getListaUsuarios() {
+        return administrador.getListaUsuarios();
+    }
+
+    @Override
     public boolean agregarUsuario(String nombre, String apellido, String correo, String telefono, String idUsuario, String direccion) {
         return false;
     }
@@ -104,4 +113,12 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
     public boolean actualizarUsuarioPerfil(String nombre, String apellido, String correo, String idUsuarioActual) {
         return administrador.actualizarUsuarioPerfil(nombre, apellido, correo, idUsuarioActual);
     }
+
+
+    @Override
+    public boolean agregarTransaccion(Transaccion transaccion) {
+        return administrador.agregarTransaccion(transaccion);
+    }
+
+
 }
