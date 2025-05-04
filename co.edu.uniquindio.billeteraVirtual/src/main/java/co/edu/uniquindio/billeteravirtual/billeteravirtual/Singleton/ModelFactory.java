@@ -30,6 +30,9 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
         billetera = DataUtil.inicializarDatos();
         administrador = billetera.getListaAdministradores().getFirst();
     }
+    public Administrador getAdministrador() {
+        return administrador;
+    }
 
     @Override
     public List<UsuarioDto> obtenerUsuarios() {
@@ -112,6 +115,11 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
     @Override
     public boolean actualizarUsuarioPerfil(String nombre, String apellido, String correo, String idUsuarioActual) {
         return administrador.actualizarUsuarioPerfil(nombre, apellido, correo, idUsuarioActual);
+    }
+
+    @Override
+    public boolean agregarUsuarioRegistro(String nombre, String correo, String idUsuario, String contrasena) {
+        return administrador.agregarUsuarioRegistro(nombre, correo, idUsuario, contrasena);
     }
 
 

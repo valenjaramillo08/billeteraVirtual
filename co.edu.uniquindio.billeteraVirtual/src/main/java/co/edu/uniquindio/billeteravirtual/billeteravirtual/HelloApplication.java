@@ -30,10 +30,10 @@ public class HelloApplication extends Application {
         showPrimaryView();
     }
     public void showPrimaryView() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("inicial.fxml"));
         Pane root = loader.load();
 
-        PrimaryViewController controller = loader.getController();
+        InicialViewController controller = loader.getController();
         controller.setApp(this);
 
         Scene scene = new Scene(root);
@@ -62,13 +62,63 @@ public class HelloApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    public void onCallPrimary(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
+        Pane root = loader.load();
+
+        PrimaryViewController controller = loader.getController();
+        controller.setApp(this);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void onCallRegistro(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("registro.fxml"));
+        Pane root = loader.load();
+
+        RegistroViewController controller = loader.getController();
+
+        controller.setApp(this);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+    }
+
+    public void onCallRegresar(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("inicial.fxml"));
+        Pane root = loader.load();
+
+        InicialViewController controller = loader.getController();
+
+        controller.setApp(this);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public void onCallVentanaPrincipal(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("inicial.fxml"));
+        Pane root = loader.load();
+        InicialViewController controller = loader.getController();
+        controller.setApp(this);
+
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+    }
+
 
     public void onCallUsuarioVentanaPrincipal(ActionEvent event, Usuario usuario) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("usuarioVentanaPrincipal.fxml"));
         Pane root = loader.load();
 
         UsuarioVentanaPrincipalViewController controller = loader.getController();
-        controller.setApp(this, usuario);
+        controller.setApp(this);
+        controller.setUsuarioLogueado(usuario);// y después
+
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
