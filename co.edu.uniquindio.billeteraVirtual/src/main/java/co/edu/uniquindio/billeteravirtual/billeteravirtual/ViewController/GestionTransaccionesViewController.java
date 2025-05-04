@@ -15,9 +15,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.scene.control.Alert;
+
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 
 
 public class GestionTransaccionesViewController {
@@ -29,21 +28,8 @@ public class GestionTransaccionesViewController {
     @FXML
     private URL location;
 
-    @FXML
-    private ChoiceBox<String> choiceBox;
-
-
-    @FXML
-    private TableColumn<Transaccion, String> columTipoTransaccion;
-
-    @FXML
-    private DatePicker dateDesde;
-
-    @FXML
-    private TableColumn<Usuario, String> columIdUsuario;
-
-    @FXML
-    private TableColumn<Transaccion, Double> columMonto;
+     @FXML
+    private ComboBox<?> comboPresupuesto;
 
     @FXML
     private DatePicker fechaTransaccion;
@@ -52,22 +38,14 @@ public class GestionTransaccionesViewController {
     private TextArea txtAreaDescripcion;
 
     @FXML
-    private ChoiceBox<Usuario> comboUsuarioNuevaTransaccion;
+    private ComboBox<?> comboCategoria;
 
     @FXML
-    private DatePicker dateHasta;
-
-    @FXML
-    private TextField labelTipoTransaccion;
-
-    @FXML
-    private TableColumn<Transaccion, String> columTransaccionFecha;
-
-    @FXML
-    private ChoiceBox<Usuario> comboUsuarioLista;
+    private ChoiceBox<?> comboUsuarioNuevaTransaccion;
 
     @FXML
     private TextField labelMontoTransaccion;
+
 
     @FXML
     void onCrearTransaccion(ActionEvent event) {
@@ -75,10 +53,6 @@ public class GestionTransaccionesViewController {
 
     }
 
-    @FXML
-    void onListarTransacciones(ActionEvent event) {
-
-    }
 
     private void cargarTiposTransaccion() {
         ObservableList<String> tipos = FXCollections.observableArrayList(

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ListView layoutX="24.0" layoutY="30.0" prefHeight="139.0" prefWidth="690.0" />
+      <ListView layoutX="24.0" layoutY="191.0" prefHeight="139.0" prefWidth="690.0" />
+      <TableView layoutX="24.0" layoutY="392.0" prefHeight="226.0" prefWidth="690.0">
+        <columns>
+          <TableColumn prefWidth="107.0" text="Fecha " />
+          <TableColumn prefWidth="116.0" text="Categoria" />
+            <TableColumn prefWidth="159.0" text="Cuenta Origen" />
+            <TableColumn prefWidth="180.0" text="Cuenta destino" />
+            <TableColumn prefWidth="127.0" text="Monto" />
+        </columns>
+      </TableView>
+      <Button layoutX="279.0" layoutY="339.0" mnemonicParsing="false" text="Realizar transaccion " />
+      <DatePicker layoutX="48.0" layoutY="80.0" prefHeight="39.0" prefWidth="203.0" />
+      <TextField layoutX="270.0" layoutY="80.0" prefHeight="39.0" prefWidth="203.0" />
+      <ComboBox layoutX="495.0" layoutY="80.0" prefHeight="39.0" prefWidth="203.0" promptText="Categoria" />
+      <Label layoutX="326.0" layoutY="37.0" text="Ingrese el id:">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="48.0" layoutY="215.0" text="Cuenta Origen">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="150.0" layoutY="204.0" prefHeight="39.0" prefWidth="219.0" promptText="Seleccione Cuenta" />
+      <Label layoutX="66.0" layoutY="271.0" text="Monto">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <TextField layoutX="150.0" layoutY="260.0" prefHeight="39.0" prefWidth="219.0" />
+      <Label layoutX="385.0" layoutY="215.0" text="Cuenta destino">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="479.0" layoutY="204.0" prefHeight="39.0" prefWidth="219.0" promptText="Seleccione Cuenta" />
+   </children>
+</Pane>
