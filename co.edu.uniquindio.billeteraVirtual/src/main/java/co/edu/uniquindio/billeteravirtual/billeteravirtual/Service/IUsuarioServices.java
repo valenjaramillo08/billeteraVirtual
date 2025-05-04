@@ -21,4 +21,5 @@ public interface IUsuarioServices {
     boolean actualizarUsuario(String nombre, String apellido, String correo, String telefono, String idUsuarioActual, String idUsuario, String direccion);
     boolean autorizarLoginUsuario(String idUsuario, String pass);
     boolean actualizarUsuarioPerfil(String nombre, String apellido, String correo, String idUsuarioActual);
+    boolean agregarUsuarioRegistro(String nombre, String correo, String idUsuario, String contrasena);
 }

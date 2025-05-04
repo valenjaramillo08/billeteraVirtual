@@ -7,16 +7,20 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.HelloApplication;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.perfilUsuarioController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 
 public class UsuarioVentanaPrincipalViewController {
-    public void setApp(HelloApplication helloApplication, Usuario usuario) {
+    HelloApplication helloApp;
+
+    public void setApp(HelloApplication helloApplication) {
+        this.helloApp = helloApplication;
+        // ✅ Asegúrate de esta línea
+
     }
-    @FXML
-    private Tab perfilTab;
 
     private Usuario usuarioLogueado;
 
@@ -24,6 +28,16 @@ public class UsuarioVentanaPrincipalViewController {
         this.usuarioLogueado = usuario;
         cargarVistaPerfil();
     }
+    @FXML
+    private Tab perfilTab;
+
+    @FXML
+    void OnCerrarSesionUsuario(ActionEvent event)  throws IOException {
+        this.helloApp.onCallVentanaPrincipal(event);
+
+    }
+
+
 
     private void cargarVistaPerfil() {
         try {

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Builder.UsuarioBuilder;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ITransaccionServices;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IUsuarioServices;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICuentaServices;
@@ -242,6 +243,25 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean agregarUsuarioRegistro(String nombre, String correo, String idUsuario, String contrasena) {
+        if (obtenerUsuario(idUsuario) != null) {
+            return false; // El ID ya está en uso
+        }
+
+        Usuario nuevoUsuario = new UsuarioBuilder()
+                .nombre(nombre)
+                .correo(correo)
+                .idUsuario(idUsuario)
+                .contrasenaUsuario(contrasena)
+                .build();
+
+        nuevoUsuario.administradorAsociado = this;
+
+        listaUsuarios.add(nuevoUsuario);
+        return true;
     }
 
     @Override

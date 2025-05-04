@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.RegistroViewController">
+   <children>
+      <Label layoutX="247.0" layoutY="43.0" text="Registro de usuario:" />
+      <Label layoutX="140.0" layoutY="91.0" text="Nombre:" />
+      <Label layoutX="142.0" layoutY="137.0" text="Identificación:" />
+      <Label layoutX="140.0" layoutY="185.0" text="Correo:" />
+      <Label layoutX="140.0" layoutY="229.0" text="Contraseña:" />
+      <TextField fx:id="labelNombre" layoutX="247.0" layoutY="87.0" />
+      <TextField fx:id="labelIdentificacion" layoutX="247.0" layoutY="133.0" />
+      <TextField fx:id="labelCorreo" layoutX="247.0" layoutY="181.0" />
+      <TextField fx:id="labelContraseña" layoutX="247.0" layoutY="225.0" />
+      <Button layoutX="274.0" layoutY="288.0" mnemonicParsing="false" onAction="#onRegistrarse" text="Registrarse" />
+      <Button layoutX="499.0" layoutY="361.0" mnemonicParsing="false" onAction="#onRegresar" prefHeight="25.0" prefWidth="74.0" text="Regresar" />
+   </children>
+</AnchorPane>

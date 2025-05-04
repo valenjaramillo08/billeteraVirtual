@@ -41,6 +41,6 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="729.0" layoutY="565.0" mnemonicParsing="false" text="Cerrrar sesión" />
+      <Button layoutX="729.0" layoutY="565.0" mnemonicParsing="false" onAction="#OnCerrarSesionUsuario" text="Cerrar Sesión" />
    </children>
 </AnchorPane>
