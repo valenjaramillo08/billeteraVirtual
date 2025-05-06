@@ -6,7 +6,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.AdministradorVentanaPrincipalViewController">
    <children>
-      <Button fx:id="btn_cerrar_sesion" layoutX="785.0" layoutY="602.0" mnemonicParsing="false" onAction="#onCallRegresar" text="Cerrar sesion" />
+      <Button fx:id="btn_cerrar_sesion" layoutX="785.0" layoutY="602.0" mnemonicParsing="false" onAction="#onCerrarSesionAdm" text="Cerrar sesion" />
       <TabPane layoutX="20.0" layoutY="10.0" prefHeight="569.0" prefWidth="884.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="gestionUsuariosTab" text="Gestionar Usuarios">

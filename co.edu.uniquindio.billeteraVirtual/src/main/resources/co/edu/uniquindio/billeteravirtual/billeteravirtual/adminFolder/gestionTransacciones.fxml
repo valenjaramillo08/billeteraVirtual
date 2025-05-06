@@ -10,23 +10,23 @@
 
 <AnchorPane prefHeight="594.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.GestionTransaccionesViewController">
    <children>
-      <Label contentDisplay="TOP" layoutX="262.0" layoutY="30.0" prefHeight="27.0" prefWidth="323.0" text="           Nueva Transacción">
+      <Label contentDisplay="TOP" layoutX="332.0" layoutY="28.0" prefHeight="25.0" prefWidth="174.0" text="           Nueva Transacción">
          <effect>
             <Blend />
          </effect>
       </Label>
-      <Label layoutX="298.0" layoutY="99.0" text="Usuario:" />
-      <Label layoutX="76.0" layoutY="177.0" text="Fecha:" />
-      <Label layoutX="72.0" layoutY="273.0" text="Monto:" />
-      <Label layoutX="64.0" layoutY="350.0" text="Descripción:" />
-      <ChoiceBox fx:id="comboUsuarioNuevaTransaccion" layoutX="370.0" layoutY="93.0" prefWidth="150.0" />
-      <TextField fx:id="labelMontoTransaccion" layoutX="140.0" layoutY="267.0" />
+      <Label layoutX="293.0" layoutY="108.0" text="Usuario:" />
+      <Label layoutX="157.0" layoutY="185.0" text="Fecha:" />
+      <Label layoutX="155.0" layoutY="265.0" text="Monto:" />
+      <Label layoutX="175.0" layoutY="337.0" text="Descripción:" />
+      <ChoiceBox fx:id="comboUsuarioNuevaTransaccion" layoutX="349.0" layoutY="104.0" prefWidth="150.0" />
+      <TextField fx:id="labelMontoTransaccion" layoutX="200.0" layoutY="261.0" />
       <TextArea fx:id="txtAreaDescripcion" layoutX="174.0" layoutY="363.0" prefHeight="140.0" prefWidth="491.0" />
-      <Button layoutX="646.0" layoutY="525.0" mnemonicParsing="false" onAction="#onCrearTransaccion" prefHeight="39.0" prefWidth="88.0" text="Crear" />
-      <DatePicker fx:id="fechaTransaccion" layoutX="148.0" layoutY="171.0" prefHeight="25.0" prefWidth="150.0" />
-      <ComboBox fx:id="comboCategoria" layoutX="590.0" layoutY="267.0" prefWidth="150.0" />
-      <Text layoutX="488.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoria:" wrappingWidth="87.6396484375" />
-      <ComboBox fx:id="comboPresupuesto" layoutX="590.0" layoutY="171.0" prefHeight="39.0" prefWidth="171.0" promptText="Presupuestos" />
-      <Text layoutX="488.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desde:" />
+      <Button layoutX="572.0" layoutY="516.0" mnemonicParsing="false" onAction="#onCrearTransaccion" prefHeight="25.0" prefWidth="75.0" text="Crear" />
+      <DatePicker fx:id="fechaTransaccion" layoutX="199.0" layoutY="181.0" prefHeight="25.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboCategoria" layoutX="496.0" layoutY="261.0" prefHeight="25.0" prefWidth="150.0" />
+      <Text layoutX="429.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoria:" wrappingWidth="87.6396484375" />
+      <ComboBox fx:id="comboPresupuesto" layoutX="497.0" layoutY="181.0" prefHeight="25.0" prefWidth="149.0" promptText="Presupuestos" />
+      <Text layoutX="429.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desde:" />
    </children>
 </AnchorPane>

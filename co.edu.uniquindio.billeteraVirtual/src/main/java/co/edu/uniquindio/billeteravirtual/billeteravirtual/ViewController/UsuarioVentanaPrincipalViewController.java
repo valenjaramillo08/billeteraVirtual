@@ -14,7 +14,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 
 public class UsuarioVentanaPrincipalViewController {
-    HelloApplication helloApp;
+    private HelloApplication helloApp;
+    private Usuario usuarioLogueado;
 
     public void setApp(HelloApplication helloApplication) {
         this.helloApp = helloApplication;
@@ -22,7 +23,7 @@ public class UsuarioVentanaPrincipalViewController {
 
     }
 
-    private Usuario usuarioLogueado;
+
 
     public void setUsuarioLogueado(Usuario usuario) {
         this.usuarioLogueado = usuario;
@@ -33,8 +34,15 @@ public class UsuarioVentanaPrincipalViewController {
 
     @FXML
     void OnCerrarSesionUsuario(ActionEvent event)  throws IOException {
-        this.helloApp.onCallVentanaPrincipal(event);
+        if (helloApp != null) {
+            // Mostrar la vista principal (inicial.fxml)
+            helloApp.onCallVentanaPrincipal(event);
 
+            // Cerrar la ventana actual (ventana de Usuario)
+            ((javafx.stage.Stage) perfilTab.getTabPane().getScene().getWindow()).close();
+        } else {
+            System.err.println("Error: helloApp es null. No se pudo cerrar sesión correctamente.");
+        }
     }
 
 

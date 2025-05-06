@@ -1,16 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.LoginAdminViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.LoginAdminViewController"
+            style="-fx-background-color: #f4f4f4;">
    <children>
-      <Button fx:id="btn_iniciar_admin" layoutX="240.0" layoutY="279.0" mnemonicParsing="false" onAction="#onIniciarAdmin" text="Iniciar sesion" />
-      <TextField fx:id="txt_id_admin" layoutX="208.0" layoutY="124.0" />
-      <Label layoutX="210.0" layoutY="75.0" text="Identificador administrador" />
-      <Label layoutX="268.0" layoutY="183.0" text="Clave" />
-      <Button fx:id="btn_regresar" layoutX="89.0" layoutY="337.0" mnemonicParsing="false" onAction="#onCallRegresar" text="Regresar" />
-      <PasswordField fx:id="txt_clave" layoutX="208.0" layoutY="223.0" />
+      <VBox alignment="CENTER" spacing="15.0"
+            AnchorPane.topAnchor="30.0"
+            AnchorPane.bottomAnchor="30.0"
+            AnchorPane.leftAnchor="50.0"
+            AnchorPane.rightAnchor="50.0">
+
+         <Label text="Inicio de Sesión - Administrador"
+                style="-fx-font-size: 20px; -fx-text-fill: #2c3e50;" />
+
+         <TextField fx:id="txt_id_admin"
+                    promptText="Identificación"
+                    style="-fx-background-radius: 6;" />
+
+         <PasswordField fx:id="txt_clave"
+                        promptText="Contraseña"
+                        style="-fx-background-radius: 6;" />
+
+         <Button fx:id="btn_iniciar_admin"
+                 text="Iniciar sesión"
+                 onAction="#onIniciarAdmin"
+                 prefWidth="200"
+                 style="-fx-font-size: 14px; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 6;" />
+
+         <Button fx:id="btn_regresar"
+                 text="Regresar"
+                 onAction="#onCallRegresar"
+                 prefWidth="200"
+                 style="-fx-font-size: 14px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 6;" />
+      </VBox>
    </children>
-</Pane>
+</AnchorPane>

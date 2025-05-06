@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.RegistroViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.RegistroViewController"
+            style="-fx-background-color: #f4f4f4;">
    <children>
-      <Label layoutX="247.0" layoutY="43.0" text="Registro de usuario:" />
-      <Label layoutX="140.0" layoutY="91.0" text="Nombre:" />
-      <Label layoutX="142.0" layoutY="137.0" text="Identificación:" />
-      <Label layoutX="140.0" layoutY="185.0" text="Correo:" />
-      <Label layoutX="140.0" layoutY="229.0" text="Contraseña:" />
-      <TextField fx:id="labelNombre" layoutX="247.0" layoutY="87.0" />
-      <TextField fx:id="labelIdentificacion" layoutX="247.0" layoutY="133.0" />
-      <TextField fx:id="labelCorreo" layoutX="247.0" layoutY="181.0" />
-      <TextField fx:id="labelContraseña" layoutX="247.0" layoutY="225.0" />
-      <Button layoutX="274.0" layoutY="288.0" mnemonicParsing="false" onAction="#onRegistrarse" text="Registrarse" />
-      <Button layoutX="499.0" layoutY="361.0" mnemonicParsing="false" onAction="#onRegresar" prefHeight="25.0" prefWidth="74.0" text="Regresar" />
+      <VBox alignment="CENTER" spacing="10.0"
+            AnchorPane.topAnchor="30.0"
+            AnchorPane.bottomAnchor="30.0"
+            AnchorPane.leftAnchor="50.0"
+            AnchorPane.rightAnchor="50.0">
+
+         <Label text="Registro de Usuario"
+                style="-fx-font-size: 20px; -fx-text-fill: #2c3e50;" />
+
+         <TextField fx:id="labelNombre" promptText="Nombre completo"
+                    style="-fx-background-radius: 6;" />
+         <TextField fx:id="labelIdentificacion" promptText="Identificación"
+                    style="-fx-background-radius: 6;" />
+         <TextField fx:id="labelCorreo" promptText="Correo electrónico"
+                    style="-fx-background-radius: 6;" />
+         <PasswordField fx:id="labelContraseña" promptText="Contraseña"
+                        style="-fx-background-radius: 6;" />
+
+         <Button text="Registrarse"
+                 onAction="#onRegistrarse"
+                 prefWidth="200"
+                 style="-fx-font-size: 14px; -fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 6;" />
+
+         <Button text="Regresar"
+                 onAction="#onRegresar"
+                 prefWidth="200"
+                 style="-fx-font-size: 14px; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 6;" />
+      </VBox>
    </children>
 </AnchorPane>
