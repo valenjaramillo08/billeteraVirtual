@@ -97,6 +97,15 @@ public class HelloApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    public void onRegresarInicial(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("inicial.fxml"));
+        Pane root = loader.load();
+        InicialViewController controller = loader.getController();
+        controller.setApp(this);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
     public void onCallVentanaPrincipal(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("inicial.fxml"));
@@ -110,15 +119,26 @@ public class HelloApplication extends Application {
 
     }
 
+    public void onCallVentanaPrincipalAdm(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("inicial.fxml"));
+        Pane root = loader.load();
+
+        InicialViewController controller = loader.getController();
+        controller.setApp(this);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+    }
+
 
     public void onCallUsuarioVentanaPrincipal(ActionEvent event, Usuario usuario) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("usuarioVentanaPrincipal.fxml"));
         Pane root = loader.load();
 
         UsuarioVentanaPrincipalViewController controller = loader.getController();
-        controller.setApp(this);
-        controller.setUsuarioLogueado(usuario);// y después
-
+        controller.setApp(this); // <--- ESTA LÍNEA ES OBLIGATORIA
+        controller.setUsuarioLogueado(usuario);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -136,7 +156,8 @@ public class HelloApplication extends Application {
         if (rutaGC == null) throw new IllegalStateException("No se encontró gestionCuentas.fxml");
 
         AdministradorVentanaPrincipalViewController c = loader.getController();
-        c.setApp(this, administrador);
+        c.setApp(this);
+        c.setAdministradorLogueado(administrador);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

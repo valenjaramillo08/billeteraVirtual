@@ -8,6 +8,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 
@@ -15,7 +16,11 @@ import java.io.IOException;
 import java.net.URL;
 
 public class AdministradorVentanaPrincipalViewController {
-    public void setApp(HelloApplication helloApplication, Administrador administrador) {
+    private HelloApplication helloApp;
+    private Administrador administradorLogueado;
+
+    public void setApp(HelloApplication helloApplication) {
+        this.helloApp = helloApplication;
     }
 
     @FXML
@@ -32,7 +37,24 @@ public class AdministradorVentanaPrincipalViewController {
 
     @FXML private AnchorPane placeholder; // un <AnchorPane fx:id="placeholder"/> en tu FXML
 
-    private Administrador administradorLogueado;
+
+
+    @FXML
+    private Button btn_cerrar_sesion;
+
+    @FXML
+    void onCerrarSesionAdm(ActionEvent event) throws IOException {
+        if (helloApp != null) {
+            // Mostrar la vista principal (inicial.fxml)
+            helloApp.onCallVentanaPrincipalAdm(event);
+
+            // Cerrar la ventana actual (ventana de Usuario)
+            ((javafx.stage.Stage) gestionCuentasTab.getTabPane().getScene().getWindow()).close();
+        } else {
+            System.err.println("Error: helloApp es null. No se pudo cerrar sesión correctamente.");
+        }
+
+    }
 
 
     public void setAdministradorLogueado(Administrador administrador) throws IOException {
@@ -55,7 +77,5 @@ public class AdministradorVentanaPrincipalViewController {
         }
     }
 
-    @FXML
-    public void onCallRegresar(ActionEvent actionEvent) {
-    }
+
 }

@@ -73,6 +73,7 @@ public class LoginUsuarioViewController {
             Parent root = loader.load();
     
             UsuarioVentanaPrincipalViewController controller = loader.getController();
+            controller.setApp(helloApp); // ❗FALTA ESTA LÍNEA
             controller.setUsuarioLogueado(usuarioLogueado); // este método se encarga de pasar el usuario a las pestañas
     
             Stage stage = new Stage();

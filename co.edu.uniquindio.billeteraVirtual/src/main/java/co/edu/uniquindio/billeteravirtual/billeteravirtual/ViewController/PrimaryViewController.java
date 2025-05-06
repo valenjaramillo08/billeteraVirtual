@@ -37,6 +37,11 @@ public class PrimaryViewController {
     }
 
     @FXML
+    void onRegresar(ActionEvent event) throws IOException{
+        this.helloApp.onRegresarInicial(event);
+    }
+
+    @FXML
     void initialize() {
         assert btn_usuario != null : "fx:id=\"btn_usuario\" was not injected: check your FXML file 'primary.fxml'.";
         assert btn_admin != null : "fx:id=\"btn_admin\" was not injected: check your FXML file 'primary.fxml'.";
