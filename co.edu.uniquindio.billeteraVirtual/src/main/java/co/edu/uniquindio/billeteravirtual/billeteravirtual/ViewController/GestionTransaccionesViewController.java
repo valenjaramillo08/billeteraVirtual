@@ -28,7 +28,7 @@ public class GestionTransaccionesViewController {
     @FXML
     private URL location;
 
-     @FXML
+    @FXML
     private ComboBox<?> comboPresupuesto;
 
     @FXML
@@ -46,85 +46,17 @@ public class GestionTransaccionesViewController {
     @FXML
     private TextField labelMontoTransaccion;
 
-
     @FXML
     void onCrearTransaccion(ActionEvent event) {
-        crearTransaccion();
+
+    }
+
+    @FXML
+    void initialize() {
+        gestionTransaccionesController = new GestionTransaccionesController();
 
     }
 
 
-    private void cargarTiposTransaccion() {
-        ObservableList<String> tipos = FXCollections.observableArrayList(
-                "deposito", "retiro"
-        );
-        choiceBox.setItems(tipos);
-    }
-
-
-    private void cargarUsuarios() {
-        ObservableList<Usuario> listaUsuarios = FXCollections.observableArrayList(
-                gestionTransaccionesController.obtenerListaUsuarios()
-        );
-        comboUsuarioNuevaTransaccion.setItems(listaUsuarios);
-
-        comboUsuarioNuevaTransaccion.setConverter(new StringConverter<Usuario>() {
-            @Override
-            public String toString(Usuario usuario) {
-                if (usuario != null) {
-                    return usuario.getNombre(); // o puedes mostrar el correo o el ID
-                }
-                return "";
-            }
-
-            @Override
-            public Usuario fromString(String s) {
-                return null; // No es necesario implementarlo en ChoiceBox
-            }
-        });
-    }
-
-    private void crearTransaccion() {
-        try {
-            Usuario usuarioSeleccionado = comboUsuarioNuevaTransaccion.getValue();
-            String tipo = choiceBox.getValue(); // 👈 corregido aquí
-            double monto = Double.parseDouble(labelMontoTransaccion.getText());
-            String descripcion = txtAreaDescripcion.getText();
-            LocalDate fecha = fechaTransaccion.getValue();
-
-            if (usuarioSeleccionado == null || tipo == null || descripcion.isEmpty() || fecha == null) {
-                mostrarAlerta("Debes completar todos los campos, incluyendo el tipo de transacción.", Alert.AlertType.WARNING);
-                return;
-            }
-
-            Transaccion nuevaTransaccion = gestionTransaccionesController.crearTransaccionConFecha(
-                    tipo, monto, descripcion, fecha, usuarioSeleccionado
-            );
-
-            mostrarAlerta("¡Transacción creada exitosamente!", Alert.AlertType.INFORMATION);
-            ///actualizarTabla(usuarioSeleccionado);
-
-        } catch (Exception e) {
-            mostrarAlerta("Error creando transacción: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
-
-        }
-
-
-        private void mostrarAlerta (String mensaje, Alert.AlertType tipo){
-            Alert alerta = new Alert(tipo);
-            alerta.setTitle("Resultado de la Operación");
-            alerta.setHeaderText(null);
-            alerta.setContentText(mensaje);
-            alerta.showAndWait();
-        }
-
-
-        @FXML
-        void initialize () {
-            gestionTransaccionesController = new GestionTransaccionesController();
-            cargarUsuarios();
-            cargarTiposTransaccion();
-        }
 }
 
