@@ -36,7 +36,7 @@ public class GestionMonto {
         notificarObservers();
     }
 
-    private void notificarObservers() {
+    public void notificarObservers() {
         for (Observer observer : observers) {
             observer.realizarTransaccion(saldoActual,saldoGastado);
         }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="318.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mis cuentas" />
+      <ComboBox layoutX="54.0" layoutY="103.0" prefHeight="39.0" prefWidth="258.0" promptText="Selecciona una cuenta" />
+      <Button layoutX="492.0" layoutY="103.0" mnemonicParsing="false" text="Mostrar" />
+      <TextArea layoutX="47.0" layoutY="212.0" prefHeight="257.0" prefWidth="619.0" />
+   </children>
+</Pane>
