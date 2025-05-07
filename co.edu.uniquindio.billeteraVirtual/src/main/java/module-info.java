@@ -3,9 +3,11 @@ module co.edu.uniquindio.billeteravirtual.billeteravirtual {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
+    requires javafx.base;
 
     opens co.edu.uniquindio.billeteravirtual.billeteravirtual to javafx.fxml;
     exports co.edu.uniquindio.billeteravirtual.billeteravirtual;
+    opens co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario to javafx.fxml;
 
 
 

@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="765.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="765.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.PresupuestoViewController">
    <children>
       <ListView layoutX="36.0" layoutY="41.0" prefHeight="237.0" prefWidth="392.0" />
       <Label layoutX="112.0" layoutY="58.0" prefHeight="27.0" prefWidth="142.0" text="Nombre">
@@ -37,12 +37,13 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="205.0" layoutY="132.0" prefHeight="39.0" prefWidth="209.0" />
-      <TextField layoutX="206.0" layoutY="218.0" prefHeight="39.0" prefWidth="209.0" />
-      <TextField layoutX="261.0" layoutY="327.0" />
-      <TextField layoutX="261.0" layoutY="423.0" />
-      <Button layoutX="558.0" layoutY="56.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="87.0" text="Nuevo" />
-      <Button layoutX="561.0" layoutY="140.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="87.0" text="Editar" />
-      <Button layoutX="558.0" layoutY="225.0" mnemonicParsing="false" text="Eliminar" />
+      <TextField fx:id="txtIdPresupuesto" layoutX="205.0" layoutY="132.0" prefHeight="39.0" prefWidth="209.0" />
+      <TextField fx:id="txtNomPresupuesto" layoutX="206.0" layoutY="218.0" prefHeight="39.0" prefWidth="209.0" />
+      <TextField fx:id="txtMontoPre" layoutX="261.0" layoutY="327.0" />
+      <TextField fx:id="txtMontoPreGastado" layoutX="261.0" layoutY="423.0" />
+      <Button fx:id="btNuevo" layoutX="558.0" layoutY="56.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="98.0" text="Nuevo" />
+      <Button fx:id="btEditar" layoutX="561.0" layoutY="140.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="98.0" text="Editar" />
+      <Button fx:id="btEliminar" layoutX="561.0" layoutY="225.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="98.0" text="Eliminar" />
+      <Button fx:id="btActualizar" layoutX="565.0" layoutY="319.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="104.0" text="Actualizar" />
    </children>
 </Pane>

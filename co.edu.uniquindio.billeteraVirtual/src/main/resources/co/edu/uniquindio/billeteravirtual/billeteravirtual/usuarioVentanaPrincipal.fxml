@@ -26,18 +26,29 @@
           </Tab>
           <Tab text="Transacciones">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
+                   <children>
+                      <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
+                         <items>
+                            <fx:include source="usuarioFolder/transaccion/transaccion.fxml" />
+                         </items>
+                      </SplitPane>
+                   </children>
+                </AnchorPane>
+             </content>
           </Tab>
             <Tab text="Mis presupuestos">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-            <Tab text="Mis cuentas">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
+                   <children>
+                      <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
+                         <items>
+                            <fx:include source="Presupuesto.fxml" />
+                         </items>
+                      </SplitPane>
+                   </children>
+                </AnchorPane>
+             </content>
             </Tab>
         </tabs>
       </TabPane>

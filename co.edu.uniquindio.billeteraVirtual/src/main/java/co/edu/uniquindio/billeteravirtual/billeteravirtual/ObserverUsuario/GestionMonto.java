@@ -7,7 +7,7 @@ public class GestionMonto {
 
     private List<Observer> observers = new ArrayList<>();
     public double saldoActual;
-    public double saldoGastado;
+    
 
     public void agregarObserver(Observer observer) {
         observers.add(observer);
@@ -27,18 +27,10 @@ public class GestionMonto {
         notificarObservers();
     }
 
-    public double getSaldoGastado() {
-        return saldoGastado;
-    }
-
-    public void setSaldoGastado(double saldoGastado) {
-        this.saldoGastado = saldoGastado;
-        notificarObservers();
-    }
-
-    private void notificarObservers() {
+   
+    public void notificarObservers() {
         for (Observer observer : observers) {
-            observer.realizarTransaccion(saldoActual,saldoGastado);
+            observer.actualizar(saldoActual);
         }
     }
 }
