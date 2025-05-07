@@ -1,5 +1,8 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cuenta {
     public String idCuenta;
     public String nombreBanco;
@@ -7,6 +10,8 @@ public class Cuenta {
     public TipoCuenta tipoCuenta;
     public Usuario usuarioAsociado;
     public Administrador administradorAsociado;
+    public Presupuesto presupuesto;
+    public List<Transaccion> listaTransacciones = new ArrayList<>();
 
     public Cuenta(){}
 
@@ -72,5 +77,19 @@ public class Cuenta {
         this.administradorAsociado = administradorAsociado;
     }
 
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
+    }
 
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
+    }
+
+    public List<Transaccion> getListaTransacciones() {
+        return listaTransacciones;
+    }
+
+    public void setListaTransacciones(List<Transaccion> listaTransacciones) {
+        this.listaTransacciones = listaTransacciones;
+    }
 }

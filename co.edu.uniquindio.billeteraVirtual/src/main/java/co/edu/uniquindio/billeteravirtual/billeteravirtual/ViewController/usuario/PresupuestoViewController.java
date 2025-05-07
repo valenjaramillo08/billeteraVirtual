@@ -3,12 +3,14 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuar
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.ObserverUsuario.Observer;
+
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Presupuesto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.Observador;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class PresupuestoViewController implements Observer{
+public class PresupuestoViewController implements Observador {
 
     @FXML
     private ResourceBundle resources;
@@ -46,11 +48,10 @@ public class PresupuestoViewController implements Observer{
     }
 
 
-    @Override
-    public void actualizar(double saldoActual) {
-      
-    }
 
-   
+    @Override
+    public void actualizar(Presupuesto presupuesto) {
+
+    }
 }
 

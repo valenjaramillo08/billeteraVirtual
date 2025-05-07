@@ -28,7 +28,7 @@ public class GestionTransaccionesController {
     public List<Usuario> obtenerListaUsuarios() {
         return modelFactory.getListaUsuarios();
     }
-    public Transaccion crearTransaccionConFecha(String tipo, double monto, String descripcion, LocalDate fecha, Usuario usuario) {
+    /*public Transaccion crearTransaccionConFecha(String tipo, double monto, String descripcion, LocalDate fecha, Usuario usuario) {
         Transaccion transaccion = transaccionFacade.realizarTransaccion(
                 tipo,
                 monto,
@@ -46,7 +46,7 @@ public class GestionTransaccionesController {
         usuario.getListaTransacciones().add(transaccion);
 
         return transaccion;
-    }
+    }*/
 
 
 
