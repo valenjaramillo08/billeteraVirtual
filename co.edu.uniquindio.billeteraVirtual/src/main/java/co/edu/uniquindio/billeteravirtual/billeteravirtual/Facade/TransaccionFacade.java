@@ -4,7 +4,6 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.Transac
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TransaccionFacade {

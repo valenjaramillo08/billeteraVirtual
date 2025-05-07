@@ -15,7 +15,6 @@ public class GestionMontoController {
 
     public void realizarTransaccion(double saldoActual,double saldoGastado){
         gestionMonto.setSaldoActual(saldoActual);
-        gestionMonto.setSaldoGastado(saldoGastado);
         gestionMonto.notificarObservers();
     }
 
