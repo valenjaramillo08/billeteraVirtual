@@ -1,4 +1,4 @@
-package co.edu.uniquindio.billeteravirtual.billeteravirtual.Service;
+package co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Presupuesto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Transaccion;

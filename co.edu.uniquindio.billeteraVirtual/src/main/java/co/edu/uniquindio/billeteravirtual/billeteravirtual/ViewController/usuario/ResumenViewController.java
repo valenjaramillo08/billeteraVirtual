@@ -3,11 +3,10 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuar
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.ObserverUsuario.Observer;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class ResumenViewController implements Observer {
+public class ResumenViewController  {
 
     @FXML
     private ResourceBundle resources;
@@ -26,10 +25,6 @@ public class ResumenViewController implements Observer {
         
     }
 
-    @Override
-    public void actualizar(double saldoActual) {
-        txtPresupuestos.setText(String.valueOf(saldoActual));
-        
-    }
+
 }
 

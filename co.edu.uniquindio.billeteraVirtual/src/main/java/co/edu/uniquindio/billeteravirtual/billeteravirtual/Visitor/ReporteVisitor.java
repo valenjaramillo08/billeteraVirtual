@@ -3,7 +3,6 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Presupuesto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Transaccion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IVisitor;
 
 public class ReporteVisitor implements IVisitor {
     @Override
@@ -13,7 +12,7 @@ public class ReporteVisitor implements IVisitor {
 
     @Override
     public void visitar(Presupuesto presupuesto) {
-        System.out.println("Presupuesto: " + presupuesto.getNombrePresupuesto() + " | Total: $" + presupuesto.getMontoPresupuesto());
+        System.out.println("Presupuesto: " + presupuesto.getCategoria() + " | Total: $" + presupuesto.getMontoPresupuesto());
     }
 
     @Override

@@ -1,9 +1,8 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Builder.UsuarioBuilder;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IObservadorSaldo;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IVisitable;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IVisitor;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class Usuario extends Persona implements IVisitable {
     public List<Categoria> listaCategorias = new ArrayList<>();
     public Administrador administradorAsociado;
 
-    private List<IObservadorSaldo> observadores = new ArrayList<>();
+
 
     public Usuario(){}
 
@@ -50,24 +49,6 @@ public class Usuario extends Persona implements IVisitable {
         return new UsuarioBuilder();
     }
 
-    public void agregarObservador(IObservadorSaldo observador) {
-        observadores.add(observador);
-    }
-
-    public void eliminarObservador(IObservadorSaldo observador) {
-        observadores.remove(observador);
-    }
-
-    private void notificarObservadores() {
-        for (IObservadorSaldo observador : observadores) {
-            observador.actualizar(saldoDisponible);
-        }
-    }
-
-    public void setSaldoDisponible(double nuevoSaldo) {
-        this.saldoDisponible = nuevoSaldo;
-        notificarObservadores();
-    }
 
     public String getTelefono() {
         return telefono;

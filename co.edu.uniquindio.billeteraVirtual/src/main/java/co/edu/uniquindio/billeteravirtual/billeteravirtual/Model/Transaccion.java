@@ -1,24 +1,21 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IVisitable;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IVisitor;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Transaccion implements IVisitable {
+public class Transaccion implements IVisitable {
     public String idTransaccion;
     public TipoCuentaOrigen tipoCuentaOrigen;
     public LocalDate fechaTransaccion;
+    public double monto;
     public String descripcion;
-    public TipoCuenta tipoCuenta;
-    public Usuario usuarioAsociado;
-    public String tipoTransaccion;
-    public Administrador administradorAsociado;
-    List<CategoriaBase> listaCategorias = new ArrayList<>();
-    protected double monto;
-    public abstract void procesar();
+    public TipoCuenta tipoCuentaDestino;
+    public TipoTransaccion tipoTransaccion;
+    public Presupuesto presupuesto;
 
     public Transaccion(){}
 
@@ -28,14 +25,16 @@ public abstract class Transaccion implements IVisitable {
             LocalDate fechaTransaccion,
             double monto,
             String descripcion,
-            TipoCuenta tipoCuenta
+            TipoCuenta tipoCuentaDestino,
+            TipoTransaccion tipoTransaccion
     ){
         this.idTransaccion = idTransaccion;
         this.tipoCuentaOrigen = tipoCuentaOrigen;
         this.fechaTransaccion = fechaTransaccion;
         this.monto = monto;
         this.descripcion = descripcion;
-        this.tipoCuenta = tipoCuenta;
+        this.tipoCuentaDestino = tipoCuentaDestino;
+        this.tipoTransaccion = tipoTransaccion;
 
     }
 
@@ -79,46 +78,31 @@ public abstract class Transaccion implements IVisitable {
         this.descripcion = descripcion;
     }
 
-    public TipoCuenta getTipoCuenta() {
-        return tipoCuenta;
+
+    public TipoCuenta getTipoCuentaDestino() {
+        return tipoCuentaDestino;
     }
 
-    public void setTipoCuenta(TipoCuenta tipoCuenta) {
-        this.tipoCuenta = tipoCuenta;
+    public void setTipoCuentaDestino(TipoCuenta tipoCuentaDestino) {
+        this.tipoCuentaDestino = tipoCuentaDestino;
     }
 
-    public Usuario getUsuarioAsociado() {
-        return usuarioAsociado;
-    }
-
-    public void setUsuarioAsociado(Usuario usuarioAsociado) {
-        this.usuarioAsociado = usuarioAsociado;
-    }
-
-    public String getTipoTransaccion() {
+    public TipoTransaccion getTipoTransaccion() {
         return tipoTransaccion;
     }
 
-    public void setTipoTransaccion(String tipoTransaccion) {
+    public void setTipoTransaccion(TipoTransaccion tipoTransaccion) {
         this.tipoTransaccion = tipoTransaccion;
     }
 
-
-    public Administrador getAdministradorAsociado() {
-        return administradorAsociado;
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
     }
 
-    public void setAdministradorAsociado(Administrador administradorAsociado) {
-        this.administradorAsociado = administradorAsociado;
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
     }
 
-    public List<CategoriaBase> getListaCategorias() {
-        return listaCategorias;
-    }
-
-    public void setListaCategorias(List<CategoriaBase> listaCategorias) {
-        this.listaCategorias = listaCategorias;
-    }
     @Override
     public void aceptar(IVisitor visitor) {
         visitor.visitar(this);

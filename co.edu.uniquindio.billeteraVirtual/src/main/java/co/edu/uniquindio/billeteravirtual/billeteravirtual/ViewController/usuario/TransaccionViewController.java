@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Presupuesto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Transaccion;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.ObserverUsuario.Observer;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.Observador;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -14,7 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
-public class TransaccionViewController implements Observer {
+public class TransaccionViewController implements Observador {
 
     @FXML
     private ResourceBundle resources;
@@ -70,11 +72,9 @@ public class TransaccionViewController implements Observer {
 
 
 
-
-
     @Override
-    public void actualizar(double saldoActual) {
-       txtMonto.setText(String.valueOf(saldoActual));
+    public void actualizar(Presupuesto presupuesto) {
+
     }
 }
 
