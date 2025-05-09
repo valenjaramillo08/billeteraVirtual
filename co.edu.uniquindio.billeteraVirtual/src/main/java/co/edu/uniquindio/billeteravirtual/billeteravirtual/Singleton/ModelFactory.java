@@ -1,5 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Singleton;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ReporteService;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Facade.TransaccionFacade;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Mappers.AdministradorMapping;
@@ -17,6 +18,7 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
     private IAdministradorMapping mapper;
     private Administrador administrador;
     private TransaccionFacade transaccionFacade;
+    private ReporteService reporteService;
 
     public static ModelFactory getInstancia() {
         if(modelFactory == null) {
@@ -29,7 +31,13 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
         mapper = new AdministradorMapping();
         billetera = DataUtil.inicializarDatos();
         administrador = billetera.getListaAdministradores().getFirst();
+        reporteService = new ReporteService();
     }
+
+    public ReporteService getReporteService() {
+        return reporteService;
+    }
+
     public Administrador getAdministrador() {
         return administrador;
     }

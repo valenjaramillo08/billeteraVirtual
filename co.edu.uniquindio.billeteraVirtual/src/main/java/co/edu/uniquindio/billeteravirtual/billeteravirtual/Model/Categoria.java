@@ -1,18 +1,28 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
 public class Categoria {
-    public String nombre;
+    public NombreCategoria nombreCategoria;
+    public double precio;
 
-    public Categoria(String nombre) {
-        this.nombre = nombre;
+    public Categoria(NombreCategoria nombreCategoria, double precio) {
+        this.nombreCategoria = nombreCategoria;
+        this.precio=precio;
 
     }
 
-    public String getNombre() {
-        return nombre;
+    public NombreCategoria getNombreCategoria() {
+        return nombreCategoria;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreCategoria(NombreCategoria nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 }
