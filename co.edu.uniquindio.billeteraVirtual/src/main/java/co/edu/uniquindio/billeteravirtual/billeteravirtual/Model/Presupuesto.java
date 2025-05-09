@@ -11,19 +11,16 @@ import java.util.Observer;
 
 public class Presupuesto implements IVisitable, ObservadorMetodos {
     private String idPresupuesto;
-    private String nombrePresupuesto;
     private double montoPresupuesto;
     private double montoPresupuestoGastado;
-    private Categoria categoria;
+    private List<Categoria> listaCategorias = new ArrayList<>();
     public List<Observador> observadores = new ArrayList<>();
 
 
-    public Presupuesto(String idPresupuesto, String nombrePresupuesto, double montoPresupuesto, double montoPresupuestoGastado, Categoria categoria) {
+    public Presupuesto(String idPresupuesto,  double montoPresupuesto, double montoPresupuestoGastado) {
         this.idPresupuesto = idPresupuesto;
-        this.nombrePresupuesto = nombrePresupuesto;
         this.montoPresupuesto = montoPresupuesto;
         this.montoPresupuestoGastado = montoPresupuestoGastado;
-        this.categoria= categoria;
     }
 
      /*/public void gastar(double monto) {
@@ -64,13 +61,6 @@ public class Presupuesto implements IVisitable, ObservadorMetodos {
         this.idPresupuesto = idPresupuesto;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 
     public double getMontoPresupuestoGastado() {
         return montoPresupuestoGastado;
@@ -88,12 +78,12 @@ public class Presupuesto implements IVisitable, ObservadorMetodos {
         this.montoPresupuesto = montoPresupuesto;
     }
 
-    public String getNombrePresupuesto() {
-        return nombrePresupuesto;
+    public List<Categoria> getListaCategorias() {
+        return listaCategorias;
     }
 
-    public void setNombrePresupuesto(String nombrePresupuesto) {
-        this.nombrePresupuesto = nombrePresupuesto;
+    public void setListaCategorias(List<Categoria> listaCategorias) {
+        this.listaCategorias = listaCategorias;
     }
 
     public List<Observador> getObservadores() {

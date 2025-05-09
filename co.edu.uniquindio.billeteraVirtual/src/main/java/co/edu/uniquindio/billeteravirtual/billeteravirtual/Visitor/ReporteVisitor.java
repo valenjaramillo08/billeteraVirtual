@@ -12,7 +12,7 @@ public class ReporteVisitor implements IVisitor {
 
     @Override
     public void visitar(Presupuesto presupuesto) {
-        System.out.println("Presupuesto: " + presupuesto.getCategoria() + " | Total: $" + presupuesto.getMontoPresupuesto());
+        System.out.println("Presupuesto: " + presupuesto.getListaCategorias() + " | Total: $" + presupuesto.getMontoPresupuesto());
     }
 
     @Override

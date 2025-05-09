@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="492.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.MostrarEstadisticasAdmViewController">
+   <children>
+      <Label layoutX="232.0" layoutY="35.0" text="Generar estadísticas de:" />
+      <ComboBox fx:id="comboEstadisticas" layoutX="210.0" layoutY="65.0" prefHeight="25.0" prefWidth="167.0" />
+      <Button layoutX="236.0" layoutY="111.0" mnemonicParsing="false" onAction="#onMostrarEstadistica" text="Mostrar Estadística" />
+      <PieChart fx:id="chartEstadistica" layoutX="76.0" layoutY="173.0" prefHeight="290.0" prefWidth="481.0" />
+   </children>
+</AnchorPane>
