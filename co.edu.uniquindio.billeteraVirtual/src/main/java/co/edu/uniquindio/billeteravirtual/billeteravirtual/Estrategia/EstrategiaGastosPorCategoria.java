@@ -16,7 +16,6 @@ public class EstrategiaGastosPorCategoria implements EstrategiaEstadistica {
     @Override
     public List<EstadisticaCategoria> calcular(List<Usuario> usuarios) {
         List<EstadisticaCategoria> resultado = new ArrayList<>();
-        List<String> categoriasRegistradas = new ArrayList<>();
 
         for (Usuario usuario : usuarios) {
             for (Cuenta cuenta : usuario.getListaCuentas()) {

@@ -1,55 +1,58 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Facade.TransaccionFacade;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Transaccion;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Singleton.ModelFactory;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.TipoTransaccion;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 public class GestionTransaccionesController {
     ModelFactory modelFactory;
-    TransaccionFacade transaccionFacade;
 
-    public GestionTransaccionesController(){
-
+    public GestionTransaccionesController() {
         modelFactory = ModelFactory.getInstancia();
-        transaccionFacade = new TransaccionFacade();
     }
 
-    public boolean agregarTransaccion(Transaccion transaccion){
-        return modelFactory.agregarTransaccion(transaccion);
+    public boolean crearTransaccion(
+        Cuenta cuentaOrigen, // puede ser null
+        Cuenta cuentaDestino, // puede ser null
+        double monto,
+        String descripcion,
+        TipoTransaccion tipoTransaccion
+) {
+    String idTransaccion = UUID.randomUUID().toString();
+    LocalDate fecha = LocalDate.now();
+
+    // Validación según tipo de transacción
+    if (tipoTransaccion == TipoTransaccion.RETIRO && cuentaOrigen == null) {
+        System.out.println("Error: Cuenta origen requerida para retiro.");
+        return false;
     }
 
-
-
-    public List<Usuario> obtenerListaUsuarios() {
-        return modelFactory.getListaUsuarios();
+    if (tipoTransaccion == TipoTransaccion.DEPOSITO && cuentaDestino == null) {
+        System.out.println("Error: Cuenta destino requerida para depósito.");
+        return false;
     }
-    /*public Transaccion crearTransaccionConFecha(String tipo, double monto, String descripcion, LocalDate fecha, Usuario usuario) {
-        Transaccion transaccion = transaccionFacade.realizarTransaccion(
-                tipo,
-                monto,
-                descripcion,
-                fecha,
-                null, // TipoCuenta
-                null, // TipoCuentaOrigen
-                usuario,
-                null, // Administrador
-                new ArrayList<>() // Categorías
-        );
 
-        // Guardar en modelFactory también si quieres centralizar todo
-        modelFactory.agregarTransaccion(transaccion);
-        usuario.getListaTransacciones().add(transaccion);
+    if (tipoTransaccion == TipoTransaccion.TRANSFERENCIA && (cuentaOrigen == null || cuentaDestino == null)) {
+        System.out.println("Error: Ambas cuentas requeridas para transferencia.");
+        return false;
+    }
 
-        return transaccion;
-    }*/
+    DatosTransaccion datos = new DatosTransaccion(
+        idTransaccion,
+        cuentaOrigen,
+        fecha,
+        monto,
+        descripcion,
+        cuentaDestino,
+        tipoTransaccion,
+        null
+    );
 
-
-
-
+    return modelFactory.getAdministrador().registrarTransaccion(datos);
 }
 
+}

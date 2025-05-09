@@ -1,6 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.FabricaTransacciones;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Builder.UsuarioBuilder;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ITransaccionServices;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IUsuarioServices;
@@ -273,6 +274,61 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             return false; // No se pudo agregar porque la transacción es nula
         }
     }
+    public boolean registrarTransaccion(DatosTransaccion datos) {
+        if (datos == null) return false;
+    
+        // Crear la transacción con la fábrica
+        Transaccion transaccion = FabricaTransacciones.crear(datos);
+    
+        // Guardar en lista global del administrador
+        agregarTransaccion(transaccion);
+    
+        // Obtener presupuestos desde las cuentas asociadas en la transacción
+        Cuenta cuentaOrigen = transaccion.getCuentaOrigen();
+        Cuenta cuentaDestino = transaccion.getCuentaDestino();
+    
+        Presupuesto presupuestoOrigen = (cuentaOrigen != null) ? cuentaOrigen.getPresupuesto() : null;
+        Presupuesto presupuestoDestino = (cuentaDestino != null) ? cuentaDestino.getPresupuesto() : null;
+    
+        // Actualizar montos según el tipo de transacción
+        switch (transaccion.getTipoTransaccion()) {
+            case DEPOSITO -> {
+                if (presupuestoDestino != null) {
+                    presupuestoDestino.setMontoPresupuesto(presupuestoDestino.getMontoPresupuesto() + transaccion.getMonto());
+                    presupuestoDestino.notificarObservers();
+                }
+            }
+    
+            case RETIRO -> {
+                if (presupuestoOrigen != null) {
+                    presupuestoOrigen.setMontoPresupuesto(presupuestoOrigen.getMontoPresupuesto() - transaccion.getMonto());
+                    presupuestoOrigen.setMontoPresupuestoGastado(presupuestoOrigen.getMontoPresupuestoGastado() + transaccion.getMonto());
+                    presupuestoOrigen.notificarObservers();
+                }
+            }
+    
+            case TRANSFERENCIA -> {
+                if (presupuestoOrigen != null) {
+                    presupuestoOrigen.setMontoPresupuesto(presupuestoOrigen.getMontoPresupuesto() - transaccion.getMonto());
+                    presupuestoOrigen.setMontoPresupuestoGastado(presupuestoOrigen.getMontoPresupuestoGastado() + transaccion.getMonto());
+                    presupuestoOrigen.notificarObservers();
+                }
+                if (presupuestoDestino != null) {
+                    presupuestoDestino.setMontoPresupuesto(presupuestoDestino.getMontoPresupuesto() + transaccion.getMonto());
+                    presupuestoDestino.notificarObservers();
+                }
+            }
+        }
+    
+        // Registrar transacción en la cuenta origen
+        if (cuentaOrigen != null) {
+            cuentaOrigen.getListaTransacciones().add(transaccion);
+        }
+    
+        return true;
+    }
+    
+
 }
 
 
