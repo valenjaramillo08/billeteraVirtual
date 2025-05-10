@@ -4,16 +4,14 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Transaccion implements IVisitable {
     public String idTransaccion;
-    public TipoCuentaOrigen tipoCuentaOrigen;
+    public Cuenta CuentaOrigen;
     public LocalDate fechaTransaccion;
     public double monto;
     public String descripcion;
-    public TipoCuenta tipoCuentaDestino;
+    public Cuenta CuentaDestino;
     public TipoTransaccion tipoTransaccion;
     public Presupuesto presupuesto;
 
@@ -21,19 +19,19 @@ public class Transaccion implements IVisitable {
 
     public Transaccion(
             String idTransaccion,
-            TipoCuentaOrigen tipoCuentaOrigen,
+            Cuenta CuentaOrigen,
             LocalDate fechaTransaccion,
             double monto,
             String descripcion,
-            TipoCuenta tipoCuentaDestino,
+            Cuenta CuentaDestino,
             TipoTransaccion tipoTransaccion
     ){
         this.idTransaccion = idTransaccion;
-        this.tipoCuentaOrigen = tipoCuentaOrigen;
+        this.CuentaOrigen = CuentaOrigen;
         this.fechaTransaccion = fechaTransaccion;
         this.monto = monto;
         this.descripcion = descripcion;
-        this.tipoCuentaDestino = tipoCuentaDestino;
+        this.CuentaDestino = CuentaDestino;
         this.tipoTransaccion = tipoTransaccion;
 
     }
@@ -44,14 +42,6 @@ public class Transaccion implements IVisitable {
 
     public void setIdTransaccion(String idTransaccion) {
         this.idTransaccion = idTransaccion;
-    }
-
-    public TipoCuentaOrigen getTipoCuentaOrigen() {
-        return tipoCuentaOrigen;
-    }
-
-    public void setTipoCuentaOrigen(TipoCuentaOrigen tipoCuentaOrigen) {
-        this.tipoCuentaOrigen = tipoCuentaOrigen;
     }
 
     public LocalDate getFechaTransaccion() {
@@ -78,13 +68,20 @@ public class Transaccion implements IVisitable {
         this.descripcion = descripcion;
     }
 
-
-    public TipoCuenta getTipoCuentaDestino() {
-        return tipoCuentaDestino;
+    public Cuenta getCuentaOrigen() {
+        return CuentaOrigen;
     }
 
-    public void setTipoCuentaDestino(TipoCuenta tipoCuentaDestino) {
-        this.tipoCuentaDestino = tipoCuentaDestino;
+    public void setCuentaOrigen(Cuenta cuentaOrigen) {
+        CuentaOrigen = cuentaOrigen;
+    }
+
+    public Cuenta getCuentaDestino() {
+        return CuentaDestino;
+    }
+
+    public void setCuentaDestino(Cuenta cuentaDestino) {
+        CuentaDestino = cuentaDestino;
     }
 
     public TipoTransaccion getTipoTransaccion() {

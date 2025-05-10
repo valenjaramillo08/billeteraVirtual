@@ -1,81 +1,174 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario;
 
-import java.net.URL;
-import java.time.LocalDate;
-import java.util.ResourceBundle;
-
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Presupuesto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Transaccion;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.Observador;
-
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.GestionTransaccionesController;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
-public class TransaccionViewController implements Observador {
+import java.time.LocalDate;
+import java.util.UUID;
 
-    @FXML
-    private ResourceBundle resources;
+public class TransaccionViewController {
 
     @FXML
-    private URL location;
-
+    private TextField txtMonto, txtSaldoActual;
     @FXML
-    private TextField txtMonto;
-
+    private DatePicker dateTransaccion;
     @FXML
-    private ComboBox<String> cbCuentaDestino;
-
+    private ComboBox<TipoTransaccion> cbTipo;
     @FXML
-    private TextField txtIdTran;
-
+    private ComboBox<Cuenta> cbCuentaOrigen, cbCuentaDestino;
     @FXML
-    private TextField txtSaldoActual;
-
+    private Button btTransaccion;
     @FXML
-    private TableColumn<Transaccion, String> tabCCuentaD;
-
+    private TableView<Transaccion> tablaTransacciones;
+    @FXML
+    private TableColumn<Transaccion, LocalDate> tabCFecha;
+    @FXML
+    private TableColumn<Transaccion, String> tabTipo, tabCCuentaO, tabCCuentaD;
     @FXML
     private TableColumn<Transaccion, Double> tabCM;
 
-    @FXML
-    private ComboBox<String> cbTipo;
+    private ObservableList<Cuenta> cuentasUsuario;
+    private ObservableList<Cuenta> cuentas;
+    private ObservableList<Transaccion> transacciones;
+    private GestionTransaccionesController controller;
+    private Usuario usuarioActual;
 
-    @FXML
-    private ComboBox<String> cbCuentaOrigen;
+    private void actualizarVisibilidadCampos() {
+        TipoTransaccion tipo = cbTipo.getValue();
+        cbCuentaOrigen.setVisible(false);
+        cbCuentaDestino.setVisible(false);
 
-    @FXML
-    private Button btTransaccion;
-
-    @FXML
-    private DatePicker dateTransaccion;
-
-    @FXML
-    private TableColumn<Cuenta, String> tabCCuentaO;
-
-    @FXML
-    private TableColumn<Transaccion, LocalDate> tabCFecha;
-
-    @FXML
-    private TableColumn<Transaccion, String> tabTipo;
-
-   
-
-    @FXML
-    void initialize() {
-       
+        if (tipo == TipoTransaccion.RETIRO) {
+            cbCuentaOrigen.setVisible(true);
+        } else if (tipo == TipoTransaccion.DEPOSITO) {
+            cbCuentaDestino.setVisible(true);
+        } else if (tipo == TipoTransaccion.TRANSFERENCIA) {
+            cbCuentaOrigen.setVisible(true);
+            cbCuentaDestino.setVisible(true);
+            filtrarCuentasDestino();
+        }
     }
 
-
-
-    @Override
-    public void actualizar(Presupuesto presupuesto) {
-
+    private void filtrarCuentasDestino() {
+        Cuenta origen = cbCuentaOrigen.getValue();
+        if (origen != null && cbTipo.getValue() == TipoTransaccion.TRANSFERENCIA) {
+            ObservableList<Cuenta> filtradas = cuentasUsuario.filtered(c -> !c.equals(origen));
+            cbCuentaDestino.setItems(filtradas);
+        }
     }
+
+    private void configurarTabla() {
+        tabCFecha.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getFechaTransaccion()));
+        tabTipo.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTipoTransaccion().toString()));
+        tabCCuentaO.setCellValueFactory(data -> {
+            Cuenta origen = data.getValue().getCuentaOrigen();
+            return new SimpleStringProperty(origen != null ? origen.getNumeroCuenta() : "-");
+        });
+        tabCCuentaD.setCellValueFactory(data -> {
+            Cuenta destino = data.getValue().getCuentaDestino();
+            return new SimpleStringProperty(destino != null ? destino.getNumeroCuenta() : "-");
+        });
+        tabCM.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getMonto()));
+    }
+
+    @FXML
+    void onCrearTransaccion(ActionEvent event) {
+        try {
+            String id = UUID.randomUUID().toString();
+            LocalDate fecha = dateTransaccion.getValue() != null ? dateTransaccion.getValue() : LocalDate.now();
+            double monto = Double.parseDouble(txtMonto.getText());
+            TipoTransaccion tipo = cbTipo.getValue();
+            Cuenta origen = cbCuentaOrigen.getValue();
+            Cuenta destino = cbCuentaDestino.getValue();
+
+            if (controller.crearTransaccion(origen, destino, monto, "Generada por usuario", tipo)) {
+                Transaccion nueva = new Transaccion(id, origen, fecha, monto, "Generada por usuario", destino, tipo);
+                transacciones.add(nueva);
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Transacción registrada correctamente.");
+                limpiarCampos();
+            } else {
+                mostrarAlerta(Alert.AlertType.WARNING, "Error", "Verifica los campos requeridos.");
+            }
+        } catch (Exception e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Campos inválidos o incompletos.");
+        }
+    }
+
+    private void limpiarCampos() {
+        dateTransaccion.setValue(null);
+        txtMonto.clear();
+        cbTipo.setValue(null);
+        cbCuentaOrigen.setValue(null);
+        cbCuentaDestino.setValue(null);
+
+        // Oculte campos según el tipo
+        cbCuentaOrigen.setVisible(false);
+        cbCuentaDestino.setVisible(false);
+    }
+
+    public void actualizarSaldoActual(String saldo) {
+        txtSaldoActual.setText(saldo);
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
+    @FXML
+    public void initialize() {
+        controller = new GestionTransaccionesController();
+        transacciones = FXCollections.observableArrayList();
+        configurarTabla();
+
+        cbTipo.setItems(FXCollections.observableArrayList(TipoTransaccion.values()));
+        cbTipo.setOnAction(e -> actualizarVisibilidadCampos());
+        cbCuentaOrigen.setOnAction(e -> {
+            filtrarCuentasDestino();
+        
+            Cuenta cuentaSeleccionada = cbCuentaOrigen.getValue();
+            if (cuentaSeleccionada != null) {
+                // ✅ Aquí llamas al método del controller
+                double saldo = controller.saldoCuenta(cuentaSeleccionada);
+        
+                // ✅ Y luego actualizas el TextField
+                actualizarSaldoActual(String.valueOf(saldo));
+            } else {
+                actualizarSaldoActual(""); // Si se limpia la selección
+            }
+        });
+        
+
+        txtSaldoActual.setEditable(false);
+        txtSaldoActual.setFocusTraversable(false);
+
+        tablaTransacciones.setItems(transacciones);
+        
+    }
+
+    public void setUsuarioLogueado(Usuario usuario) {
+        this.usuarioActual = usuario;
+
+        // Inicializa datos que dependen del usuario
+        if (usuarioActual != null) {
+            cuentasUsuario = FXCollections.observableArrayList(controller.listarCuentasUsuario(usuario));
+            cuentas = FXCollections.observableArrayList(controller.listarCuentas());
+            cbCuentaOrigen.setItems(cuentasUsuario);
+            cbCuentaDestino.setItems(cuentas);
+
+            // Puedes también inicializar transacciones del usuario si las tienes
+            transacciones.addAll(controller.listarTransacciones(usuario));
+            
+        }
+    }
+
 }
-
-

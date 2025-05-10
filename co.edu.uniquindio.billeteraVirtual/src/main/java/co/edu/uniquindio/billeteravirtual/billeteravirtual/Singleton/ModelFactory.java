@@ -12,7 +12,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUsuarioServices, IAdministradorServices, ITransaccionServices, ICategoriaServices {
+
     private static ModelFactory modelFactory;
     private Billetera billetera;
     private IAdministradorMapping mapper;
@@ -143,6 +145,11 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
     @Override
     public boolean agregarTransaccion(Transaccion transaccion) {
         return administrador.agregarTransaccion(transaccion);
+    }
+
+    @Override
+    public List<Transaccion> obtenerTransacciones(){
+        return administrador.getListaTransacciones();
     }
 
 

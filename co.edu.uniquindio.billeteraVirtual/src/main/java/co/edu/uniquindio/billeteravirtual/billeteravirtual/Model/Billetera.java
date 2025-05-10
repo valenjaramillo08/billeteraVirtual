@@ -218,4 +218,10 @@ public class Billetera implements IAdministradorServices, ICuentaServices {
 
         return administradorEncontrado;
     }
+
+    @Override
+    public List<Transaccion> obtenerTransacciones() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'obteneTransacciones'");
+    }
 }

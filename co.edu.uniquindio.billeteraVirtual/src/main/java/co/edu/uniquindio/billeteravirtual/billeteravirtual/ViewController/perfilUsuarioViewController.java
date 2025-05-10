@@ -7,7 +7,6 @@ import javafx.scene.control.Alert;
 import org.controlsfx.tools.Platform;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.perfilUsuarioController;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
