@@ -2,52 +2,78 @@
 
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.lang.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="642.0" prefWidth="742.0"
-      xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.TransaccionViewController">
+<AnchorPane prefHeight="650.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.TransaccionViewController"
+            style="-fx-background-color: #f4f4f4;">
 
    <children>
-      <TableView fx:id="tablaTransacciones" layoutX="24.0" layoutY="392.0" prefHeight="226.0" prefWidth="690.0">
+
+      <!-- Título -->
+      <Label text="Gestión de Transacciones" layoutX="20.0" layoutY="20.0"
+             style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" />
+
+      <!-- Contenedor de campos -->
+      <VBox layoutX="20.0" layoutY="60.0" spacing="15.0" prefWidth="700">
+         <children>
+
+            <!-- Fila 1 -->
+            <HBox spacing="20.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <Label text="Tipo de Transacción" />
+                     <ComboBox fx:id="cbTipo" prefWidth="200.0" promptText="Tipo" />
+                  </VBox>
+
+                  <VBox spacing="5.0">
+                     <Label text="Cuenta Origen" />
+                     <ComboBox fx:id="cbCuentaOrigen" prefWidth="200.0" promptText="Seleccione cuenta" />
+                  </VBox>
+
+                  <VBox spacing="5.0">
+                     <Label text="Cuenta Destino" />
+                     <ComboBox fx:id="cbCuentaDestino" prefWidth="200.0" promptText="Seleccione cuenta" />
+                  </VBox>
+               </children>
+            </HBox>
+
+            <!-- Fila 2 -->
+            <HBox spacing="20.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <Label text="Saldo Actual" />
+                     <TextField fx:id="txtSaldoActual" prefWidth="200.0" editable="false"
+                                style="-fx-background-color: #e0e0e0;" />
+                  </VBox>
+
+                  <VBox spacing="5.0">
+                     <Label text="Monto a transferir" />
+                     <TextField fx:id="txtMonto" prefWidth="200.0" />
+                  </VBox>
+
+                  <VBox alignment="BOTTOM_RIGHT">
+                     <Button fx:id="btTransaccion" text="Realizar Transacción"
+                             onAction="#onCrearTransaccion"
+                             style="-fx-background-color: #2ecc71; -fx-text-fill: white;" />
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <!-- Tabla -->
+      <TableView fx:id="tablaTransacciones" layoutX="20.0" layoutY="280.0" prefHeight="350.0" prefWidth="700.0"
+                 style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 5px;">
          <columns>
-            <TableColumn fx:id="tabCFecha" prefWidth="107.0" text="Fecha " />
-            <TableColumn fx:id="tabTipo" prefWidth="116.0" text="Tipo" />
-            <TableColumn fx:id="tabCCuentaO" prefWidth="159.0" text="Cuenta Origen" />
-            <TableColumn fx:id="tabCCuentaD" prefWidth="180.0" text="Cuenta Destino" />
-            <TableColumn fx:id="tabCM" prefWidth="127.0" text="Monto" />
+            <TableColumn fx:id="tabCFecha" prefWidth="100.0" text="Fecha" />
+            <TableColumn fx:id="tabTipo" prefWidth="100.0" text="Tipo" />
+            <TableColumn fx:id="tabCCuentaO" prefWidth="150.0" text="Cuenta Origen" />
+            <TableColumn fx:id="tabCCuentaD" prefWidth="150.0" text="Cuenta Destino" />
+            <TableColumn fx:id="tabCM" prefWidth="100.0" text="Monto" />
          </columns>
       </TableView>
 
-      <Button fx:id="btTransaccion" layoutX="279.0" layoutY="339.0" mnemonicParsing="false"
-              onAction="#onCrearTransaccion" text="Realizar transacción" />
-
-      <DatePicker fx:id="dateTransaccion" layoutX="48.0" layoutY="80.0" prefHeight="39.0" prefWidth="203.0" />
-      <ComboBox fx:id="cbTipo" layoutX="270.0" layoutY="80.0" prefHeight="39.0" prefWidth="203.0" promptText="Tipo" />
-
-      <Label layoutX="48.0" layoutY="215.0" text="Cuenta Origen">
-         <font><Font size="12.0" /></font>
-      </Label>
-      <ComboBox fx:id="cbCuentaOrigen" layoutX="150.0" layoutY="204.0" prefHeight="39.0" prefWidth="219.0"
-                promptText="Seleccione Cuenta" />
-
-      <Label layoutX="385.0" layoutY="215.0" text="Cuenta Destino">
-         <font><Font size="12.0" /></font>
-      </Label>
-      <ComboBox fx:id="cbCuentaDestino" layoutX="479.0" layoutY="204.0" prefHeight="39.0" prefWidth="219.0"
-                promptText="Seleccione Cuenta" />
-
-      <Label layoutX="59.0" layoutY="280.0" text="Saldo Actual">
-         <font><Font size="12.0" /></font>
-      </Label>
-      <TextField fx:id="txtSaldoActual" layoutX="150.0" layoutY="269.0" prefHeight="39.0" prefWidth="219.0" />
-
-      <Label layoutX="429.0" layoutY="280.0" text="Monto">
-         <font><Font size="12.0" /></font>
-      </Label>
-      <TextField fx:id="txtMonto" layoutX="479.0" layoutY="269.0" prefHeight="39.0" prefWidth="219.0" />
    </children>
-</Pane>
+</AnchorPane>
