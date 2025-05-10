@@ -24,7 +24,7 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
     }
 
     public boolean tieneSaldoDisponible(double saldo) {
-        return (montoPresupuesto - montoPresupuestoGastado) >= saldo;
+        return (montoPresupuesto) >= saldo;
     }
 
     public void gastar(double monto) {
