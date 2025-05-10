@@ -7,8 +7,10 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ITransaccionS
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IUsuarioServices;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICuentaServices;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Administrador extends Persona implements IUsuarioServices, ICuentaServices, ITransaccionServices {
     public String idAdministrador;
@@ -189,6 +191,8 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             cuenta.setNombreBanco(nombreBanco);
             cuenta.setNumeroCuenta(numeroCuenta);
             cuenta.setTipoCuenta(tipoCuenta);
+            cuenta.setUsuarioAsociado(usuarioAsociado);
+            cuenta.setAdministradorAsociado(administradorAsociado);
             getListaCuentas().add(cuenta);
 
             return true;
@@ -196,8 +200,19 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             return false;
         }
     }
+    public List<Transaccion> listarTransaccionesUsuario(Usuario usuario){
+        List<Transaccion> transacciones = new ArrayList<>();
 
-    private Cuenta obtenerCuenta(String idCuenta) {
+        for (Transaccion transaccion : listaTransacciones) {
+            if (transaccion.getCuentaDestino().getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario()) || 
+            transaccion.getCuentaOrigen().getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario())) {
+                transacciones.add(transaccion);
+            }
+        }
+        return transacciones;
+    }
+
+    public Cuenta obtenerCuenta(String idCuenta) {
         Cuenta cuentaEncontrada = null;
         for (Cuenta cuenta : getListaCuentas()) {
             if (cuenta.getIdCuenta().equalsIgnoreCase(idCuenta)) {
@@ -207,6 +222,54 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
         }
 
         return cuentaEncontrada;
+    }
+
+    public List<Cuenta> listarCuentasUsuarios(Usuario usuario){
+        List<Cuenta> cuentasAux = new ArrayList<>();
+        for (Cuenta cuenta : listaCuentas) {
+            if (cuenta.getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario())) {
+                cuentasAux.add(cuenta);
+            }
+        }
+        return cuentasAux;
+    }
+
+    public boolean crearTransaccion(
+            Cuenta cuentaOrigen, // puede ser null
+            Cuenta cuentaDestino, // puede ser null
+            double monto,
+            String descripcion,
+            TipoTransaccion tipoTransaccion) {
+        String idTransaccion = UUID.randomUUID().toString();
+        LocalDate fecha = LocalDate.now();
+
+        // Validación según tipo de transacción
+        if (tipoTransaccion == TipoTransaccion.RETIRO && cuentaOrigen == null) {
+            System.out.println("Error: Cuenta origen requerida para retiro.");
+            return false;
+        }
+
+        if (tipoTransaccion == TipoTransaccion.DEPOSITO && cuentaDestino == null) {
+            System.out.println("Error: Cuenta destino requerida para depósito.");
+            return false;
+        }
+
+        if (tipoTransaccion == TipoTransaccion.TRANSFERENCIA && (cuentaOrigen == null || cuentaDestino == null)) {
+            System.out.println("Error: Ambas cuentas requeridas para transferencia.");
+            return false;
+        }
+
+        DatosTransaccion datos = new DatosTransaccion(
+                idTransaccion,
+                cuentaOrigen,
+                fecha,
+                monto,
+                descripcion,
+                cuentaDestino,
+                tipoTransaccion,
+                null);
+
+        return registrarTransaccion(datos);
     }
 
     @Override
@@ -326,6 +389,16 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
         }
     
         return true;
+    }
+
+    public double saldoCuenta(Cuenta cuentaParam) {
+        double saldo = 0;
+        for (Cuenta cuenta : listaCuentas) {
+            if (cuenta.getIdCuenta().equals(cuentaParam.getIdCuenta())) {
+                saldo = cuenta.getPresupuesto().getMontoPresupuesto();
+            }
+        }
+        return saldo;
     }
     
 

@@ -3,10 +3,8 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.controlsfx.tools.Platform;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.perfilUsuarioController;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
