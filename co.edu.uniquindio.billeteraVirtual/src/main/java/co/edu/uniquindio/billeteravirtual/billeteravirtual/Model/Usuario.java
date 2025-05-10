@@ -82,7 +82,7 @@ public class Usuario extends Persona implements IVisitable {
         return contrasenaUsuario;
     }
 
-    @Override
+    /*/@Override
     public String toString() {
         return "Usuario{" +
                 "telefono='" + telefono + '\'' +
@@ -95,5 +95,11 @@ public class Usuario extends Persona implements IVisitable {
                 ", listaCategorias=" + listaCategorias +
                 ", administradorAsociado=" + administradorAsociado +
                 '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return nombre + " " + apellido + " (" + idUsuario + ")";
     }
+
 }

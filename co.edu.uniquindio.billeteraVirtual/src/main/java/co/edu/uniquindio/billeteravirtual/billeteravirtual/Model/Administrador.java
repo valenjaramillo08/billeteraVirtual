@@ -194,6 +194,8 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             cuenta.setUsuarioAsociado(usuarioAsociado);
             cuenta.setAdministradorAsociado(administradorAsociado);
             getListaCuentas().add(cuenta);
+            usuarioAsociado.getListaCuentas().add(cuenta); // ✅ Asegura que el usuario conozca su cuenta
+
 
             return true;
         } else {
