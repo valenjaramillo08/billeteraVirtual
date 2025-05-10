@@ -95,7 +95,6 @@ public class Cuenta {
 
     @Override
     public String toString() {
-        return "nombreBanco:" + nombreBanco + ", numeroCuenta:" + numeroCuenta;
+        return nombreBanco + " - " + numeroCuenta;
     }
-    
 }

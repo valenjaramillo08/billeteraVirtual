@@ -6,6 +6,8 @@ import java.io.IOException;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.HelloApplication;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.TransaccionViewController;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.CategoriasUsuarioViewController;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,8 +29,12 @@ public class UsuarioVentanaPrincipalViewController {
         this.usuarioLogueado = usuario;
         cargarVistaPerfil();
         cargarVistaTransacciones();
+        cargarVistaCategorias();
     }
 
+
+    @FXML
+    private Tab categoriasTab;
 
     @FXML
     private Tab perfilTab;
@@ -78,6 +84,21 @@ public class UsuarioVentanaPrincipalViewController {
             e.printStackTrace();
         }
     }
+
+    private void cargarVistaCategorias() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billeteravirtual/billeteravirtual/categoriasUsuario.fxml"));
+            AnchorPane vistaCategorias = loader.load();
+
+            CategoriasUsuarioViewController controller = loader.getController();
+            controller.setUsuarioLogueado(usuarioLogueado); // ✅ Pasa el usuario al controlador
+
+            categoriasTab.setContent(vistaCategorias); // ✅ Muestra la vista dentro del tab
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
 
