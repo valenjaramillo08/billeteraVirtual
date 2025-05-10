@@ -3,6 +3,8 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.Alert;
+import org.controlsfx.tools.Platform;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.perfilUsuarioController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
@@ -38,14 +40,33 @@ public class perfilUsuarioViewController {
     @FXML
     void onModificarDatos(ActionEvent event) {
         if (usuarioActual == null) {
-            System.out.println("Error: usuarioActual es null. ¿Se llamó a inicializarDatos?");
+            mostrarAlertaError("Error interno: usuario no encontrado.");
             return;
         }
-    
-        usuarioActual.setNombre(txtNombre.getText());
-        usuarioActual.setApellido(txtApellido.getText());
-        usuarioActual.setCorreo(txtCorreo.getText());
-    
+
+        String nombre = txtNombre.getText().trim();
+        String apellido = txtApellido.getText().trim();
+        String correo = txtCorreo.getText().trim();
+
+        // Validaciones
+        if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty()) {
+            mostrarAlertaError("Todos los campos son obligatorios.");
+            return;
+        }
+
+        if (!correo.contains("@") || !correo.contains(".")) {
+            mostrarAlertaError("El correo debe contener '@' y '.'");
+            return;
+        }
+
+        // Si pasa todas las validaciones, actualizar
+        usuarioActual.setNombre(nombre);
+        usuarioActual.setApellido(apellido);
+        usuarioActual.setCorreo(correo);
+
+        // Puedes guardar en base de datos aquí si lo necesitas
+
+        mostrarAlertaInfo("Datos actualizados correctamente.");
         System.out.println("Usuario actualizado: " + usuarioActual);
     }
     
@@ -53,13 +74,12 @@ public class perfilUsuarioViewController {
     public void setUsuarioLogueado(Usuario usuario) {
         this.usuarioActual = usuario;
     
-        // ⚠️ Si lo haces antes del initialize o antes de que los TextField estén listos, da error
+
         if (txtNombre != null && txtApellido != null && txtCorreo != null) {
             txtNombre.setText(usuario.getNombre());
             txtApellido.setText(usuario.getApellido());
             txtCorreo.setText(usuario.getCorreo());
         } else {
-            // Si todavía no está todo listo, lo hacemos después
             javafx.application.Platform.runLater(() -> {
                 txtNombre.setText(usuario.getNombre());
                 txtApellido.setText(usuario.getApellido());
@@ -67,8 +87,24 @@ public class perfilUsuarioViewController {
             });
         }
     }
-    
-    
+
+    private void mostrarAlertaInfo(String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Información");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
+    private void mostrarAlertaError(String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle("Error");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
+
 
     @FXML
     void initialize() {

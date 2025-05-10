@@ -60,10 +60,20 @@ public class RegistroViewController {
             return;
         }
 
+        if (!correo.contains("@") || !correo.contains(".")){
+            mostrarAlerta("El correo no es valido");
+            return;
+        }
+
+        if (clave.length() <= 6){
+            mostrarAlerta("Ingrese una clave valida");
+            return;
+        }
+
         boolean exito = registroController.agregarUsuarioRegistro(nombre, correo, id, clave);
         if (exito) {
             mostrarAlerta("¡Registro exitoso!");
-            // Aquí puedes redirigir a login si quieres
+            
         } else {
             mostrarAlerta("El usuario ya existe.");
         }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="300.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar saldo">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="67.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo Actual:">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtSaldoActual" layoutX="151.0" layoutY="81.0">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </TextField>
+      <Separator layoutX="38.0" layoutY="128.0" prefHeight="7.0" prefWidth="615.0" />
+      <ComboBox fx:id="cbCuentas" layoutX="38.0" layoutY="157.0" prefHeight="39.0" prefWidth="166.0" promptText="Cuentas" />
+      <Text layoutX="38.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Periodo:">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <DatePicker fx:id="dpDesde" layoutX="190.0" layoutY="222.0" prefHeight="39.0" prefWidth="181.0" />
+      <Text layoutX="133.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desde:">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="417.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hasta:">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <DatePicker fx:id="dpHasta" layoutX="469.0" layoutY="224.0" prefHeight="39.0" prefWidth="181.0" />
+      <Button fx:id="btConsultar" layoutX="190.0" layoutY="314.0" mnemonicParsing="false" text="Consultar">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btActualizarSaldo" layoutX="378.0" layoutY="314.0" mnemonicParsing="false" text="Actualizar Saldo">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
