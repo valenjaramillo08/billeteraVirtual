@@ -92,4 +92,24 @@ public class Cuenta {
     public void setListaTransacciones(List<Transaccion> listaTransacciones) {
         this.listaTransacciones = listaTransacciones;
     }
+
+    /*@Override
+    public String toString() {
+        return "Cuenta{" +
+                "idCuenta='" + idCuenta + '\'' +
+                ", nombreBanco='" + nombreBanco + '\'' +
+                ", numeroCuenta='" + numeroCuenta + '\'' +
+                ", tipoCuenta=" + tipoCuenta +
+                ", usuarioAsociado=" + usuarioAsociado +
+                ", administradorAsociado=" + administradorAsociado +
+                ", presupuesto=" + presupuesto +
+                ", listaTransacciones=" + listaTransacciones +
+                '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return nombreBanco + " - " + numeroCuenta;
+    }
+
 }

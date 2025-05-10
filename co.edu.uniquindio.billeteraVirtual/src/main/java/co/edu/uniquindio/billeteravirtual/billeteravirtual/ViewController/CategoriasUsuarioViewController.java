@@ -7,12 +7,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CategoriasUsuarioViewController {
     CategoriasUsuarioController categoriasUsuarioController;
+    private Usuario usuarioActual;
 
     @FXML
     private ResourceBundle resources;
@@ -21,10 +21,10 @@ public class CategoriasUsuarioViewController {
     private URL location;
 
     @FXML
-    private TableColumn<Categoria, String> columNombre;
+    private ComboBox<NombreCategoria> comboNombreCategoria;
 
     @FXML
-    private TextField txtNombreCategoria;
+    private TableColumn<Categoria, String> columNombre;
 
     @FXML
     private TextField txtSaldoCategoria;
@@ -41,29 +41,36 @@ public class CategoriasUsuarioViewController {
     @FXML
     void onCrearCategoria(ActionEvent event) {
         crearCategoria();
-
     }
 
     @FXML
     void onModificarCategoria(ActionEvent event) {
         modificarCategoria();
-
-
     }
 
     @FXML
     void onEliminarCategoria(ActionEvent event) {
         eliminarCategoria();
-
     }
 
     @FXML
     void onSeleccionarCuenta(ActionEvent event) {
         cuentaSeleccionada();
-
     }
 
-    private void modificarCategoria(){
+    public void setUsuarioLogueado(Usuario usuario) {
+        this.usuarioActual = usuario;
+        cargarCuentas();
+    }
+
+    private void cargarCuentas() {
+        comboCuentas.getItems().clear();
+        if (usuarioActual != null && usuarioActual.getListaCuentas() != null) {
+            comboCuentas.getItems().addAll(usuarioActual.getListaCuentas());
+        }
+    }
+
+    private void modificarCategoria() {
         Cuenta cuentaSeleccionada = comboCuentas.getValue();
         Categoria categoriaSeleccionada = tableCategoria.getSelectionModel().getSelectedItem();
 
@@ -77,42 +84,31 @@ public class CategoriasUsuarioViewController {
             return;
         }
 
-        String nuevoNombre = txtNombreCategoria.getText().trim();
         String nuevoSaldoStr = txtSaldoCategoria.getText().trim();
+        NombreCategoria nombreCategoria = comboNombreCategoria.getValue();
 
-        if (nuevoNombre.isEmpty() || nuevoSaldoStr.isEmpty()) {
+        if (nombreCategoria == null || nuevoSaldoStr.isEmpty()) {
             mostrarAlertaError("Debe completar todos los campos.");
             return;
         }
 
         try {
             double nuevoSaldo = Double.parseDouble(nuevoSaldoStr);
-            NombreCategoria nombreCategoria = NombreCategoria.valueOf(nuevoNombre.toUpperCase());
-
             Presupuesto presupuesto = cuentaSeleccionada.getPresupuesto();
-            double saldoDisponible = presupuesto.getMontoPresupuesto() - presupuesto.getMontoPresupuestoGastado()
-                    + categoriaSeleccionada.getSaldo(); // restablece el saldo anterior
+            double saldoDisponible = presupuesto.getMontoPresupuesto() - presupuesto.getMontoPresupuestoGastado() + categoriaSeleccionada.getSaldo();
 
             if (nuevoSaldo > saldoDisponible) {
                 mostrarAlertaError("Saldo insuficiente para modificar la categoría.");
                 return;
             }
 
-            // Actualizar categoría
             categoriaSeleccionada.setNombreCategoria(nombreCategoria);
-            presupuesto.setMontoPresupuestoGastado(
-                    presupuesto.getMontoPresupuestoGastado()
-                            - categoriaSeleccionada.getSaldo()
-                            + nuevoSaldo
-            );
+            presupuesto.setMontoPresupuestoGastado(presupuesto.getMontoPresupuestoGastado() - categoriaSeleccionada.getSaldo() + nuevoSaldo);
             categoriaSeleccionada.setSaldo(nuevoSaldo);
-
-            tableCategoria.refresh(); // actualiza visualmente
+            tableCategoria.refresh();
             mostrarAlertaInfo("Categoría modificada correctamente.");
         } catch (NumberFormatException e) {
             mostrarAlertaError("El saldo debe ser un número válido.");
-        } catch (IllegalArgumentException e) {
-            mostrarAlertaError("Nombre de categoría inválido.");
         }
     }
 
@@ -131,12 +127,10 @@ public class CategoriasUsuarioViewController {
         }
 
         Presupuesto presupuesto = cuentaSeleccionada.getPresupuesto();
-
         boolean eliminada = presupuesto.eliminarCategoria(categoriaSeleccionada.getIdCategoria());
+
         if (eliminada) {
-            presupuesto.setMontoPresupuestoGastado(
-                    presupuesto.getMontoPresupuestoGastado() - categoriaSeleccionada.getSaldo()
-            );
+            presupuesto.setMontoPresupuestoGastado(presupuesto.getMontoPresupuestoGastado() - categoriaSeleccionada.getSaldo());
             tableCategoria.getItems().setAll(presupuesto.getListaCategorias());
             mostrarAlertaInfo("Categoría eliminada correctamente.");
         } else {
@@ -151,18 +145,16 @@ public class CategoriasUsuarioViewController {
             return;
         }
 
-        String nombre = txtNombreCategoria.getText().trim();
         String saldoStr = txtSaldoCategoria.getText().trim();
+        NombreCategoria nombreCategoria = comboNombreCategoria.getValue();
 
-        if (nombre.isEmpty() || saldoStr.isEmpty()) {
+        if (nombreCategoria == null || saldoStr.isEmpty()) {
             mostrarAlertaError("Debe ingresar todos los campos.");
             return;
         }
 
         try {
             double saldo = Double.parseDouble(saldoStr);
-            NombreCategoria nombreCategoria = NombreCategoria.valueOf(nombre.toUpperCase());
-
             Presupuesto presupuesto = cuentaSeleccionada.getPresupuesto();
 
             if (!presupuesto.tieneSaldoDisponible(saldo)) {
@@ -176,40 +168,24 @@ public class CategoriasUsuarioViewController {
                 return;
             }
 
-            // Actualizar gasto y tabla
             presupuesto.setMontoPresupuestoGastado(presupuesto.getMontoPresupuestoGastado() + saldo);
             tableCategoria.getItems().setAll(presupuesto.getListaCategorias());
-            txtNombreCategoria.clear();
+            comboNombreCategoria.getSelectionModel().clearSelection();
             txtSaldoCategoria.clear();
             mostrarAlertaInfo("Categoría creada correctamente.");
         } catch (NumberFormatException e) {
             mostrarAlertaError("El saldo debe ser un número válido.");
-        } catch (IllegalArgumentException e) {
-            mostrarAlertaError("Nombre de categoría inválido.");
         }
     }
 
-    private void cuentaSeleccionada(){
+    private void cuentaSeleccionada() {
         Cuenta cuentaSeleccionada = comboCuentas.getValue();
         if (cuentaSeleccionada != null && cuentaSeleccionada.getPresupuesto() != null) {
             tableCategoria.getItems().setAll(cuentaSeleccionada.getPresupuesto().getListaCategorias());
+        } else {
+            tableCategoria.getItems().clear();
         }
     }
-
-    private Usuario usuarioActual;
-
-    public void setUsuarioLogueado(Usuario usuario) {
-        this.usuarioActual = usuario;
-        cargarCuentas();
-    }
-
-    private void cargarCuentas() {
-        comboCuentas.getItems().clear();
-        for (Cuenta cuenta : usuarioActual.getListaCuentas()) {
-            comboCuentas.getItems().add(cuenta);
-        }
-    }
-
 
     @FXML
     void initialize() {
@@ -221,7 +197,7 @@ public class CategoriasUsuarioViewController {
         columSaldo.setCellValueFactory(cellData ->
                 new SimpleDoubleProperty(cellData.getValue().getSaldo()).asObject());
 
-
+        comboNombreCategoria.getItems().setAll(NombreCategoria.values());
     }
 
     private void mostrarAlertaError(String mensaje) {
@@ -239,5 +215,4 @@ public class CategoriasUsuarioViewController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
 }
