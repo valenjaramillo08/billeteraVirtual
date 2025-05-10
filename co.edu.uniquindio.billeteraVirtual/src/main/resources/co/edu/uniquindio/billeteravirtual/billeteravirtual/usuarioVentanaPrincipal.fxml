@@ -55,6 +55,11 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
+            <Tab text="Cuentas">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
       <Button layoutX="729.0" layoutY="565.0" mnemonicParsing="false" onAction="#OnCerrarSesionUsuario" text="Cerrar Sesión" />

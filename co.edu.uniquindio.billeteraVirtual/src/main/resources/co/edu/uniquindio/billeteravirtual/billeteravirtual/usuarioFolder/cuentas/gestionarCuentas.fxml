@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView layoutX="17.0" layoutY="77.0" prefHeight="314.0" prefWidth="655.0">
+        <columns>
+          <TableColumn fx:id="tcNombreBanco" minWidth="7.0" prefWidth="231.0" text="Nombre Banco" />
+            <TableColumn fx:id="tcNumeroCuenta" minWidth="0.0" prefWidth="224.0" text="Numero Cuenta " />
+          <TableColumn fx:id="tcIdCuenta" prefWidth="200.0" text="Id Cuenta" />
+        </columns>
+      </TableView>
+      <Text layoutX="303.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestionar cuentas ">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Button fx:id="btDetallesCuenta" layoutX="287.0" layoutY="426.0" mnemonicParsing="false" text="Detalles de la cuenta ">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
