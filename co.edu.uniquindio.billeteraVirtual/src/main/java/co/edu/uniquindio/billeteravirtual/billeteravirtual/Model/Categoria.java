@@ -2,11 +2,11 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
 public class Categoria {
     public NombreCategoria nombreCategoria;
-    public double precio;
+    public double saldo;
 
-    public Categoria(NombreCategoria nombreCategoria, double precio) {
+    public Categoria(NombreCategoria nombreCategoria, double saldo) {
         this.nombreCategoria = nombreCategoria;
-        this.precio=precio;
+        this.saldo=saldo;
 
     }
 
@@ -18,11 +18,11 @@ public class Categoria {
         this.nombreCategoria = nombreCategoria;
     }
 
-    public double getPrecio() {
-        return precio;
+    public double getSaldoo() {
+        return saldo;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setSaldo(double saldo) {
+        this.saldo=saldo;
     }
 }
