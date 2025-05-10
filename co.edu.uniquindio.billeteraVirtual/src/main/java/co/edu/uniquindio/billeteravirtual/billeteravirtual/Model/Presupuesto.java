@@ -23,10 +23,7 @@ public class Presupuesto implements IVisitable, ObservadorMetodos {
         this.montoPresupuestoGastado = montoPresupuestoGastado;
     }
 
-     /*/public void gastar(double monto) {
-        this.montoPresupuestoGastado += monto;
-        notificarObservers();
-    }/*/
+
 
     @Override
     public void aceptar(IVisitor visitor) {
