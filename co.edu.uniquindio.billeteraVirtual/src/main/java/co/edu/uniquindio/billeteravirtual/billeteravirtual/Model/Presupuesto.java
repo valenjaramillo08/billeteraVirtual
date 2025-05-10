@@ -2,13 +2,14 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.Observador;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.ObservadorMetodos;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICategoriaServices;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Presupuesto implements IVisitable, ObservadorMetodos {
+public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaServices {
     private String idPresupuesto;
     private double montoPresupuesto;
     private double montoPresupuestoGastado;
@@ -22,10 +23,15 @@ public class Presupuesto implements IVisitable, ObservadorMetodos {
         this.montoPresupuestoGastado = montoPresupuestoGastado;
     }
 
+    public boolean tieneSaldoDisponible(double saldo) {
+        return (montoPresupuesto - montoPresupuestoGastado) >= saldo;
+    }
+
     public void gastar(double monto) {
         this.montoPresupuestoGastado += monto;
         notificarObservers();
     }
+
     @Override
     public void aceptar(IVisitor visitor) {
         visitor.visitar(this);
@@ -78,6 +84,48 @@ public class Presupuesto implements IVisitable, ObservadorMetodos {
 
     public List<Categoria> getListaCategorias() {
         return listaCategorias;
+    }
+
+    @Override
+    public boolean agregarCategoria(NombreCategoria nombreCategoria, String idCategoria, double saldo) {
+        Categoria categoria = obtenerCategoria(idCategoria);
+        if (categoria == null) {
+            categoria = new Categoria();
+            categoria.setIdCategoria(idCategoria);
+            categoria.setNombreCategoria(nombreCategoria);
+            categoria.setSaldo(saldo);
+            getListaCategorias().add(categoria);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Categoria obtenerCategoria(String idCategoria) {
+        Categoria categoriaEncontrada = null;
+        for(Categoria categoria : getListaCategorias()){
+            if(categoria.getIdCategoria().equals(idCategoria)){
+                categoriaEncontrada = categoria;
+                break;
+            }
+        }
+        return categoriaEncontrada;
+    }
+
+    @Override
+    public boolean eliminarCategoria(String idCategoria) {
+        Categoria categoria= obtenerCategoria(idCategoria);
+        if(categoria != null){
+            getListaCategorias().remove(categoria);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean actualizarCategoria(NombreCategoria nombreCategoria, String idCategoriaActual, String idCategoria, String telefono) {
+        return false;
     }
 
     public void setListaCategorias(List<Categoria> listaCategorias) {
