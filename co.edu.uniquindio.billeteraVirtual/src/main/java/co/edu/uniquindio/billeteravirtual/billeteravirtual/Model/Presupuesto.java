@@ -7,7 +7,6 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public class Presupuesto implements IVisitable, ObservadorMetodos {
     private String idPresupuesto;
@@ -23,8 +22,10 @@ public class Presupuesto implements IVisitable, ObservadorMetodos {
         this.montoPresupuestoGastado = montoPresupuestoGastado;
     }
 
-
-
+    public void gastar(double monto) {
+        this.montoPresupuestoGastado += monto;
+        notificarObservers();
+    }
     @Override
     public void aceptar(IVisitor visitor) {
         visitor.visitar(this);

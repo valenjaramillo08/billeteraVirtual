@@ -1,17 +1,17 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.HelloApplication;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.perfilUsuarioController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.TransaccionViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class UsuarioVentanaPrincipalViewController {
     private HelloApplication helloApp;
@@ -23,14 +23,18 @@ public class UsuarioVentanaPrincipalViewController {
 
     }
 
-
-
     public void setUsuarioLogueado(Usuario usuario) {
         this.usuarioLogueado = usuario;
         cargarVistaPerfil();
+        cargarVistaTransacciones();
     }
+
+
     @FXML
     private Tab perfilTab;
+
+    @FXML
+    private Tab transaccionTab;
 
     @FXML
     void OnCerrarSesionUsuario(ActionEvent event)  throws IOException {
@@ -59,7 +63,22 @@ public class UsuarioVentanaPrincipalViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-}
+    }
+
+    private void cargarVistaTransacciones() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billeteravirtual/billeteravirtual/usuarioFolder/transaccion/transaccion.fxml"));
+            Pane vistaTransacciones = loader.load();
+
+            TransaccionViewController controller = loader.getController();
+            controller.setUsuarioLogueado(usuarioLogueado);  // ✅ Aquí se pasa el usuario
+
+            transaccionTab.setContent(vistaTransacciones); // Reemplazas el contenido del Tab
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 

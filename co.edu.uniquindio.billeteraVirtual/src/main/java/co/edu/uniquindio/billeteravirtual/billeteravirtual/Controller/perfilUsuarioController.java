@@ -1,6 +1,5 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Singleton.ModelFactory;
 
 public class perfilUsuarioController {

@@ -1,13 +1,16 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.FabricaTransacciones;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Builder.UsuarioBuilder;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ITransaccionServices;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.IUsuarioServices;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICuentaServices;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Administrador extends Persona implements IUsuarioServices, ICuentaServices, ITransaccionServices {
     public String idAdministrador;
@@ -188,6 +191,8 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             cuenta.setNombreBanco(nombreBanco);
             cuenta.setNumeroCuenta(numeroCuenta);
             cuenta.setTipoCuenta(tipoCuenta);
+            cuenta.setUsuarioAsociado(usuarioAsociado);
+            cuenta.setAdministradorAsociado(administradorAsociado);
             getListaCuentas().add(cuenta);
 
             return true;
@@ -195,8 +200,19 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             return false;
         }
     }
+    public List<Transaccion> listarTransaccionesUsuario(Usuario usuario){
+        List<Transaccion> transacciones = new ArrayList<>();
 
-    private Cuenta obtenerCuenta(String idCuenta) {
+        for (Transaccion transaccion : listaTransacciones) {
+            if (transaccion.getCuentaDestino().getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario()) || 
+            transaccion.getCuentaOrigen().getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario())) {
+                transacciones.add(transaccion);
+            }
+        }
+        return transacciones;
+    }
+
+    public Cuenta obtenerCuenta(String idCuenta) {
         Cuenta cuentaEncontrada = null;
         for (Cuenta cuenta : getListaCuentas()) {
             if (cuenta.getIdCuenta().equalsIgnoreCase(idCuenta)) {
@@ -206,6 +222,54 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
         }
 
         return cuentaEncontrada;
+    }
+
+    public List<Cuenta> listarCuentasUsuarios(Usuario usuario){
+        List<Cuenta> cuentasAux = new ArrayList<>();
+        for (Cuenta cuenta : listaCuentas) {
+            if (cuenta.getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario())) {
+                cuentasAux.add(cuenta);
+            }
+        }
+        return cuentasAux;
+    }
+
+    public boolean crearTransaccion(
+            Cuenta cuentaOrigen, // puede ser null
+            Cuenta cuentaDestino, // puede ser null
+            double monto,
+            String descripcion,
+            TipoTransaccion tipoTransaccion) {
+        String idTransaccion = UUID.randomUUID().toString();
+        LocalDate fecha = LocalDate.now();
+
+        // Validación según tipo de transacción
+        if (tipoTransaccion == TipoTransaccion.RETIRO && cuentaOrigen == null) {
+            System.out.println("Error: Cuenta origen requerida para retiro.");
+            return false;
+        }
+
+        if (tipoTransaccion == TipoTransaccion.DEPOSITO && cuentaDestino == null) {
+            System.out.println("Error: Cuenta destino requerida para depósito.");
+            return false;
+        }
+
+        if (tipoTransaccion == TipoTransaccion.TRANSFERENCIA && (cuentaOrigen == null || cuentaDestino == null)) {
+            System.out.println("Error: Ambas cuentas requeridas para transferencia.");
+            return false;
+        }
+
+        DatosTransaccion datos = new DatosTransaccion(
+                idTransaccion,
+                cuentaOrigen,
+                fecha,
+                monto,
+                descripcion,
+                cuentaDestino,
+                tipoTransaccion,
+                null);
+
+        return registrarTransaccion(datos);
     }
 
     @Override
@@ -273,6 +337,71 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             return false; // No se pudo agregar porque la transacción es nula
         }
     }
+    public boolean registrarTransaccion(DatosTransaccion datos) {
+        if (datos == null) return false;
+    
+        // Crear la transacción con la fábrica
+        Transaccion transaccion = FabricaTransacciones.crear(datos);
+    
+        // Guardar en lista global del administrador
+        agregarTransaccion(transaccion);
+    
+        // Obtener presupuestos desde las cuentas asociadas en la transacción
+        Cuenta cuentaOrigen = transaccion.getCuentaOrigen();
+        Cuenta cuentaDestino = transaccion.getCuentaDestino();
+    
+        Presupuesto presupuestoOrigen = (cuentaOrigen != null) ? cuentaOrigen.getPresupuesto() : null;
+        Presupuesto presupuestoDestino = (cuentaDestino != null) ? cuentaDestino.getPresupuesto() : null;
+    
+        // Actualizar montos según el tipo de transacción
+        switch (transaccion.getTipoTransaccion()) {
+            case DEPOSITO -> {
+                if (presupuestoDestino != null) {
+                    presupuestoDestino.setMontoPresupuesto(presupuestoDestino.getMontoPresupuesto() + transaccion.getMonto());
+                    presupuestoDestino.notificarObservers();
+                }
+            }
+    
+            case RETIRO -> {
+                if (presupuestoOrigen != null) {
+                    presupuestoOrigen.setMontoPresupuesto(presupuestoOrigen.getMontoPresupuesto() - transaccion.getMonto());
+                    presupuestoOrigen.setMontoPresupuestoGastado(presupuestoOrigen.getMontoPresupuestoGastado() + transaccion.getMonto());
+                    presupuestoOrigen.notificarObservers();
+                }
+            }
+    
+            case TRANSFERENCIA -> {
+                if (presupuestoOrigen != null) {
+                    presupuestoOrigen.setMontoPresupuesto(presupuestoOrigen.getMontoPresupuesto() - transaccion.getMonto());
+                    presupuestoOrigen.setMontoPresupuestoGastado(presupuestoOrigen.getMontoPresupuestoGastado() + transaccion.getMonto());
+                    presupuestoOrigen.notificarObservers();
+                }
+                if (presupuestoDestino != null) {
+                    presupuestoDestino.setMontoPresupuesto(presupuestoDestino.getMontoPresupuesto() + transaccion.getMonto());
+                    presupuestoDestino.notificarObservers();
+                }
+            }
+        }
+    
+        // Registrar transacción en la cuenta origen
+        if (cuentaOrigen != null) {
+            cuentaOrigen.getListaTransacciones().add(transaccion);
+        }
+    
+        return true;
+    }
+
+    public double saldoCuenta(Cuenta cuentaParam) {
+        double saldo = 0;
+        for (Cuenta cuenta : listaCuentas) {
+            if (cuenta.getIdCuenta().equals(cuentaParam.getIdCuenta())) {
+                saldo = cuenta.getPresupuesto().getMontoPresupuesto();
+            }
+        }
+        return saldo;
+    }
+    
+
 }
 
 
