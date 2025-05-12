@@ -13,6 +13,7 @@ public class DatosTransaccion {
     public Cuenta CuentaDestino;
     public TipoTransaccion tipoTransaccion;
     public Presupuesto presupuesto;
+    public Categoria categoria;
 
     public DatosTransaccion(String idTransaccion, Cuenta CuentaOrigen, LocalDate fechaTransaccion,
                             double monto, String descripcion, Cuenta CuentaDestino,
@@ -25,5 +26,6 @@ public class DatosTransaccion {
         this.CuentaDestino = CuentaDestino;
         this.tipoTransaccion = tipoTransaccion;
         this.presupuesto = presupuesto;
+
     }
 }

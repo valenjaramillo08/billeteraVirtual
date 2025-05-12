@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.CategoriasUsuarioViewController"
-            style="-fx-background-color: #f4f4f4;">
+<AnchorPane prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.CategoriasUsuarioViewController">
 
     <children>
 
         <!-- Título -->
-        <Label layoutX="40.0" layoutY="25.0" text="Gestión de Categorías"
-               style="-fx-font-size: 22px; -fx-text-fill: #2c3e50;" />
+        <Label layoutX="40.0" layoutY="25.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Gestión de Categorías" />
 
-        <!-- ComboBox Cuenta -->
-        <HBox layoutX="40.0" layoutY="65.0" spacing="10">
-            <Label text="Cuenta:" style="-fx-font-size: 14px;" />
-            <ComboBox fx:id="comboCuentas" prefWidth="200.0" />
+        <!-- Cuenta + Presupuesto -->
+        <HBox layoutX="40.0" layoutY="65.0" spacing="20">
+            <children>
+                <Label style="-fx-font-size: 14px;" text="Cuenta:" />
+                <ComboBox fx:id="comboCuentas" onAction="#onComboCuenta" prefWidth="180.0" />
+                <Label style="-fx-font-size: 14px;" text="Presupuesto disponible:" />
+                <TextField fx:id="txtPresupuesto" editable="false" prefWidth="160.0" style="-fx-background-color: #e8e8e8;" />
+            </children>
         </HBox>
 
         <!-- Tabla de categorías -->
-        <TableView fx:id="tableCategoria" layoutX="40.0" layoutY="110.0" prefHeight="250.0" prefWidth="330.0">
+        <TableView fx:id="tableCategoria" layoutX="40.0" layoutY="110.0" prefHeight="260.0" prefWidth="330.0" style="-fx-background-color: white; -fx-border-color: #dcdcdc;">
             <columns>
                 <TableColumn fx:id="columNombre" prefWidth="150.0" text="Nombre" />
                 <TableColumn fx:id="columSaldo" prefWidth="150.0" text="Saldo" />
@@ -29,36 +31,37 @@
         </TableView>
 
         <!-- Botones Modificar/Eliminar -->
-        <HBox layoutX="40.0" layoutY="380.0" spacing="20">
-            <Button fx:id="btnModificar" onAction="#onModificarCategoria" text="Modificar"
-                    style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-            <Button fx:id="btnEliminar" onAction="#onEliminarCategoria" text="Eliminar"
-                    style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
+        <HBox layoutX="40.0" layoutY="390.0" spacing="15">
+            <children>
+                <Button fx:id="btnModificar" onAction="#onModificarCategoria" prefWidth="100.0" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Modificar" />
+                <Button fx:id="btnEliminar" onAction="#onEliminarCategoria" prefWidth="100.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Eliminar" />
+            </children>
         </HBox>
 
         <!-- Separador visual -->
-        <Separator layoutX="400.0" layoutY="70.0" prefHeight="320.0" orientation="VERTICAL" />
+        <Separator layoutX="390.0" layoutY="110.0" orientation="VERTICAL" prefHeight="270.0" />
 
         <!-- Sección crear categoría -->
-        <VBox layoutX="430.0" layoutY="110.0" spacing="15.0">
+        <VBox layoutX="430.0" layoutY="110.0" prefWidth="280.0" spacing="15.0">
+            <children>
+                <Label style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="Crear nueva categoría" />
 
-            <Label text="Crear nueva categoría"
-                   style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" />
+                <HBox spacing="10.0">
+                    <children>
+                        <Label prefWidth="70.0" text="Nombre:" />
+                        <ComboBox fx:id="comboNombreCategoria" prefWidth="180.0" />
+                    </children>
+                </HBox>
 
-            <HBox spacing="10.0">
-                <Label text="Nombre:" prefWidth="70.0" />
-                <ComboBox fx:id="comboNombreCategoria" prefWidth="200.0" />
-            </HBox>
+                <HBox spacing="10.0">
+                    <children>
+                        <Label prefWidth="70.0" text="Saldo:" />
+                        <TextField fx:id="txtSaldoCategoria" prefWidth="180.0" />
+                    </children>
+                </HBox>
 
-            <HBox spacing="10.0">
-                <Label text="Saldo:" prefWidth="70.0" />
-                <TextField fx:id="txtSaldoCategoria" prefWidth="200.0" />
-            </HBox>
-
-            <Button fx:id="btnCrear" text="Crear" onAction="#onCrearCategoria"
-                    style="-fx-background-color: #2ecc71; -fx-text-fill: white;"
-                    prefWidth="100.0" />
-
+                <Button fx:id="btnCrear" onAction="#onCrearCategoria" prefWidth="100.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Crear" />
+            </children>
         </VBox>
 
     </children>

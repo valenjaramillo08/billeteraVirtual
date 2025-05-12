@@ -5,13 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Administrador;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Billetera;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Presupuesto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.TipoCuenta;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.TipoTransaccion;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
 
 public class DataUtil {
 
@@ -38,13 +32,20 @@ public class DataUtil {
                 Cuenta cuenta2 = admin.obtenerCuenta("789");
                 Cuenta cuenta3 = admin.obtenerCuenta("1011");
 
+
+
                 // Crear presupuesto y asociarlo
-                Presupuesto presupuesto = new Presupuesto("1", 500000, 100000);
-                Presupuesto presupuesto2 = new Presupuesto("2", 100000, 100000);
-                Presupuesto presupuesto3 = new Presupuesto("3", 1000000, 100000);
+                Presupuesto presupuesto = new Presupuesto("1", 500000, 0);
+                Presupuesto presupuesto2 = new Presupuesto("2", 100000, 0);
+                Presupuesto presupuesto3 = new Presupuesto("3", 1000000, 0);
+                presupuesto.agregarCategoria(NombreCategoria.COMIDA, "222", 20000);
+                presupuesto.agregarCategoria(NombreCategoria.TRANSPORTE, "333", 20000);
                 cuenta2.setPresupuesto(presupuesto);
+
                 cuenta1.setPresupuesto(presupuesto2);
                 cuenta3.setPresupuesto(presupuesto3);
+
+
 
                 // Crear transacción entre cuentas
                 DatosTransaccion datos = new DatosTransaccion(

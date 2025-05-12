@@ -16,15 +16,14 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
     private List<Categoria> listaCategorias = new ArrayList<>();
     public List<Observador> observadores = new ArrayList<>();
 
-
-    public Presupuesto(String idPresupuesto,  double montoPresupuesto, double montoPresupuestoGastado) {
+    public Presupuesto(String idPresupuesto, double montoPresupuesto, double montoPresupuestoGastado) {
         this.idPresupuesto = idPresupuesto;
         this.montoPresupuesto = montoPresupuesto;
         this.montoPresupuestoGastado = montoPresupuestoGastado;
     }
 
     public boolean tieneSaldoDisponible(double saldo) {
-        return (montoPresupuesto) >= saldo;
+        return (montoPresupuesto - montoPresupuestoGastado) >= saldo;
     }
 
     public void gastar(double monto) {
@@ -40,13 +39,11 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
     @Override
     public void agregarObserver(Observador observador) {
         observadores.add(observador);
-
     }
 
     @Override
     public void eliminarObserver(Observador observador) {
         observadores.remove(observador);
-
     }
 
     @Override
@@ -54,7 +51,6 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
         for (Observador observador : observadores){
             observador.actualizar(this);
         }
-
     }
 
     public String getIdPresupuesto() {
@@ -64,7 +60,6 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
     public void setIdPresupuesto(String idPresupuesto) {
         this.idPresupuesto = idPresupuesto;
     }
-
 
     public double getMontoPresupuestoGastado() {
         return montoPresupuestoGastado;
@@ -88,36 +83,43 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
 
     @Override
     public boolean agregarCategoria(NombreCategoria nombreCategoria, String idCategoria, double saldo) {
-        Categoria categoria = obtenerCategoria(idCategoria);
-        if (categoria == null) {
-            categoria = new Categoria();
-            categoria.setIdCategoria(idCategoria);
-            categoria.setNombreCategoria(nombreCategoria);
-            categoria.setSaldo(saldo);
-            getListaCategorias().add(categoria);
+        Categoria existente = obtenerCategoriaPorNombre(nombreCategoria);
+        if (existente == null && tieneSaldoDisponible(saldo)) {
+            Categoria nueva = new Categoria();
+            nueva.setIdCategoria(idCategoria);
+            nueva.setNombreCategoria(nombreCategoria);
+            nueva.setSaldo(saldo);
+            listaCategorias.add(nueva);
+            gastar(saldo); // Descontar del presupuesto automáticamente
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
     public Categoria obtenerCategoria(String idCategoria) {
-        Categoria categoriaEncontrada = null;
-        for(Categoria categoria : getListaCategorias()){
-            if(categoria.getIdCategoria().equals(idCategoria)){
-                categoriaEncontrada = categoria;
-                break;
+        for (Categoria categoria : listaCategorias) {
+            if (categoria.getIdCategoria().equals(idCategoria)) {
+                return categoria;
             }
         }
-        return categoriaEncontrada;
+        return null;
+    }
+
+    public Categoria obtenerCategoriaPorNombre(NombreCategoria nombreCategoria) {
+        for (Categoria categoria : listaCategorias) {
+            if (categoria.getNombreCategoria() == nombreCategoria) {
+                return categoria;
+            }
+        }
+        return null;
     }
 
     @Override
     public boolean eliminarCategoria(String idCategoria) {
-        Categoria categoria= obtenerCategoria(idCategoria);
-        if(categoria != null){
-            getListaCategorias().remove(categoria);
+        Categoria categoria = obtenerCategoria(idCategoria);
+        if (categoria != null) {
+            listaCategorias.remove(categoria);
             return true;
         }
         return false;
