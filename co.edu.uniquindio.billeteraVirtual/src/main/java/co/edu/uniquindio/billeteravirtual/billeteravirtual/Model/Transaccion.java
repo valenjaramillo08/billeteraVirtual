@@ -36,6 +36,32 @@ public class Transaccion implements IVisitable {
 
     }
 
+    public void procesar(NombreCategoria nombreCategoria) {
+        if (presupuesto != null && nombreCategoria != null) {
+            for (Categoria categoria : presupuesto.getListaCategorias()) {
+                if (categoria.getNombreCategoria() == nombreCategoria) {
+                    if (categoria.getSaldo() >= monto) {
+                        categoria.setSaldo(categoria.getSaldo() - monto);
+                        presupuesto.notificarObservers(); // Para actualizar la UI
+                        return;
+                    } else {
+                        throw new IllegalArgumentException("Saldo insuficiente en la categoría.");
+                    }
+                }
+            }
+            throw new IllegalArgumentException("Categoría no encontrada en el presupuesto.");
+        } else if (presupuesto != null) {
+            // Si no se usa categoría, se descuenta del presupuesto general
+            if (presupuesto.tieneSaldoDisponible(monto)) {
+                presupuesto.gastar(monto);
+            } else {
+                throw new IllegalArgumentException("Saldo insuficiente en el presupuesto.");
+            }
+        }
+    }
+
+
+
     public String getIdTransaccion() {
         return idTransaccion;
     }
