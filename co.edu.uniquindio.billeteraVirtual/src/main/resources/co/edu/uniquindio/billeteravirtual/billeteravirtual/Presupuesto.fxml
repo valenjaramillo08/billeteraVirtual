@@ -5,25 +5,40 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="238.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="            Presupuesto" wrappingWidth="267.0419921875">
+      <Text layoutX="341.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="            Presupuesto" wrappingWidth="267.0419921875">
          <font>
-            <Font size="24.0" />
+            <Font size="12.0" />
          </font>
       </Text>
-      <TabPane layoutX="67.0" layoutY="80.0" prefHeight="507.0" prefWidth="662.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="18.0" layoutY="53.0" prefHeight="532.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Resumen">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="418.0" />
-            </content>
+           <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
+                   <children>
+                      <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
+                         <items>
+                            <fx:include source="usuarioFolder/presupuesto/resumen.fxml" />
+                         </items>
+                      </SplitPane>
+                   </children>
+                </AnchorPane>
+             </content>
           </Tab>
           <Tab text="Presupuestos ">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="629.0" />
-            </content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
+                   <children>
+                      <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
+                         <items>
+                            <fx:include source="usuarioFolder/presupuesto/presupuesto.fxml" />
+                         </items>
+                      </SplitPane>
+                   </children>
+                </AnchorPane>
+             </content>
           </Tab>
         </tabs>
       </TabPane>

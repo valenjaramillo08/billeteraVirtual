@@ -97,7 +97,7 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
                 break;
             }
         }
-
+        System.out.println("Usuario encontrado: " + usuarioEncontrado);
         return usuarioEncontrado;
 
     }
@@ -189,6 +189,7 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             cuenta.setNumeroCuenta(numeroCuenta);
             cuenta.setTipoCuenta(tipoCuenta);
             getListaCuentas().add(cuenta);
+            usuarioAsociado.getListaCuentas().add(cuenta);
 
             return true;
         } else {

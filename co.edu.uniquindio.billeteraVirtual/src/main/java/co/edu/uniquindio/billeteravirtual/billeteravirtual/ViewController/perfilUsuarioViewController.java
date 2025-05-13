@@ -8,7 +8,11 @@ import org.controlsfx.tools.Platform;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.perfilUsuarioController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils.DataUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,6 +22,8 @@ public class perfilUsuarioViewController {
 
     perfilUsuarioController perfilUsuarioController;
     private Usuario usuarioActual;
+    
+    
     
 
     @FXML
@@ -70,7 +76,8 @@ public class perfilUsuarioViewController {
         mostrarAlertaInfo("Datos actualizados correctamente.");
         System.out.println("Usuario actualizado: " + usuarioActual);
     }
-    
+
+   
 
     public void setUsuarioLogueado(Usuario usuario) {
         this.usuarioActual = usuario;
@@ -104,6 +111,7 @@ public class perfilUsuarioViewController {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+
 
 
 
