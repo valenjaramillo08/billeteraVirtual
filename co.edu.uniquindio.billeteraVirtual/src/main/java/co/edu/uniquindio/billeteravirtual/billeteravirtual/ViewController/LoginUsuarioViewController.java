@@ -4,6 +4,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.LoginUsuar
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.HelloApplication;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Proxy.AutenticacionProxy;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils.DataUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +68,8 @@ public class LoginUsuarioViewController {
     private void validarCredenciales(ActionEvent event) throws IOException {
         String id = txt_id_usuario.getText();
         String clave = txt_clave.getText();
+
+        
     
         boolean valid = autenticacion.autenticar(id,clave);
     

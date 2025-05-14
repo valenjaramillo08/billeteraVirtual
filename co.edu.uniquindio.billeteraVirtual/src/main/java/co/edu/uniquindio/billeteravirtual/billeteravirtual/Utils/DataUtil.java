@@ -1,5 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils;
 
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -32,8 +33,6 @@ public class DataUtil {
                 Cuenta cuenta2 = admin.obtenerCuenta("789");
                 Cuenta cuenta3 = admin.obtenerCuenta("1011");
 
-
-
                 // Crear presupuesto y asociarlo
                 Presupuesto presupuesto = new Presupuesto("1", 500000, 0);
                 Presupuesto presupuesto2 = new Presupuesto("2", 100000, 0);
@@ -59,6 +58,7 @@ public class DataUtil {
                                 null);
                 admin.registrarTransaccion(datos);
 
+
                 return billetera;
         }
 
@@ -71,6 +71,7 @@ public class DataUtil {
                                 .contrasenaUsuario(contrasena)
                                 .build();
         }
+
 
         private static Administrador crearAdministrador(String nombre, String apellido, String correo, String id,
                         String contrasena) {

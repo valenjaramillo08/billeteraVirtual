@@ -8,10 +8,12 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.TransaccionViewController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.CategoriasUsuarioViewController;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -28,13 +30,17 @@ public class UsuarioVentanaPrincipalViewController {
     public void setUsuarioLogueado(Usuario usuario) {
         this.usuarioLogueado = usuario;
         cargarVistaPerfil();
+
         cargarVistaTransacciones();
         cargarVistaCategorias();
+        cargarVistaCuentas();
     }
 
 
     @FXML
     private Tab categoriasTab;
+    @FXML
+    private Tab cuentasTab;
 
     @FXML
     private Tab perfilTab;
@@ -64,6 +70,7 @@ public class UsuarioVentanaPrincipalViewController {
     
             perfilUsuarioViewController controller = loader.getController();
             controller.setUsuarioLogueado(usuarioLogueado);  // Asegúrate de que este método exista
+
     
             perfilTab.setContent(vistaPerfil);
         } catch (IOException e) {
@@ -84,6 +91,21 @@ public class UsuarioVentanaPrincipalViewController {
             e.printStackTrace();
         }
     }
+  @FXML
+   private void cargarVistaCuentas() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billeteravirtual/billeteravirtual/usuarioFolder/cuentas/cuenta.fxml"));
+        TabPane vistaCuentas = loader.load();
+
+        CuentaVentanaPrincipalViewController controller = loader.getController();
+        controller.setUsuarioActual(usuarioLogueado);  // ¡Este método pasa el usuario correctamente!
+        System.out.println("Usuario actual: " + usuarioLogueado);
+        cuentasTab.setContent(vistaCuentas);  // o donde quieras mostrar la vista
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 
     private void cargarVistaCategorias() {
         try {
@@ -98,7 +120,6 @@ public class UsuarioVentanaPrincipalViewController {
             e.printStackTrace();
         }
     }
-
 
 }
 
