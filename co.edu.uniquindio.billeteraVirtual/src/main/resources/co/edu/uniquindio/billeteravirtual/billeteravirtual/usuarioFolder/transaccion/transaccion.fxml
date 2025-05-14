@@ -2,54 +2,76 @@
 
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.lang.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.TransaccionViewController">
+<AnchorPane prefHeight="650.0" prefWidth="740.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.TransaccionViewController">
+
    <children>
-      <ListView layoutX="24.0" layoutY="30.0" prefHeight="139.0" prefWidth="690.0" />
-      <ListView layoutX="24.0" layoutY="191.0" prefHeight="139.0" prefWidth="690.0" />
-      <TableView layoutX="24.0" layoutY="392.0" prefHeight="226.0" prefWidth="690.0">
-        <columns>
-          <TableColumn fx:id="tabCFecha" prefWidth="107.0" text="Fecha " />
-          <TableColumn fx:id="tabTipo" prefWidth="116.0" text="Tipo" />
-            <TableColumn fx:id="tabCCuentaO" prefWidth="159.0" text="Cuenta Origen" />
-            <TableColumn fx:id="tabCCuentaD" prefWidth="180.0" text="Cuenta destino" />
-            <TableColumn fx:id="tabCM" prefWidth="127.0" text="Monto" />
-        </columns>
-      </TableView>
-      <Button fx:id="btTransaccion" layoutX="279.0" layoutY="339.0" mnemonicParsing="false" text="Realizar transaccion " />
-      <DatePicker fx:id="dateTransaccion" layoutX="48.0" layoutY="80.0" prefHeight="39.0" prefWidth="203.0" />
-      <TextField fx:id="txtIdTran" layoutX="270.0" layoutY="80.0" prefHeight="39.0" prefWidth="203.0" />
-      <ComboBox fx:id="cbTipo" layoutX="495.0" layoutY="80.0" prefHeight="39.0" prefWidth="203.0" promptText="Tipo" />
-      <Label layoutX="326.0" layoutY="37.0" text="Ingrese el id:">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="48.0" layoutY="215.0" text="Cuenta Origen">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="cbCuentaOrigen" layoutX="150.0" layoutY="204.0" prefHeight="39.0" prefWidth="219.0" promptText="Seleccione Cuenta" />
-      <Label layoutX="429.0" layoutY="280.0" text="Monto">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtMonto" layoutX="479.0" layoutY="269.0" prefHeight="39.0" prefWidth="219.0" />
-      <Label layoutX="385.0" layoutY="215.0" text="Cuenta destino">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="cbCuentaDestino" layoutX="479.0" layoutY="204.0" prefHeight="39.0" prefWidth="219.0" promptText="Seleccione Cuenta" />
-      <TextField fx:id="txtSaldoActual" layoutX="150.0" layoutY="269.0" prefHeight="39.0" prefWidth="219.0" />
-      <Label layoutX="59.0" layoutY="280.0" text="Saldo Actual">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
+
+      <!-- Título -->
+      <Label layoutX="20.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" text="Gestión de Transacciones" />
+
+      <!-- Contenedor de campos -->
+      <VBox layoutX="20.0" layoutY="60.0" prefWidth="700" spacing="15.0">
+         <children>
+
+            <!-- Fila 1 -->
+            <HBox spacing="20.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Tipo de Transacción" />
+                        <ComboBox fx:id="cbTipo" prefWidth="200.0" promptText="Tipo" />
+                     </children>
+                  </VBox>
+
+                  <VBox spacing="5.0">
+   <children>
+                        <Label text="Cuenta Origen" />
+                        <ComboBox fx:id="cbCuentaOrigen" prefWidth="200.0" promptText="Seleccione cuenta" />
    </children>
-</Pane>
+                  </VBox>
+
+                  <VBox spacing="5.0">
+   <children>
+                        <Label text="Cuenta Destino" />
+                        <ComboBox fx:id="cbCuentaDestino" prefWidth="200.0" promptText="Seleccione cuenta" />
+   </children>
+                  </VBox>
+               </children>
+            </HBox>
+
+            <!-- Fila 2 -->
+            <HBox spacing="20.0">
+               <children>
+                  <VBox spacing="5.0" />
+
+                  <VBox spacing="5.0" />
+
+                  <VBox alignment="BOTTOM_RIGHT" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <!-- Tabla -->
+      <TableView fx:id="tablaTransacciones" layoutX="20.0" layoutY="280.0" prefHeight="350.0" prefWidth="700.0" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 5px;">
+         <columns>
+            <TableColumn fx:id="tabCFecha" prefWidth="100.0" text="Fecha" />
+            <TableColumn fx:id="tabTipo" prefWidth="100.0" text="Tipo" />
+            <TableColumn fx:id="tabCCuentaO" prefWidth="150.0" text="Cuenta Origen" />
+            <TableColumn fx:id="tabCCuentaD" prefWidth="150.0" text="Cuenta Destino" />
+            <TableColumn fx:id="tabCM" prefWidth="100.0" text="Monto" />
+         </columns>
+      </TableView>
+      <Button fx:id="btTransaccion" layoutX="276.0" layoutY="234.0" onAction="#onCrearTransaccion" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Realizar Transacción" />
+      <TextField fx:id="txtMonto" layoutX="460.0" layoutY="163.0" prefWidth="200.0" />
+      <Label layoutX="464.0" layoutY="139.0" text="Monto a transferir" />
+      <TextField fx:id="txtSaldoActual" editable="false" layoutX="237.0" layoutY="163.0" prefWidth="200.0" style="-fx-background-color: #e0e0e0;" />
+      <Label layoutX="247.0" layoutY="139.0" text="Saldo Actual" />
+      <Label layoutX="20.0" layoutY="139.0" text="La plata sale de:" />
+      <ComboBox fx:id="comboPlata" layoutX="20.0" layoutY="163.0" onAction="#onComboPlata" prefHeight="25.0" prefWidth="200.0" />
+
+   </children>
+</AnchorPane>

@@ -1,91 +1,80 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Facade.TransaccionFacade;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.UUID;
 
-
-import com.itextpdf.text.List;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
 
 public class DataUtil {
 
-        public static Billetera billetera;
-        
-    public static Billetera inicializarDatos() {
+        public static Billetera inicializarDatos() {
+                Billetera billetera = new Billetera();
+                Administrador admin = crearAdministrador("admin", "empleado", "admin@gmail.com", "123", "123");
+                billetera.getListaAdministradores().add(admin);
 
-     
+                // Crear usuarios
+                Usuario usuario1 = crearUsuario("Valentina", "Orozco", "321", "valentina@gmail.com", "12345");
+                Usuario usuario2 = crearUsuario("Laura", "Bareño", "1234", "laura@gmail.com", "12346");
+                Usuario usuario3 = crearUsuario("Mateo", "Toquica", "2223", "mateo@gmail.com", "12347");
 
-        Billetera billetera = new Billetera();
-        Administrador administrador = new Administrador("admin", "empleadp", "admin@gmail.com","123", "123");
-        Usuario usuario1 = Usuario.builder()
-                .nombre("Valentina")
-                .apellido("Orozco")
-                .idUsuario("12736")
-                .correo("valentina@gmail.com")
-                .contrasenaUsuario("12345678")
-                .build();
+                // Agregar usuarios a billetera y administrador
+                billetera.getListaUsuarios().addAll(List.of(usuario1, usuario2, usuario3));
+                admin.getListaUsuarios().addAll(List.of(usuario2, usuario3));
 
-        Usuario usuario2 = Usuario.builder()
-                .nombre("Laura")
-                .apellido("Bareño")
-                .idUsuario("132324")
-                .correo("laura@gmail.com")
-                .contrasenaUsuario("1234678")
-                .build();
+                // Crear cuentas para usuario3
+                admin.agregarCuenta("567", "Bogotá", "889", TipoCuenta.AHORROS, usuario3, admin);
+                admin.agregarCuenta("789", "Banco Popular", "123", TipoCuenta.AHORROS, usuario3, admin);
+                admin.agregarCuenta("1011", "banco mi banco", "1212", TipoCuenta.AHORROS, usuario2, admin);
 
-        Usuario usuario3 = Usuario.builder()
-                .nombre("Mateo")
-                .apellido("Toquica")
-                .idUsuario("2223")
-                .correo("mateo@gmail.com")
-                .contrasenaUsuario("1234778")
-                .build();
+                Cuenta cuenta1 = admin.obtenerCuenta("567");
+                Cuenta cuenta2 = admin.obtenerCuenta("789");
+                Cuenta cuenta3 = admin.obtenerCuenta("1011");
 
+                // Crear presupuesto y asociarlo
+                Presupuesto presupuesto = new Presupuesto("1", 500000, 0);
+                Presupuesto presupuesto2 = new Presupuesto("2", 100000, 0);
+                Presupuesto presupuesto3 = new Presupuesto("3", 1000000, 0);
+                presupuesto.agregarCategoria(NombreCategoria.COMIDA, "222", 20000);
+                presupuesto.agregarCategoria(NombreCategoria.TRANSPORTE, "333", 20000);
+                cuenta2.setPresupuesto(presupuesto);
 
-
-        // Crear transacción usando Facade
-        TransaccionFacade transaccionFacade = new TransaccionFacade();
+                cuenta1.setPresupuesto(presupuesto2);
+                cuenta3.setPresupuesto(presupuesto3);
 
 
 
-
-        billetera.getListaUsuarios().add(usuario1);
-        billetera.getListaUsuarios().add(usuario2);
-        billetera.getListaUsuarios().add(usuario3);
-        administrador.getListaUsuarios().add(usuario3);
-        administrador.getListaUsuarios().add(usuario2);
-
-        administrador.agregarCuenta("567", "bogota", "889", TipoCuenta.AHORROS, usuario3, administrador);
-        billetera.getListaAdministradores().add(administrador);
-        administrador.agregarCuenta("890","AVVillas","6383",TipoCuenta.CORRIENTE,usuario2,administrador);
-        administrador.agregarCuenta("7485","BBVA" ,"5647474",TipoCuenta.AHORROS, usuario3, administrador);
-        administrador.agregarCuenta("7890","Colpatria" ,"563783",TipoCuenta.CORRIENTE, usuario1, administrador);
-      
+                // Crear transacción entre cuentas
+                DatosTransaccion datos = new DatosTransaccion(
+                                UUID.randomUUID().toString(),
+                                cuenta2,
+                                LocalDate.now(),
+                                100000,
+                                "Depósito de prueba",
+                                cuenta1,
+                                TipoTransaccion.DEPOSITO,
+                                null);
+                admin.registrarTransaccion(datos);
 
 
-        return billetera;
-    }
-
-
-  
-    public static Usuario autenticarUsuario(String correo, String contrasena) {
-        return billetera.getListaUsuarios().stream()
-                .filter(u -> u.getCorreo().equals(correo) && u.getContrasenaUsuario().equals(contrasena))
-                .findFirst()
-                .orElse(null);
-    }
-
-        public static ObservableList<Cuenta> obtenerCuentasUsuario (Usuario usuario){
-                return FXCollections.observableArrayList(usuario.getListaCuentas());
+                return billetera;
         }
 
- 
+        private static Usuario crearUsuario(String nombre, String apellido, String idUsuario, String correo, String contrasena) {
+                return Usuario.builder()
+                                .nombre(nombre)
+                                .apellido(apellido)
+                                .idUsuario(idUsuario)
+                                .correo(correo)
+                                .contrasenaUsuario(contrasena)
+                                .build();
+        }
 
 
+        private static Administrador crearAdministrador(String nombre, String apellido, String correo, String id,
+                        String contrasena) {
+                return new Administrador(nombre, apellido, correo, id, contrasena);
+        }
 }

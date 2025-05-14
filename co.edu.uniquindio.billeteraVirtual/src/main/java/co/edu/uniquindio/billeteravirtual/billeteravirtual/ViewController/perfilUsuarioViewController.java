@@ -7,8 +7,6 @@ import javafx.scene.control.Alert;
 import org.controlsfx.tools.Platform;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.perfilUsuarioController;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils.DataUtil;
 import javafx.collections.FXCollections;

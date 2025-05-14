@@ -12,13 +12,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUsuarioServices, IAdministradorServices, ITransaccionServices {
+
+public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUsuarioServices, IAdministradorServices, ITransaccionServices, ICategoriaServices {
+
     private static ModelFactory modelFactory;
     private Billetera billetera;
     private IAdministradorMapping mapper;
     private Administrador administrador;
-    private TransaccionFacade transaccionFacade;
     private ReporteService reporteService;
+    private Presupuesto presupuesto;
+    private Categoria categoria;
+
 
     public static ModelFactory getInstancia() {
         if(modelFactory == null) {
@@ -32,6 +36,13 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
         billetera = DataUtil.inicializarDatos();
         administrador = billetera.getListaAdministradores().getFirst();
         reporteService = new ReporteService();
+
+
+
+    }
+
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
     }
 
     public ReporteService getReporteService() {
@@ -136,5 +147,34 @@ public class ModelFactory implements IModelFactoryServices, ICuentaServices, IUs
         return administrador.agregarTransaccion(transaccion);
     }
 
+    @Override
+    public List<Transaccion> obtenerTransacciones(){
+        return administrador.getListaTransacciones();
+    }
 
+
+    @Override
+    public List<Categoria> getListaCategorias() {
+        return presupuesto.getListaCategorias();
+    }
+
+    @Override
+    public boolean agregarCategoria(NombreCategoria nombreCategoria, String idCategoria, double saldo) {
+        return presupuesto.agregarCategoria(nombreCategoria, idCategoria, saldo);
+    }
+
+    @Override
+    public Categoria obtenerCategoria(String idCategoria) {
+        return presupuesto.obtenerCategoria(idCategoria);
+    }
+
+    @Override
+    public boolean eliminarCategoria(String idCategoria) {
+        return presupuesto.eliminarCategoria(idCategoria);
+    }
+
+    @Override
+    public boolean actualizarCategoria(NombreCategoria nombreCategoria, String idCategoriaActual, String idCategoria, String telefono) {
+        return presupuesto.actualizarCategoria(nombreCategoria, idCategoria, idCategoriaActual, telefono);
+    }
 }

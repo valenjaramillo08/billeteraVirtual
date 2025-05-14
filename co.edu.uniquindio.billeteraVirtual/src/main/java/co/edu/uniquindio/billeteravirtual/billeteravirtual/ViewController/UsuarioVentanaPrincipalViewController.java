@@ -1,23 +1,21 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.HelloApplication;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.perfilUsuarioController;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils.DataUtil;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.GestionarCuentaViewController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.TransaccionViewController;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.CategoriasUsuarioViewController;
+
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class UsuarioVentanaPrincipalViewController {
     private HelloApplication helloApp;
@@ -29,19 +27,26 @@ public class UsuarioVentanaPrincipalViewController {
 
     }
 
-
-
     public void setUsuarioLogueado(Usuario usuario) {
         this.usuarioLogueado = usuario;
         cargarVistaPerfil();
+
+        cargarVistaTransacciones();
+        cargarVistaCategorias();
         cargarVistaCuentas();
     }
 
+
+    @FXML
+    private Tab categoriasTab;
     @FXML
     private Tab cuentasTab;
 
     @FXML
     private Tab perfilTab;
+
+    @FXML
+    private Tab transaccionTab;
 
     @FXML
     void OnCerrarSesionUsuario(ActionEvent event)  throws IOException {
@@ -71,18 +76,23 @@ public class UsuarioVentanaPrincipalViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-}
+    }
 
+    private void cargarVistaTransacciones() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billeteravirtual/billeteravirtual/usuarioFolder/transaccion/transaccion.fxml"));
+            Pane vistaTransacciones = loader.load();
 
+            TransaccionViewController controller = loader.getController();
+            controller.setUsuarioLogueado(usuarioLogueado);  // ✅ Aquí se pasa el usuario
 
-
-
-
-
-
-
-@FXML
-private void cargarVistaCuentas() {
+            transaccionTab.setContent(vistaTransacciones); // Reemplazas el contenido del Tab
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+  @FXML
+   private void cargarVistaCuentas() {
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billeteravirtual/billeteravirtual/usuarioFolder/cuentas/cuenta.fxml"));
         TabPane vistaCuentas = loader.load();
@@ -97,10 +107,19 @@ private void cargarVistaCuentas() {
     }
 }
 
+    private void cargarVistaCategorias() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billeteravirtual/billeteravirtual/categoriasUsuario.fxml"));
+            AnchorPane vistaCategorias = loader.load();
 
+            CategoriasUsuarioViewController controller = loader.getController();
+            controller.setUsuarioLogueado(usuarioLogueado); // ✅ Pasa el usuario al controlador
 
-
-
+            categoriasTab.setContent(vistaCategorias); // ✅ Muestra la vista dentro del tab
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator;
 
+
 public class TransaccionConNotificacion extends DecoratorTransaccion{
 
     public TransaccionConNotificacion(Transaccion transaccion){
@@ -11,15 +12,5 @@ public class TransaccionConNotificacion extends DecoratorTransaccion{
         super.ejecutar();
         System.out.println("Enviando notificacion al usuario");
     }
-
-    
-
-
-
    
-
-
-
-    
-    
 }
