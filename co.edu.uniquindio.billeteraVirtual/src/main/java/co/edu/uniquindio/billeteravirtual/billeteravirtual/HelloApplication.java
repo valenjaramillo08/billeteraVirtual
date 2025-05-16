@@ -24,6 +24,7 @@ public class HelloApplication extends Application {
     private Stage primaryStage;
     @Override
     public void start(Stage stage) throws IOException {
+        DataUtil.inicializarDatos();
         this.primaryStage = stage;
         this.primaryStage.setTitle("Billetera Virtual");
 

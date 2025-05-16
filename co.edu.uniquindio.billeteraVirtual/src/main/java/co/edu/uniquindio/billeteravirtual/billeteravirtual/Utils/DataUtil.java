@@ -1,5 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils;
 
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +28,7 @@ public class DataUtil {
                 admin.agregarCuenta("567", "Bogotá", "889", TipoCuenta.AHORROS, usuario3, admin);
                 admin.agregarCuenta("789", "Banco Popular", "123", TipoCuenta.AHORROS, usuario3, admin);
                 admin.agregarCuenta("1011", "banco mi banco", "1212", TipoCuenta.AHORROS, usuario2, admin);
+
                 admin.agregarCuenta("1234", "Banco Davivienda", "4321", TipoCuenta.AHORROS, usuario1, admin);
 
                 Cuenta cuenta1 = admin.obtenerCuenta("567");  // Mateo
@@ -39,6 +41,8 @@ public class DataUtil {
                 presupuesto.agregarCategoria(NombreCategoria.COMIDA, "222", 200000);
                 presupuesto.agregarCategoria(NombreCategoria.TRANSPORTE, "333", 120000);
                 presupuesto.agregarCategoria(NombreCategoria.UNIVERSIDAD, "555", 200000);
+
+               
                 cuenta2.setPresupuesto(presupuesto);
 
                 // Presupuesto para cuenta1 (Mateo)
@@ -117,6 +121,7 @@ public class DataUtil {
                         System.out.println("❌ Valentina: Error al procesar transacción → " + e.getMessage());
                 }
 
+
                 return billetera;
         }
 
@@ -131,6 +136,7 @@ public class DataUtil {
         }
 
         private static Administrador crearAdministrador(String nombre, String apellido, String correo, String id, String contrasena) {
+
                 return new Administrador(nombre, apellido, correo, id, contrasena);
         }
 }

@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="765.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.PresupuestoViewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="687.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.PresupuestoViewController">
    <children>
       <ListView layoutX="36.0" layoutY="41.0" prefHeight="237.0" prefWidth="392.0" />
       <Label layoutX="112.0" layoutY="58.0" prefHeight="27.0" prefWidth="142.0" text="Nombre">
@@ -32,18 +32,42 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <Label layoutX="67.0" layoutY="425.0" text="Monto Presupuesto Gastado">
+      <Label layoutX="70.0" layoutY="406.0" text="Monto Presupuesto Gastado">
          <font>
             <Font size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtIdPresupuesto" layoutX="205.0" layoutY="132.0" prefHeight="39.0" prefWidth="209.0" />
-      <TextField fx:id="txtNomPresupuesto" layoutX="206.0" layoutY="218.0" prefHeight="39.0" prefWidth="209.0" />
-      <TextField fx:id="txtMontoPre" layoutX="261.0" layoutY="327.0" />
-      <TextField fx:id="txtMontoPreGastado" layoutX="261.0" layoutY="423.0" />
-      <Button fx:id="btNuevo" layoutX="558.0" layoutY="56.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="98.0" text="Nuevo" />
-      <Button fx:id="btEditar" layoutX="561.0" layoutY="140.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="98.0" text="Editar" />
-      <Button fx:id="btEliminar" layoutX="561.0" layoutY="225.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="98.0" text="Eliminar" />
-      <Button fx:id="btActualizar" layoutX="565.0" layoutY="319.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="104.0" text="Actualizar" />
+      <TextField fx:id="txtIdPresupuesto" layoutX="205.0" layoutY="132.0" prefHeight="39.0" prefWidth="209.0">
+         <font>
+            <Font size="12.0" />
+         </font></TextField>
+      <TextField fx:id="txtNomPresupuesto" layoutX="206.0" layoutY="218.0" prefHeight="39.0" prefWidth="209.0">
+         <font>
+            <Font size="12.0" />
+         </font></TextField>
+      <TextField fx:id="txtMontoPre" layoutX="261.0" layoutY="327.0">
+         <font>
+            <Font size="12.0" />
+         </font></TextField>
+      <TextField fx:id="txtMontoPreGastado" layoutX="261.0" layoutY="395.0">
+         <font>
+            <Font size="12.0" />
+         </font></TextField>
+      <Button fx:id="btNuevo" layoutX="524.0" layoutY="52.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="98.0" text="Nuevo">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
+      <Button fx:id="btEditar" layoutX="524.0" layoutY="119.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="98.0" text="Editar">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
+      <Button fx:id="btEliminar" layoutX="524.0" layoutY="197.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="98.0" text="Eliminar">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
+      <Button fx:id="btActualizar" layoutX="524.0" layoutY="319.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="104.0" text="Actualizar">
+         <font>
+            <Font size="12.0" />
+         </font></Button>
    </children>
 </Pane>
