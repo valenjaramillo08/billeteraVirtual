@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MostrarEstadisticasAdmViewController {
-    MostrarEstadisticasAdmController mostrarEstadisticasAdmController;
+    private MostrarEstadisticasAdmController mostrarEstadisticasAdmController;
 
     @FXML
     private ResourceBundle resources;
@@ -29,18 +29,19 @@ public class MostrarEstadisticasAdmViewController {
     @FXML
     void onMostrarEstadistica(ActionEvent event) {
         String seleccion = comboEstadisticas.getValue();
-        if (seleccion == null) return;
+        if (seleccion == null || seleccion.isEmpty()) return;
 
         ObservableList<PieChart.Data> datos = mostrarEstadisticasAdmController.obtenerDatosParaEstadistica(seleccion);
-
         chartEstadistica.setTitle(mostrarEstadisticasAdmController.obtenerTituloEstadistica(seleccion));
         chartEstadistica.setData(datos);
-
     }
 
     @FXML
     void initialize() {
         mostrarEstadisticasAdmController = new MostrarEstadisticasAdmController();
-        comboEstadisticas.setItems(FXCollections.observableArrayList(mostrarEstadisticasAdmController.obtenerOpcionesEstadisticas()));
+        comboEstadisticas.setItems(FXCollections.observableArrayList(
+                mostrarEstadisticasAdmController.obtenerOpcionesEstadisticas()));
+        comboEstadisticas.setOnAction(this::onMostrarEstadistica);
     }
+
 }

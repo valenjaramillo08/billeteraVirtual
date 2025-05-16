@@ -53,38 +53,73 @@ public class TransaccionViewController {
             Cuenta destino = cbCuentaDestino.getValue();
             NombreCategoria nombreCategoria = comboPlata.getValue();
 
-            if (tipo == null || origen == null || (tipo == TipoTransaccion.DEPOSITO && destino == null)) {
-                mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debes seleccionar los campos requeridos.");
+            if (tipo == null) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar un tipo de transacción.");
                 return;
             }
 
-            Presupuesto presupuesto = origen.getPresupuesto();
-            if (presupuesto == null) {
-                mostrarAlerta(Alert.AlertType.WARNING, "Sin presupuesto", "La cuenta seleccionada no tiene un presupuesto.");
-                return;
+            if (tipo == TipoTransaccion.RETIRO || tipo == TipoTransaccion.TRANSFERENCIA) {
+                if (origen == null || nombreCategoria == null) {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar la cuenta origen y la categoría.");
+                    return;
+                }
+                Presupuesto presupuesto = origen.getPresupuesto();
+                if (presupuesto == null) {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Sin presupuesto", "La cuenta seleccionada no tiene un presupuesto.");
+                    return;
+                }
+
+                Categoria categoria = presupuesto.obtenerCategoriaPorNombre(nombreCategoria);
+                if (categoria == null || monto > categoria.getSaldo()) {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Saldo insuficiente en la categoría",
+                            "No puedes retirar más de lo que tienes en esta categoría.");
+                    return;
+                }
+
+                DatosTransaccion datos = new DatosTransaccion(
+                        id, origen, fecha, monto, "Generada por usuario", destino,
+                        tipo, presupuesto
+                );
+
+                Transaccion transaccion = FabricaTransacciones.crear(datos);
+                transaccion.setPresupuesto(presupuesto);
+                transaccion.procesar(nombreCategoria);
+                transacciones.add(transaccion);
+
+                // Si es transferencia, también incrementar el presupuesto de la cuenta destino
+                if (tipo == TipoTransaccion.TRANSFERENCIA && destino != null && destino.getPresupuesto() != null) {
+                    Presupuesto destinoPresupuesto = destino.getPresupuesto();
+                    destinoPresupuesto.setMontoPresupuesto(destinoPresupuesto.getMontoPresupuesto() + monto);
+                    destinoPresupuesto.notificarObservers();
+                }
+
+            } else if (tipo == TipoTransaccion.DEPOSITO) {
+                if (destino == null) {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar la cuenta destino.");
+                    return;
+                }
+
+                Presupuesto presupuesto = destino.getPresupuesto();
+                if (presupuesto == null) {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Sin presupuesto", "La cuenta destino no tiene un presupuesto asociado.");
+                    return;
+                }
+
+                DatosTransaccion datos = new DatosTransaccion(
+                        id, null, fecha, monto, "Generada por usuario", destino,
+                        tipo, presupuesto
+                );
+
+                Transaccion transaccion = FabricaTransacciones.crear(datos);
+                transaccion.setPresupuesto(presupuesto);
+
+                // Aumentar el presupuesto con el monto depositado
+                presupuesto.setMontoPresupuesto(presupuesto.getMontoPresupuesto() + monto);
+                presupuesto.notificarObservers();
+
+                transacciones.add(transaccion);
             }
 
-            Categoria categoria = presupuesto.getListaCategorias().stream()
-                    .filter(cat -> cat.getNombreCategoria() == nombreCategoria)
-                    .findFirst()
-                    .orElse(null);
-
-            if (categoria == null || monto > categoria.getSaldo()) {
-                mostrarAlerta(Alert.AlertType.WARNING, "Saldo insuficiente en la categoría",
-                        "No puedes retirar más de lo que tienes en esta categoría.");
-                return;
-            }
-
-            DatosTransaccion datos = new DatosTransaccion(
-                    id, origen, fecha, monto, "Generada por usuario", destino,
-                    tipo, presupuesto
-            );
-
-            Transaccion transaccion = FabricaTransacciones.crear(datos);
-            transaccion.setPresupuesto(presupuesto);
-            transaccion.procesar(nombreCategoria); // Aquí se descuenta solo de la categoría
-
-            transacciones.add(transaccion);
             mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Transacción registrada correctamente.");
             limpiarCampos();
         } catch (Exception e) {

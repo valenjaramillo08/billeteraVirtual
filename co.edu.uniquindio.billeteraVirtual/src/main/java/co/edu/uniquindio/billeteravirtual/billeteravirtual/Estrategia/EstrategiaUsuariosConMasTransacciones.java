@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EstrategiaUsuariosConMasTransacciones implements EstrategiaEstadistica {
+
     @Override
     public String getTitulo() {
         return "Usuarios con más transacciones";
@@ -21,7 +22,12 @@ public class EstrategiaUsuariosConMasTransacciones implements EstrategiaEstadist
             for (Cuenta cuenta : u.getListaCuentas()) {
                 total += cuenta.getListaTransacciones().size();
             }
-            resultado.add(new EstadisticaCategoria(u.getNombre(), total));
+
+            System.out.println(u.getNombre() + " tiene " + total + " transacciones.");
+
+            if (total > 0) {
+                resultado.add(new EstadisticaCategoria(u.getNombre(), total));
+            }
         }
 
         return resultado;

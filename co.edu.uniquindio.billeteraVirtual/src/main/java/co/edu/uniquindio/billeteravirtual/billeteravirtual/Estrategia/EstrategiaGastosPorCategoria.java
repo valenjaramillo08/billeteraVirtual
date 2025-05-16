@@ -1,8 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Estrategia;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Presupuesto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,29 +14,31 @@ public class EstrategiaGastosPorCategoria implements EstrategiaEstadistica {
     @Override
     public List<EstadisticaCategoria> calcular(List<Usuario> usuarios) {
         List<EstadisticaCategoria> resultado = new ArrayList<>();
-
         for (Usuario usuario : usuarios) {
             for (Cuenta cuenta : usuario.getListaCuentas()) {
-                Presupuesto presupuesto = cuenta.getPresupuesto();
-               if (presupuesto != null ) {
-                   String nombreCategoria = "presupuesto.getCategoria().getNombre()";
-                    double gasto = presupuesto.getMontoPresupuestoGastado();
+                for (Transaccion transaccion : cuenta.getListaTransacciones()) {
+                    NombreCategoria categoria = transaccion.getCategoriaProcesada();
+                    if (categoria != null) {
+                        String nombreCategoria = categoria.name(); // O también: categoria.toString();
+                        double monto = transaccion.getMonto();
 
-                    boolean encontrada = false;
-                    for (EstadisticaCategoria ec : resultado) {
-                       if (ec.getNombre().equals(nombreCategoria)) {
-                            ec.sumarValor(gasto);
-                            encontrada = true;
-                            break;
+                        boolean encontrada = false;
+                        for (EstadisticaCategoria ec : resultado) {
+                            if (ec.getNombre().equals(nombreCategoria)) {
+                                ec.sumarValor(monto);
+                                encontrada = true;
+                                break;
+                            }
                         }
-                    }
 
-                   if (!encontrada) {
-                       resultado.add(new EstadisticaCategoria(nombreCategoria, gasto));
+                        if (!encontrada) {
+                            resultado.add(new EstadisticaCategoria(nombreCategoria, monto));
+                        }
                     }
                 }
             }
         }
         return resultado;
+
     }
 }

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Estrategia;
 
 public class EstadisticaCategoria {
+
     public String nombre;
     public double valor;
 
