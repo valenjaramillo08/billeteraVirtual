@@ -31,6 +31,7 @@ public class DataUtil {
 
                 admin.agregarCuenta("1234", "Banco Davivienda", "4321", TipoCuenta.AHORROS, usuario1, admin);
 
+
                 Cuenta cuenta1 = admin.obtenerCuenta("567");  // Mateo
                 Cuenta cuenta2 = admin.obtenerCuenta("789");  // Mateo
                 Cuenta cuenta3 = admin.obtenerCuenta("1011"); // Laura

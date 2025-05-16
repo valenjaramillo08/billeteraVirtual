@@ -98,7 +98,7 @@ public class UsuarioVentanaPrincipalViewController {
         TabPane vistaCuentas = loader.load();
 
         CuentaVentanaPrincipalViewController controller = loader.getController();
-        controller.setUsuarioActual(usuarioLogueado);  // ¡Este método pasa el usuario correctamente!
+        controller.setUsuarioLogueado(usuarioLogueado);  // ¡Este método pasa el usuario correctamente!
         System.out.println("Usuario actual: " + usuarioLogueado);
         cuentasTab.setContent(vistaCuentas);  // o donde quieras mostrar la vista
 
