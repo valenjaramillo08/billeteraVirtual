@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.ConsulTransaccionViewController">
    <children>
       <Text layoutX="278.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consulta de transacciones ">
@@ -32,9 +31,10 @@
       <Separator layoutX="23.0" layoutY="171.0" prefHeight="11.0" prefWidth="629.0" />
       <TableView fx:id="tableTransacciones" layoutX="23.0" layoutY="188.0" prefHeight="200.0" prefWidth="629.0">
         <columns>
-          <TableColumn fx:id="tcFecha" prefWidth="75.0" text="Fecha " />
-          <TableColumn fx:id="tcMonto" prefWidth="75.0" text="Monto " />
-            <TableColumn fx:id="tcCategoria" prefWidth="120.0" text="Categoria" />
+          <TableColumn fx:id="tcFecha" prefWidth="146.0" text="Fecha " />
+          <TableColumn fx:id="tcMonto" prefWidth="161.0" text="Monto " />
+            <TableColumn fx:id="tcCategoria" prefWidth="150.0" text="Categoria" />
+            <TableColumn fx:id="tcTipo" prefWidth="171.0" text="Tipo" />
         </columns>
       </TableView>
       <Button fx:id="btVerTodas" layoutX="195.0" layoutY="416.0" mnemonicParsing="false" text="Ver todas ">

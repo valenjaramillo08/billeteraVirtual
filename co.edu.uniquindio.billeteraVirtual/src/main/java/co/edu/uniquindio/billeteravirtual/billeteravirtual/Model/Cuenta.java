@@ -1,5 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,6 +93,24 @@ public class Cuenta {
     public void setListaTransacciones(List<Transaccion> listaTransacciones) {
         this.listaTransacciones = listaTransacciones;
     }
+
+    public double calcularSaldo(LocalDate desde, LocalDate hasta) {
+        if (presupuesto != null) {
+            double inicio = presupuesto.getMontoEnFecha(desde);
+            double fin = presupuesto.getMontoEnFecha(hasta);
+            return fin - inicio;
+        }
+        return 0;
+                
+    }
+
+    public double getSaldoActual() {
+       if (presupuesto != null){
+        return presupuesto.getMontoPresupuesto();
+       }
+       return 0;
+    }
+
 
     @Override
     public String toString() {

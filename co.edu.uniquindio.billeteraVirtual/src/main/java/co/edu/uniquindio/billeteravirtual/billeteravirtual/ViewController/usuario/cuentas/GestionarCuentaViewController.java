@@ -2,7 +2,9 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuar
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
@@ -64,42 +66,41 @@ public class GestionarCuentaViewController {
 
     }
 
-  public void setUsuarioActual(Usuario usuario) {
+    public void setUsuarioActual(Usuario usuario) {
+        if (usuario == null) {
+        System.err.println("El usuario proporcionado es null");
+        return;
+    }
     this.usuarioActual = usuario;
-    cargarCuentas(); // Cargar cuentas del usuario una vez recibido
-  }
+    System.out.println("Usuario actual: " + usuario.getNombre());
+
+    // Cargamos las cuentas del usuario en la tabla
+    cargarCuentas();
+    }
 
    private void cargarCuentas() {
-      try {
-        if(usuarioActual == null) {
+     try {
+        if (usuarioActual == null) {
             System.err.println("Usuario actual es null");
             return;
         }
-        
-        ObservableList<Cuenta> cuentasUsuario = DataUtil.obtenerCuentasUsuario(usuarioActual);
-        System.out.println("Cuentas del usuario: " + cuentasUsuario);//NUNCA LLEGA A ESTE METODO
 
-        if(cuentasUsuario == null || cuentasUsuario.isEmpty()) {
-            System.out.println("No se encontraron cuentas para este usuario");
-            return;
+        List<Cuenta> cuentas = usuarioActual.getListaCuentas();
+        System.out.println("Cantidad de cuentas del usuario: " + cuentas.size());
+        for (Cuenta c : cuentas) {
+            System.out.println("Cuenta -> Número: " + c.getNumeroCuenta() + ", Banco: " + c.getNombreBanco());
         }
-        
-        
+
+        ObservableList<Cuenta> cuentasUsuario = FXCollections.observableArrayList(cuentas);
         tableCuentas.setItems(cuentasUsuario);
-        tableCuentas.refresh(); // Forzar actualización de la tabla
-        
+        tableCuentas.refresh();
     } catch (Exception e) {
-        System.err.println("Error al cargar cuentas: " + e.getMessage());
         e.printStackTrace();
-        
-        // Mostrar alerta al usuario
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("No se pudieron cargar las cuentas");
-        alert.setContentText(e.getMessage());
-        alert.showAndWait();
+        new Alert(Alert.AlertType.ERROR, "Error cargando cuentas: " + e.getMessage()).showAndWait();
     }
-   }
+
+}
+     
 
     @FXML
     void mostrarDetallesCuenta(ActionEvent event) {

@@ -21,5 +21,6 @@ module co.edu.uniquindio.billeteravirtual.billeteravirtual {
     exports co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller;
 
     opens co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas to javafx.fxml;
-     opens co.edu.uniquindio.billeteravirtual.billeteravirtual.Model to javafx.base, javafx.fxml;
+    opens co.edu.uniquindio.billeteravirtual.billeteravirtual.Model to javafx.base, javafx.fxml;
+    
 }

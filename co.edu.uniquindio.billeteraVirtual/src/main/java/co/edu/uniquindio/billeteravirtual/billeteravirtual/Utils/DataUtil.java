@@ -33,6 +33,7 @@ public class DataUtil {
                 Cuenta cuenta2 = admin.obtenerCuenta("789");
                 Cuenta cuenta3 = admin.obtenerCuenta("1011");
 
+
                 // Crear presupuesto y asociarlo
                 Presupuesto presupuesto = new Presupuesto("1", 500000, 0);
                 Presupuesto presupuesto2 = new Presupuesto("2", 100000, 0);

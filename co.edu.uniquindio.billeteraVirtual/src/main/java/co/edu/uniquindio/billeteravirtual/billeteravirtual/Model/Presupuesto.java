@@ -6,6 +6,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICategoriaSer
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
     private double montoPresupuestoGastado;
     private List<Categoria> listaCategorias = new ArrayList<>();
     public List<Observador> observadores = new ArrayList<>();
+    public List<RegistroPresupuesto> listaRegistros = new ArrayList<>();
 
     public Presupuesto(String idPresupuesto, double montoPresupuesto, double montoPresupuestoGastado) {
         this.idPresupuesto = idPresupuesto;
@@ -75,6 +77,7 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
 
     public void setMontoPresupuesto(double montoPresupuesto) {
         this.montoPresupuesto = montoPresupuesto;
+        listaRegistros.add(new RegistroPresupuesto(LocalDate.now(), montoPresupuesto));
     }
 
     public List<Categoria> getListaCategorias() {
@@ -141,4 +144,25 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
     public void setObservadores(List<Observador> observadores) {
         this.observadores = observadores;
     }
+
+    public double getMontoEnFecha(LocalDate fecha) {
+        double monto = 0;
+        for (RegistroPresupuesto registro : listaRegistros) {
+            if (!registro.getFecha().isEqual(fecha)) {
+                monto = registro.getMonto();
+            }else{
+                break;
+            }
+        }
+        return monto;
+    }
+
+    @Override
+    public String toString() {
+        return "Presupuesto [montoPresupuesto=" + montoPresupuesto + ", montoPresupuestoGastado="
+                + montoPresupuestoGastado + "]";
+    }
+
+
+    
 }
