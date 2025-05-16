@@ -6,40 +6,41 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 import java.time.LocalDate;
 
 public class Transaccion implements IVisitable {
-    public String idTransaccion;
-    public Cuenta CuentaOrigen;
-    public LocalDate fechaTransaccion;
-    public double monto;
-    public String descripcion;
-    public Cuenta CuentaDestino;
-    public TipoTransaccion tipoTransaccion;
-    public Presupuesto presupuesto;
+    private String idTransaccion;
+    private Cuenta cuentaOrigen;
+    private LocalDate fechaTransaccion;
+    private double monto;
+    private String descripcion;
+    private Cuenta cuentaDestino;
+    private TipoTransaccion tipoTransaccion;
+    private Presupuesto presupuesto;
+    private NombreCategoria categoriaProcesada;
 
-    public Transaccion(){}
+    public Transaccion() {}
 
     public Transaccion(
             String idTransaccion,
-            Cuenta CuentaOrigen,
+            Cuenta cuentaOrigen,
             LocalDate fechaTransaccion,
             double monto,
             String descripcion,
-            Cuenta CuentaDestino,
+            Cuenta cuentaDestino,
             TipoTransaccion tipoTransaccion
-    ){
+    ) {
         this.idTransaccion = idTransaccion;
-        this.CuentaOrigen = CuentaOrigen;
+        this.cuentaOrigen = cuentaOrigen;
         this.fechaTransaccion = fechaTransaccion;
         this.monto = monto;
         this.descripcion = descripcion;
-        this.CuentaDestino = CuentaDestino;
+        this.cuentaDestino = cuentaDestino;
         this.tipoTransaccion = tipoTransaccion;
-
     }
-
     public void procesar(NombreCategoria nombreCategoria) {
+        this.categoriaProcesada = nombreCategoria;
+
         if (presupuesto != null && nombreCategoria != null) {
             for (Categoria categoria : presupuesto.getListaCategorias()) {
-                if (categoria.getNombreCategoria() == nombreCategoria) {
+                if (categoria.getNombreCategoria().equals(nombreCategoria)) {
                     if (categoria.getSaldo() >= monto) {
                         categoria.setSaldo(categoria.getSaldo() - monto);
                         presupuesto.notificarObservers(); // Para actualizar la UI
@@ -51,7 +52,6 @@ public class Transaccion implements IVisitable {
             }
             throw new IllegalArgumentException("Categoría no encontrada en el presupuesto.");
         } else if (presupuesto != null) {
-            // Si no se usa categoría, se descuenta del presupuesto general
             if (presupuesto.tieneSaldoDisponible(monto)) {
                 presupuesto.gastar(monto);
             } else {
@@ -61,6 +61,7 @@ public class Transaccion implements IVisitable {
     }
 
 
+// Getters y Setters
 
     public String getIdTransaccion() {
         return idTransaccion;
@@ -95,19 +96,19 @@ public class Transaccion implements IVisitable {
     }
 
     public Cuenta getCuentaOrigen() {
-        return CuentaOrigen;
+        return cuentaOrigen;
     }
 
     public void setCuentaOrigen(Cuenta cuentaOrigen) {
-        CuentaOrigen = cuentaOrigen;
+        this.cuentaOrigen = cuentaOrigen;
     }
 
     public Cuenta getCuentaDestino() {
-        return CuentaDestino;
+        return cuentaDestino;
     }
 
     public void setCuentaDestino(Cuenta cuentaDestino) {
-        CuentaDestino = cuentaDestino;
+        this.cuentaDestino = cuentaDestino;
     }
 
     public TipoTransaccion getTipoTransaccion() {
@@ -126,8 +127,17 @@ public class Transaccion implements IVisitable {
         this.presupuesto = presupuesto;
     }
 
+    public NombreCategoria getCategoriaProcesada() {
+        return categoriaProcesada;
+    }
+
+    public void setCategoriaProcesada(NombreCategoria categoriaProcesada) {
+        this.categoriaProcesada = categoriaProcesada;
+    }
+
     @Override
     public void aceptar(IVisitor visitor) {
         visitor.visitar(this);
     }
+
 }

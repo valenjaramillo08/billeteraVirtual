@@ -343,56 +343,72 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     }
     public boolean registrarTransaccion(DatosTransaccion datos) {
         if (datos == null) return false;
-    
+
         // Crear la transacción con la fábrica
         Transaccion transaccion = FabricaTransacciones.crear(datos);
-    
-        // Guardar en lista global del administrador
+
+// Guardar en lista global del administrador
         agregarTransaccion(transaccion);
-    
-        // Obtener presupuestos desde las cuentas asociadas en la transacción
+
+// Obtener cuentas y presupuestos involucrados
         Cuenta cuentaOrigen = transaccion.getCuentaOrigen();
         Cuenta cuentaDestino = transaccion.getCuentaDestino();
-    
+
         Presupuesto presupuestoOrigen = (cuentaOrigen != null) ? cuentaOrigen.getPresupuesto() : null;
         Presupuesto presupuestoDestino = (cuentaDestino != null) ? cuentaDestino.getPresupuesto() : null;
-    
-        // Actualizar montos según el tipo de transacción
+
+// Actualizar montos según el tipo de transacción
         switch (transaccion.getTipoTransaccion()) {
             case DEPOSITO -> {
                 if (presupuestoDestino != null) {
-                    presupuestoDestino.setMontoPresupuesto(presupuestoDestino.getMontoPresupuesto() + transaccion.getMonto());
+                    presupuestoDestino.setMontoPresupuesto(
+                            presupuestoDestino.getMontoPresupuesto() + transaccion.getMonto()
+                    );
                     presupuestoDestino.notificarObservers();
                 }
             }
-    
+
             case RETIRO -> {
                 if (presupuestoOrigen != null) {
-                    presupuestoOrigen.setMontoPresupuesto(presupuestoOrigen.getMontoPresupuesto() - transaccion.getMonto());
-                    presupuestoOrigen.setMontoPresupuestoGastado(presupuestoOrigen.getMontoPresupuestoGastado() + transaccion.getMonto());
+                    presupuestoOrigen.setMontoPresupuesto(
+                            presupuestoOrigen.getMontoPresupuesto() - transaccion.getMonto()
+                    );
+                    presupuestoOrigen.setMontoPresupuestoGastado(
+                            presupuestoOrigen.getMontoPresupuestoGastado() + transaccion.getMonto()
+                    );
                     presupuestoOrigen.notificarObservers();
                 }
             }
-    
+
             case TRANSFERENCIA -> {
                 if (presupuestoOrigen != null) {
-                    presupuestoOrigen.setMontoPresupuesto(presupuestoOrigen.getMontoPresupuesto() - transaccion.getMonto());
-                    presupuestoOrigen.setMontoPresupuestoGastado(presupuestoOrigen.getMontoPresupuestoGastado() + transaccion.getMonto());
+                    presupuestoOrigen.setMontoPresupuesto(
+                            presupuestoOrigen.getMontoPresupuesto() - transaccion.getMonto()
+                    );
+                    presupuestoOrigen.setMontoPresupuestoGastado(
+                            presupuestoOrigen.getMontoPresupuestoGastado() + transaccion.getMonto()
+                    );
                     presupuestoOrigen.notificarObservers();
                 }
                 if (presupuestoDestino != null) {
-                    presupuestoDestino.setMontoPresupuesto(presupuestoDestino.getMontoPresupuesto() + transaccion.getMonto());
+                    presupuestoDestino.setMontoPresupuesto(
+                            presupuestoDestino.getMontoPresupuesto() + transaccion.getMonto()
+                    );
                     presupuestoDestino.notificarObservers();
                 }
             }
         }
-    
-        // Registrar transacción en la cuenta origen
+
+// Registrar la transacción en las cuentas involucradas
         if (cuentaOrigen != null) {
             cuentaOrigen.getListaTransacciones().add(transaccion);
         }
-    
+        if (cuentaDestino != null) {
+            cuentaDestino.getListaTransacciones().add(transaccion);
+        }
+
         return true;
+
     }
 
     public double saldoCuenta(Cuenta cuentaParam) {
