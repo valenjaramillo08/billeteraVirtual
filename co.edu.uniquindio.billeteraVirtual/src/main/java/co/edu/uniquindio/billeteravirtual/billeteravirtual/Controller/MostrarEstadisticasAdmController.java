@@ -8,29 +8,31 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MostrarEstadisticasAdmController {
     private final ModelFactory modelFactory = ModelFactory.getInstancia();
 
+    // Mapa que asocia el nombre visible en el ComboBox con una estrategia
+    private final Map<String, EstrategiaEstadistica> estrategias = new HashMap<>();
+
+    public MostrarEstadisticasAdmController() {
+        estrategias.put("Usuarios con más transacciones", new EstrategiaUsuariosConMasTransacciones());
+        estrategias.put("Saldo promedio de usuarios", new EstrategiaSaldoPromedio());
+        estrategias.put("Gastos más comunes", new EstrategiaGastosPorCategoria());
+    }
+
     public List<String> obtenerOpcionesEstadisticas() {
-        return List.of(
-                "Usuarios con más transacciones",
-                "Saldo promedio de usuarios",
-                "Gastos más comunes"
-        );
+        return new ArrayList<>(estrategias.keySet());
     }
 
     public ObservableList<PieChart.Data> obtenerDatosParaEstadistica(String tipoEstadistica) {
-        EstrategiaEstadistica estrategia;
+        EstrategiaEstadistica estrategia = estrategias.get(tipoEstadistica);
 
-        switch (tipoEstadistica) {
-            case "Usuarios con más transacciones" -> estrategia = new EstrategiaUsuariosConMasTransacciones();
-            case "Saldo promedio de usuarios" -> estrategia = new EstrategiaSaldoPromedio();
-            case "Gastos más comunes" -> estrategia = new EstrategiaGastosPorCategoria();
-            default -> {
-                return FXCollections.observableArrayList();
-            }
+        if (estrategia == null) {
+            return FXCollections.observableArrayList();
         }
 
         List<Usuario> usuarios = modelFactory.getListaUsuarios();
@@ -40,15 +42,15 @@ public class MostrarEstadisticasAdmController {
         for (EstadisticaCategoria dato : datos) {
             dataChart.add(new PieChart.Data(dato.getNombre(), dato.getValor()));
         }
+
         return FXCollections.observableArrayList(dataChart);
     }
 
     public String obtenerTituloEstadistica(String tipoEstadistica) {
-        return switch (tipoEstadistica) {
-            case "Usuarios con más transacciones" -> new EstrategiaUsuariosConMasTransacciones().getTitulo();
-            case "Saldo promedio de usuarios" -> new EstrategiaSaldoPromedio().getTitulo();
-            case "Gastos más comunes" -> new EstrategiaGastosPorCategoria().getTitulo();
-            default -> "";
-        };
+        EstrategiaEstadistica estrategia = estrategias.get(tipoEstadistica);
+        return (estrategia != null) ? estrategia.getTitulo() : "";
     }
+
 }
+
+

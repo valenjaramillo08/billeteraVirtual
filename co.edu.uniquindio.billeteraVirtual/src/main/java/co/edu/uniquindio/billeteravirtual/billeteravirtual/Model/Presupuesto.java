@@ -111,7 +111,7 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
 
     public Categoria obtenerCategoriaPorNombre(NombreCategoria nombreCategoria) {
         for (Categoria categoria : listaCategorias) {
-            if (categoria.getNombreCategoria() == nombreCategoria) {
+            if (categoria.getNombreCategoria().equals(nombreCategoria)) {
                 return categoria;
             }
         }
