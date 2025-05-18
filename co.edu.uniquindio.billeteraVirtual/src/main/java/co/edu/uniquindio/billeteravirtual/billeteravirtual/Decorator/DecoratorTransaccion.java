@@ -1,17 +1,17 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator;
 
-public abstract class DecoratorTransaccion implements Transaccion  {
+public abstract class DecoratorTransaccion implements TransaccionD  {
 
-    protected Transaccion transaccion;
+    protected TransaccionD transaccion;
 
-    public DecoratorTransaccion(Transaccion transaccion) {
+    public DecoratorTransaccion(TransaccionD transaccion) {
         this.transaccion=transaccion;
     }
 
 
     @Override
     public void ejecutar() {
-        transaccion.ejecutar();
+       transaccion.ejecutar();
         
     }
 

@@ -68,6 +68,11 @@ public class DataUtil {
                 );
                 admin.registrarTransaccion(datos1);
 
+                // Ejemplo: fechas diferentes para pruebas
+                  LocalDate hoy = LocalDate.now();
+                  LocalDate haceUnaSemana = hoy.minusDays(7);
+                  LocalDate haceTresDias = hoy.minusDays(3);
+
                 // Mateo - retiro transporte
                 DatosTransaccion datos2 = new DatosTransaccion(
                         UUID.randomUUID().toString(), cuenta2, LocalDate.now(), 10000,
@@ -78,10 +83,11 @@ public class DataUtil {
                 trans1.setCategoriaProcesada(NombreCategoria.TRANSPORTE);
                 trans1.procesar(NombreCategoria.TRANSPORTE);
                 cuenta2.getListaTransacciones().add(trans1);
+                cuenta2.getUsuarioAsociado().getListaTransacciones().add(trans1);
 
                 // Mateo - retiro universidad
                 DatosTransaccion datos3 = new DatosTransaccion(
-                        UUID.randomUUID().toString(), cuenta2, LocalDate.now(), 15000,
+                        UUID.randomUUID().toString(), cuenta2, haceUnaSemana, 15000,
                         "Retiro universidad", null, TipoTransaccion.RETIRO, null
                 );
                 Transaccion trans2 = FabricaTransacciones.crear(datos3);
@@ -89,6 +95,7 @@ public class DataUtil {
                 trans2.setCategoriaProcesada(NombreCategoria.UNIVERSIDAD);
                 trans2.procesar(NombreCategoria.UNIVERSIDAD);
                 cuenta2.getListaTransacciones().add(trans2);
+                cuenta2.getUsuarioAsociado().getListaTransacciones().add(trans2);
 
                 // Laura - retiro ocio
                 DatosTransaccion datos4 = new DatosTransaccion(

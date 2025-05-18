@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Presupuesto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.PresupuestoObservable;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.ConsulTransaccionViewController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.ConsultarSaldoViewController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.GestionarCuentaViewController;
 import javafx.fxml.FXML;
@@ -16,6 +19,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 
 public class CuentaVentanaPrincipalViewController {
+
+    private final PresupuestoObservable presupuestoObservable = new PresupuestoObservable();
 
      private Usuario usuarioLogueado;
      private Usuario usuarioActual;
@@ -48,8 +53,33 @@ public class CuentaVentanaPrincipalViewController {
         this.usuarioLogueado = usuario;
         cargarVistaGestionCuentas();
         cargarVistaSaldo();
+        cargarVistaConsulTransaccion();
 
       
+    }
+
+    
+
+    private void cargarVistaConsulTransaccion() {
+        if (usuarioLogueado == null) {
+            System.err.println("[Error] usuarioLogueado es null al cargar la vista consultar transacciones.");
+            // Mostrar un mensaje al usuario
+            new Alert(Alert.AlertType.ERROR, "El usuario no está logueado. Por favor, inicie sesión nuevamente.").showAndWait();
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billeteravirtual/billeteravirtual/usuarioFolder/cuentas/consulTransaccion.fxml"));
+            Parent vistaCuentasGestion = loader.load();
+
+            ConsulTransaccionViewController controller = loader.getController();
+            controller.setUsuarioLogueado(usuarioLogueado);  // Ahora seguro no es null
+
+            ConsultarTransaccionesTab.setContent(vistaCuentasGestion);
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error al cargar la vista de consultar transacciones: " + e.getMessage()).showAndWait();
+        }
     }
 
     private void cargarVistaSaldo() {
@@ -66,6 +96,18 @@ public class CuentaVentanaPrincipalViewController {
 
         ConsultarSaldoViewController controller = loader.getController();
         controller.setUsuarioActual(usuarioLogueado);  // Ahora seguro no es null
+        presupuestoObservable.agregarObserver(controller);
+        
+         // Sumar los montos de todos los presupuestos
+        double sumaPresupuestos = usuarioLogueado.getListaPresupuestos()
+            .stream()
+            .mapToDouble(Presupuesto::getMontoPresupuesto)
+            .sum();
+
+        // Puedes crear un Presupuesto "total" solo para mostrar la suma
+        Presupuesto presupuestoTotal = new Presupuesto("TOTAL", sumaPresupuestos, 0);
+        presupuestoObservable.setPresupuesto(presupuestoTotal);
+
 
         ConsultarSaldoTab.setContent(vistaCuentasGestion);
     } catch (IOException e) {

@@ -12,6 +12,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.Catego
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
@@ -34,7 +35,11 @@ public class UsuarioVentanaPrincipalViewController {
         cargarVistaTransacciones();
         cargarVistaCategorias();
         cargarVistaCuentas();
+        cargarVistaReportes();
     }
+
+
+  
 
 
     @FXML
@@ -49,6 +54,9 @@ public class UsuarioVentanaPrincipalViewController {
     private Tab transaccionTab;
 
     @FXML
+    private Tab reportesTab;
+
+    @FXML
     void OnCerrarSesionUsuario(ActionEvent event)  throws IOException {
         if (helloApp != null) {
             // Mostrar la vista principal (inicial.fxml)
@@ -60,6 +68,22 @@ public class UsuarioVentanaPrincipalViewController {
             System.err.println("Error: helloApp es null. No se pudo cerrar sesión correctamente.");
         }
     }
+
+      private void cargarVistaReportes() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billeteravirtual/billeteravirtual/reportes.fxml"));
+            Parent vistaReportes = loader.load();
+
+            ReportesViewController controller = loader.getController();
+            controller.setUsuarioActual(usuarioLogueado); // ✅ Pasa el usuario al controlador
+
+            reportesTab.setContent(vistaReportes); // ✅ Muestra la vista dentro del tab
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 
 
 

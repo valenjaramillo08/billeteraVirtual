@@ -1,5 +1,9 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.Exportador;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ExportadorCSV;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ExportadorPDF;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.Reporte;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Builder.UsuarioBuilder;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
@@ -81,6 +85,23 @@ public class Usuario extends Persona implements IVisitable {
     public String getContrasenaUsuario() {
         return contrasenaUsuario;
     }
+
+    public void generarReporte(String formato){
+        Exportador exportador;
+        String extension;
+
+        if("CSV".equalsIgnoreCase(formato)){
+            exportador = new ExportadorCSV();
+            extension = "csv";
+        } else{
+            exportador = new ExportadorPDF();
+            extension = "pdf";
+        }
+
+        /*Reporte reporte = new ReporteUsuario(this, exportador);
+        reporte.generarYExportar("reporte_usuario_" + idUsuario + "." + extension);*/
+    }
+
 
     /*/@Override
     public String toString() {

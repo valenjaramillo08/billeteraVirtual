@@ -95,12 +95,31 @@ public class Cuenta {
     }
 
     public double calcularSaldo(LocalDate desde, LocalDate hasta) {
+        double saldo = 0;
+
+       // Si tienes un presupuesto inicial, úsalo como base
         if (presupuesto != null) {
-            double inicio = presupuesto.getMontoEnFecha(desde);
-            double fin = presupuesto.getMontoEnFecha(hasta);
-            return fin - inicio;
+        saldo = presupuesto.getMontoPresupuesto();
+    }
+
+      // Suma/resta las transacciones en el rango
+      for (Transaccion t : listaTransacciones) {
+        LocalDate fechaT = t.getFechaTransaccion();
+        if ((fechaT.isEqual(desde) || fechaT.isAfter(desde)) && (fechaT.isEqual(hasta) || fechaT.isBefore(hasta))) {
+            switch (t.getTipoTransaccion()) {
+                case DEPOSITO:
+                    saldo += t.getMonto();
+                    break;
+                case RETIRO:
+                case TRANSFERENCIA:
+                    saldo -= t.getMonto();
+                    break;
+                default:
+                    break;
+            }
         }
-        return 0;
+    }
+    return saldo;
                 
     }
 

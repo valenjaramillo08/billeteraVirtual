@@ -1,6 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator;
 
-public interface Transaccion {
+public interface TransaccionD {
     void ejecutar();
     
 }
