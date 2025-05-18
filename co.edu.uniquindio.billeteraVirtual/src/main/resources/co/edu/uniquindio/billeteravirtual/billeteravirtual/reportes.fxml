@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.ReportesViewController">
+   <children>
+      <Text layoutX="203.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genere reportes de su cuenta " />
+      <ComboBox fx:id="cbCuentas" layoutX="203.0" layoutY="149.0" prefHeight="39.0" prefWidth="215.0" promptText="Cuentas" />
+      <Text layoutX="228.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccione la cuenta:" />
+      <Button fx:id="btExportarPDF" layoutX="155.0" layoutY="318.0" mnemonicParsing="false" onAction="#exportarPDF" text="Exportar PDF" />
+      <Button fx:id="btExportarCSV" layoutX="371.0" layoutY="318.0" mnemonicParsing="false" onAction="#exportarCSV" text="Exportar CSV" />
+   </children>
+</Pane>

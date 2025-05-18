@@ -1,6 +1,9 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.GestionTransaccionesController;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.TransaccionConNotificacion;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.TransaccionD;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.ValidacionSaldo;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.FabricaTransacciones;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
@@ -83,8 +86,16 @@ public class TransaccionViewController {
 
                 Transaccion transaccion = FabricaTransacciones.crear(datos);
                 transaccion.setPresupuesto(presupuesto);
-                transaccion.procesar(nombreCategoria);
-                transacciones.add(transaccion);
+                transaccion.setCategoriaProcesada(nombreCategoria);
+                /* transaccion.procesar(nombreCategoria);*/
+                
+
+                // --- DECORATOR ---
+                TransaccionD t = new ValidacionSaldo(transaccion);
+                t = new TransaccionConNotificacion(t);
+                t.ejecutar();
+                transacciones.add(transaccion); 
+                // -----------------
 
                 // Si es transferencia, también incrementar el presupuesto de la cuenta destino
                 if (tipo == TipoTransaccion.TRANSFERENCIA && destino != null && destino.getPresupuesto() != null) {
@@ -105,6 +116,8 @@ public class TransaccionViewController {
                     return;
                 }
 
+               
+
                 DatosTransaccion datos = new DatosTransaccion(
                         id, null, fecha, monto, "Generada por usuario", destino,
                         tipo, presupuesto
@@ -112,6 +125,11 @@ public class TransaccionViewController {
 
                 Transaccion transaccion = FabricaTransacciones.crear(datos);
                 transaccion.setPresupuesto(presupuesto);
+
+                 // --- DECORATOR SOLO NOTIFICACIÓN ---
+                TransaccionD t = new TransaccionConNotificacion(transaccion);
+                t.ejecutar();
+                // -----------------------------------
 
                 // Aumentar el presupuesto con el monto depositado
                 presupuesto.setMontoPresupuesto(presupuesto.getMontoPresupuesto() + monto);

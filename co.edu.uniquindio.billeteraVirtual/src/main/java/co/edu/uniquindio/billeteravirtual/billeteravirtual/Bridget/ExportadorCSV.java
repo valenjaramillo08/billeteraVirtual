@@ -1,6 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Estrategia.EstadisticaCategoria;
+
 
 import java.io.PrintWriter;
 import java.util.List;
