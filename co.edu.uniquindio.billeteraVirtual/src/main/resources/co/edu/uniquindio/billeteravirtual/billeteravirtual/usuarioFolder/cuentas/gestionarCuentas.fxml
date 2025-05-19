@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.GestionarCuentaViewController">
-   <children>
-      <TableView fx:id="tableCuentas" layoutX="17.0" layoutY="77.0" prefHeight="314.0" prefWidth="655.0">
-        <columns>
-          <TableColumn fx:id="tcNombreBanco" minWidth="7.0" prefWidth="231.0" text="Nombre Banco" />
-            <TableColumn fx:id="tcNumeroCuenta" minWidth="0.0" prefWidth="224.0" text="Numero Cuenta " />
-          <TableColumn fx:id="tcIdCuenta" prefWidth="200.0" text="Id Cuenta" />
-        </columns>
-      </TableView>
-      <Text layoutX="303.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestionar cuentas ">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Text>
-      <Button fx:id="btDetallesCuenta" layoutX="287.0" layoutY="426.0" mnemonicParsing="false" onAction="#mostrarDetallesCuenta" text="Detalles de la cuenta ">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Button>
-   </children>
-</Pane>
+<AnchorPane prefHeight="506.0" prefWidth="689.0"
+            style="-fx-background-color: #F9F9F9;"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.GestionarCuentaViewController">
+
+    <children>
+        <!-- Título -->
+        <Label layoutX="20.0" layoutY="25.0" text="Gestión de Cuentas"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
+
+        <!-- Tabla de cuentas -->
+        <TableView fx:id="tableCuentas" layoutX="17.0" layoutY="70.0" prefHeight="340.0" prefWidth="655.0">
+            <columns>
+                <TableColumn fx:id="tcNombreBanco" prefWidth="231.0" text="Nombre Banco" />
+                <TableColumn fx:id="tcNumeroCuenta" prefWidth="224.0" text="Número de Cuenta" />
+                <TableColumn fx:id="tcIdCuenta" prefWidth="200.0" text="ID de Cuenta" />
+            </columns>
+        </TableView>
+
+        <!-- Botón de detalles -->
+        <Button fx:id="btDetallesCuenta"
+                layoutX="270.0"
+                layoutY="430.0"
+                prefWidth="150.0"
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"
+                onAction="#mostrarDetallesCuenta"
+                text="Detalles de la cuenta" />
+    </children>
+</AnchorPane>

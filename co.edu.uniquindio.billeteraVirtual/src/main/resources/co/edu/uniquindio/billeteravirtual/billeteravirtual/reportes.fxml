@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.ReportesViewController">
+<AnchorPane prefHeight="450.0" prefWidth="680.0" style="-fx-background-color: #F4F4F4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.ReportesViewController">
+
    <children>
-      <Text layoutX="203.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genere reportes de su cuenta " />
-      <ComboBox fx:id="cbCuentas" layoutX="203.0" layoutY="149.0" prefHeight="39.0" prefWidth="215.0" promptText="Cuentas" />
-      <Text layoutX="228.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccione la cuenta:" />
-      <Button fx:id="btExportarPDF" layoutX="155.0" layoutY="318.0" mnemonicParsing="false" onAction="#onExportarPDF" text="Exportar PDF" />
-      <Button fx:id="btExportarCSV" layoutX="371.0" layoutY="318.0" mnemonicParsing="false" onAction="#exportarCSV" text="Exportar CSV" />
+
+      <Label layoutX="180.0" layoutY="40.0" style="-fx-font-size: 18px; -fx-text-fill: #333333; -fx-font-weight: bold;" text="Genere reportes de su cuenta" />
+
+      <Label layoutX="230.0" layoutY="110.0" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="Seleccione la cuenta:" />
+
+      <ComboBox fx:id="cbCuentas" layoutX="210.0" layoutY="135.0" prefHeight="40.0" prefWidth="250.0" promptText="Cuentas" style="-fx-font-size: 14px; -fx-background-radius: 8; -fx-border-radius: 8;" />
+
+      <Button fx:id="btExportarPDF" layoutX="160.0" layoutY="300.0" onAction="#onExportarPDF" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;" text="Exportar PDF" />
+
+      <Button fx:id="btExportarCSV" layoutX="370.0" layoutY="300.0" onAction="#exportarCSV" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #7B8D8E; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;" text="Exportar CSV" />
+
    </children>
-</Pane>
+
+</AnchorPane>
