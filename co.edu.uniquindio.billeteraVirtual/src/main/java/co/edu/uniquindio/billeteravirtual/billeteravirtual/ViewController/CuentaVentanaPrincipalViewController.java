@@ -105,7 +105,7 @@ public class CuentaVentanaPrincipalViewController {
             .sum();
 
         // Puedes crear un Presupuesto "total" solo para mostrar la suma
-        Presupuesto presupuestoTotal = new Presupuesto("TOTAL", sumaPresupuestos, 0);
+        Presupuesto presupuestoTotal = new Presupuesto( sumaPresupuestos, 0);
         presupuestoObservable.setPresupuesto(presupuestoTotal);
 
 
