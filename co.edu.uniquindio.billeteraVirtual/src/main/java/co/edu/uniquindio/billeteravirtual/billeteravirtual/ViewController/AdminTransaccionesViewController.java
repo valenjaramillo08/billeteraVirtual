@@ -2,6 +2,9 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ExportadorCSV;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ExportadorPDF;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Command.Command;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Command.InvocadorReporte;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Command.ReporteAdminPDFCommand;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.AdminGestionTransaccionesController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.ObservadorAdministrador;
@@ -42,7 +45,7 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
 
     @FXML
     public void initialize() {
-        UsuarioObservable.agregarObservador(this); // 🟢 Registro como observador
+        UsuarioObservable.agregarObservador(this);
         comboUsuarios.setItems(FXCollections.observableArrayList(controller.obtenerUsuarios()));
         comboTipoTransaccion.setItems(FXCollections.observableArrayList(TipoTransaccion.values()));
 
@@ -51,18 +54,15 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
             public String toString(Usuario usuario) {
                 return usuario != null ? usuario.getNombre() : "";
             }
-
             @Override
-            public Usuario fromString(String s) {
-                return null;
-            }
+            public Usuario fromString(String s) { return null; }
         });
 
         comboUsuarios.setOnAction(e -> cargarCuentasUsuario());
         comboCuentaOrigen.setOnAction(e -> filtrarCuentaDestino());
 
         btnExportarCSV.setOnAction(e -> exportarCSV());
-        btnExportarPDF.setOnAction(e -> exportarPDFDetallado());
+        btnExportarPDF.setOnAction(e -> exportarPDFConCommand());
 
         configurarComboBoxCuentas();
         configurarTabla();
@@ -92,7 +92,6 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
             return;
         }
 
-        // Validación de saldo solo para retiro o transferencia
         if ((tipo == TipoTransaccion.RETIRO || tipo == TipoTransaccion.TRANSFERENCIA)) {
             double saldoDisponible = controller.obtenerSaldoCuenta(cuentaOrigen);
             if (monto > saldoDisponible) {
@@ -101,7 +100,6 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
             }
         }
 
-        // Crear la transacción (toda la lógica está en registrarTransaccion)
         boolean creada = controller.crearTransaccion(cuentaOrigen, cuentaDestino, monto, descripcion, tipo);
 
         if (creada) {
@@ -112,62 +110,6 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
         } else {
             mostrarAlerta("No se pudo crear la transacción.");
         }
-    }
-
-
-    private void limpiarCampos() {
-        txtMonto.clear();
-        txtDescripcion.clear();
-        comboTipoTransaccion.getSelectionModel().clearSelection();
-        comboCuentaOrigen.getSelectionModel().clearSelection();
-        comboCuentaDestino.getSelectionModel().clearSelection();
-    }
-
-    private void cargarCuentasUsuario() {
-        Usuario usuario = comboUsuarios.getValue();
-
-        if (usuario != null && usuario.getListaCuentas() != null) {
-            comboCuentaOrigen.setItems(FXCollections.observableArrayList(usuario.getListaCuentas()));
-            comboCuentaDestino.setItems(FXCollections.observableArrayList(controller.obtenerTodasLasCuentas()));
-        }
-    }
-
-    private void filtrarCuentaDestino() {
-        Cuenta origen = comboCuentaOrigen.getValue();
-
-        if (origen != null) {
-            List<Cuenta> cuentasFiltradas = controller.obtenerTodasLasCuentas().stream()
-                    .filter(c -> !c.getNumeroCuenta().equals(origen.getNumeroCuenta()))
-                    .toList();
-            comboCuentaDestino.setItems(FXCollections.observableArrayList(cuentasFiltradas));
-            labelSaldo.setText(String.valueOf(controller.obtenerSaldoCuenta(origen)));
-        }
-    }
-
-    private void configurarComboBoxCuentas() {
-        comboCuentaOrigen.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(Cuenta cuenta) {
-                return cuenta != null ? cuenta.getNumeroCuenta() : "";
-            }
-
-            @Override
-            public Cuenta fromString(String s) {
-                return null;
-            }
-        });
-
-        comboCuentaDestino.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(Cuenta cuenta) {
-                return cuenta != null ? cuenta.getNumeroCuenta() : "";
-            }
-
-            @Override
-            public Cuenta fromString(String s) {
-                return null;
-            }
-        });
     }
 
     private void exportarCSV() {
@@ -183,14 +125,15 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
         }
     }
 
-    private void exportarPDFDetallado() {
+    private void exportarPDFConCommand() {
         Usuario usuario = comboUsuarios.getValue();
+        List<Transaccion> transacciones = tablaTransacciones.getItems();
+
         if (usuario == null) {
             mostrarAlerta("Selecciona un usuario.");
             return;
         }
 
-        List<Transaccion> transacciones = tablaTransacciones.getItems();
         if (transacciones == null || transacciones.isEmpty()) {
             mostrarAlerta("No hay transacciones para exportar.");
             return;
@@ -198,37 +141,53 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
 
         File archivo = mostrarDialogoGuardar("pdf", "Archivo PDF (*.pdf)");
         if (archivo != null) {
-            List<String[]> contenido = generarContenidoDetallado(usuario, transacciones);
-            new ExportadorPDF().exportar("Reporte de Ingresos", contenido, eliminarExtension(archivo.getAbsolutePath()));
+            Command comando = new ReporteAdminPDFCommand(
+                    usuario,
+                    new ArrayList<>(transacciones),
+                    eliminarExtension(archivo.getAbsolutePath())
+            );
+            InvocadorReporte invocador = new InvocadorReporte();
+            invocador.setCommand(comando);
+            invocador.ejecutar();
         }
     }
 
-    private List<String[]> generarContenidoDetallado(Usuario usuario, List<Transaccion> transacciones) {
-        List<String[]> contenido = new ArrayList<>();
+    private void limpiarCampos() {
+        txtMonto.clear();
+        txtDescripcion.clear();
+        comboTipoTransaccion.getSelectionModel().clearSelection();
+        comboCuentaOrigen.getSelectionModel().clearSelection();
+        comboCuentaDestino.getSelectionModel().clearSelection();
+    }
 
-        contenido.add(new String[]{"Información Usuario"});
-        contenido.add(new String[]{"Nombre Completo:", usuario.getNombre() + " " + usuario.getApellido()});
-        contenido.add(new String[]{"Cédula:", usuario.getIdUsuario()});
-        contenido.add(new String[]{"Correo Electrónico:", usuario.getCorreo()});
-        contenido.add(new String[]{"Número de Teléfono:", usuario.getTelefono()});
-        contenido.add(new String[]{"Dirección:", usuario.getDireccion()});
-        contenido.add(new String[]{""});
-
-        contenido.add(new String[]{"Fecha", "Descripción", "Cuenta", "Monto"});
-
-        double total = 0;
-        for (Transaccion t : transacciones) {
-            contenido.add(new String[]{
-                    t.getFechaTransaccion().toString(),
-                    t.getDescripcion(),
-                    t.getCuentaOrigen().getNumeroCuenta(),
-                    "$" + String.format("%,.2f", t.getMonto())
-            });
-            total += t.getMonto();
+    private void cargarCuentasUsuario() {
+        Usuario usuario = comboUsuarios.getValue();
+        if (usuario != null && usuario.getListaCuentas() != null) {
+            comboCuentaOrigen.setItems(FXCollections.observableArrayList(usuario.getListaCuentas()));
+            comboCuentaDestino.setItems(FXCollections.observableArrayList(controller.obtenerTodasLasCuentas()));
         }
+    }
 
-        contenido.add(new String[]{"", "", "Total:", "$" + String.format("%,.2f", total)});
-        return contenido;
+    private void filtrarCuentaDestino() {
+        Cuenta origen = comboCuentaOrigen.getValue();
+        if (origen != null) {
+            List<Cuenta> cuentasFiltradas = controller.obtenerTodasLasCuentas().stream()
+                    .filter(c -> !c.getNumeroCuenta().equals(origen.getNumeroCuenta()))
+                    .toList();
+            comboCuentaDestino.setItems(FXCollections.observableArrayList(cuentasFiltradas));
+            labelSaldo.setText(String.valueOf(controller.obtenerSaldoCuenta(origen)));
+        }
+    }
+
+    private void configurarComboBoxCuentas() {
+        comboCuentaOrigen.setConverter(new StringConverter<>() {
+            @Override public String toString(Cuenta cuenta) { return cuenta != null ? cuenta.getNumeroCuenta() : ""; }
+            @Override public Cuenta fromString(String s) { return null; }
+        });
+        comboCuentaDestino.setConverter(new StringConverter<>() {
+            @Override public String toString(Cuenta cuenta) { return cuenta != null ? cuenta.getNumeroCuenta() : ""; }
+            @Override public Cuenta fromString(String s) { return null; }
+        });
     }
 
     private File mostrarDialogoGuardar(String extension, String descripcion) {

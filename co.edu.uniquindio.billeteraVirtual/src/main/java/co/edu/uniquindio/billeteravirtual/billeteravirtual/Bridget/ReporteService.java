@@ -1,6 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Estrategia.*;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 
 import java.util.List;
@@ -40,6 +41,12 @@ public class ReporteService {
         EstrategiaEstadistica estrategia = new EstrategiaSaldosPorCuenta();
         Reporte reporte = new ReporteUsuarioIndividual(usuario, estrategia, exportador);
         reporte.generarYExportar(nombreArchivo);
+    }
+
+    public void generarReportePorCuenta(Cuenta cuenta, String nombreArchivo, Exportador exportador) {
+        EstrategiaCuenta estrategia = new EstrategiaReporteCuentaDetallada();
+        List<String[]> contenido = estrategia.generarContenido(cuenta);
+        exportador.exportar(estrategia.getTitulo(), contenido, nombreArchivo);
     }
 
 }
