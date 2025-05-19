@@ -5,35 +5,35 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f4f4f4;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.AdminTransaccionesViewController">
+<AnchorPane prefHeight="556.0" prefWidth="787.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.AdminTransaccionesViewController">
 
    <children>
-      <Label layoutX="20" layoutY="20" text="Seleccionar Usuario:" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" />
+      <Label layoutX="20" layoutY="20" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Seleccionar Usuario:" />
       <ComboBox fx:id="comboUsuarios" layoutX="160" layoutY="15" prefWidth="200" />
 
-      <Label layoutX="20" layoutY="60" text="Cuenta Origen:" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" />
+      <Label layoutX="20" layoutY="60" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Cuenta Origen:" />
       <ComboBox fx:id="comboCuentaOrigen" layoutX="160" layoutY="55" prefWidth="200" />
 
-      <Label layoutX="400" layoutY="60" text="Saldo Disponible:" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" />
+      <Label layoutX="400" layoutY="60" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Saldo Disponible:" />
       <Label fx:id="labelSaldo" layoutX="520" layoutY="60" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="0" />
 
-      <Label layoutX="20" layoutY="100" text="Cuenta Destino:" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" />
+      <Label layoutX="20" layoutY="100" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Cuenta Destino:" />
       <ComboBox fx:id="comboCuentaDestino" layoutX="160" layoutY="95" prefWidth="200" />
 
-      <Label layoutX="20" layoutY="140" text="Tipo Transacción:" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" />
+      <Label layoutX="20" layoutY="140" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Tipo Transacción:" />
       <ComboBox fx:id="comboTipoTransaccion" layoutX="160" layoutY="135" prefWidth="200" />
 
-      <Label layoutX="20" layoutY="180" text="Monto:" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" />
+      <Label layoutX="20" layoutY="180" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Monto:" />
       <TextField fx:id="txtMonto" layoutX="160" layoutY="175" prefWidth="200" />
 
-      <Label layoutX="20" layoutY="220" text="Descripción:" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" />
+      <Label layoutX="20" layoutY="220" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Descripción:" />
       <TextField fx:id="txtDescripcion" layoutX="160" layoutY="215" prefWidth="200" />
 
-      <Button fx:id="btnCrearTransaccion" layoutX="160" layoutY="260" onAction="#onCrearTransaccion" text="Crear Transacción" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" />
-      <Button fx:id="btnExportarCSV" layoutX="400" layoutY="15" text="Exportar CSV" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" />
-      <Button fx:id="btnExportarPDF" layoutX="520" layoutY="15" text="Exportar PDF" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" />
+      <Button fx:id="btnCrearTransaccion" layoutX="160" layoutY="260" onAction="#onCrearTransaccion" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" text="Crear Transacción" />
+      <Button fx:id="btnExportarCSV" layoutX="400" layoutY="15" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Exportar CSV" />
+      <Button fx:id="btnExportarPDF" layoutX="520" layoutY="15" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Exportar PDF" />
 
-      <TableView fx:id="tablaTransacciones" layoutX="20" layoutY="310" prefHeight="260" prefWidth="760" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 5px;">
+      <TableView fx:id="tablaTransacciones" layoutX="14.0" layoutY="312.0" prefHeight="217.0" prefWidth="751.0" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 5px;">
          <columns>
             <TableColumn fx:id="colFecha" prefWidth="100" text="Fecha" />
             <TableColumn fx:id="colDescripcion" prefWidth="150" text="Descripción" />

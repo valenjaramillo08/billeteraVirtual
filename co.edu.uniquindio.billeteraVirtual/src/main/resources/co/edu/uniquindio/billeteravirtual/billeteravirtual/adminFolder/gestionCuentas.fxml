@@ -6,11 +6,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 
-<Pane prefHeight="631.0" prefWidth="837.0" style="-fx-background-color: #f4f4f4; -fx-padding: 20;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.GestionCuentasViewController">
+<Pane prefHeight="621.0" prefWidth="843.0" style="-fx-background-color: #f4f4f4; -fx-padding: 20;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.GestionCuentasViewController">
     <children>
         <SplitPane layoutX="13.0" layoutY="13.0" orientation="VERTICAL" prefHeight="587.0" prefWidth="790.0">
             <items>
-                <AnchorPane style="-fx-background-color: #ffffff; -fx-padding: 20;">
+                <AnchorPane prefHeight="568.0" prefWidth="783.0" style="-fx-background-color: #ffffff; -fx-padding: 20;">
                     <children>
                         <TableView fx:id="tabCuenta" layoutY="293.0" prefHeight="230.0" prefWidth="779.0" style="-fx-border-color: #dcdcdc; -fx-border-radius: 5px;">
                             <columns>
@@ -22,24 +22,24 @@
                             </columns>
                         </TableView>
 
-                        <Label fx:id="lbBanco" layoutX="8.0" layoutY="90.0" text="Nombre del banco:" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" />
-                        <Label fx:id="lbIdCuenta" layoutX="8.0" layoutY="33.0" text="Id Cuenta:" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" />
-                        <Label fx:id="lbNumeroCuenta" layoutX="376.0" layoutY="65.0" text="Número cuenta:" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" />
-                        <Label fx:id="lbNumeroCuenta1" layoutX="376.0" layoutY="128.0" text="Tipo de Cuenta" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" />
-                        <Label fx:id="lbBanco1" layoutX="8.0" layoutY="152.0" text="Id Usuario Asociado:" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" />
+                        <Label fx:id="lbBanco" layoutX="8.0" layoutY="90.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Nombre del banco:" />
+                        <Label fx:id="lbIdCuenta" layoutX="8.0" layoutY="33.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Id Cuenta:" />
+                        <Label fx:id="lbNumeroCuenta" layoutX="363.0" layoutY="33.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Número cuenta:" />
+                        <Label fx:id="lbNumeroCuenta1" layoutX="366.0" layoutY="86.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Tipo de Cuenta" />
+                        <Label fx:id="lbBanco1" layoutX="8.0" layoutY="152.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Id Usuario Asociado:" />
 
-                        <TextField fx:id="tfIdCuenta" layoutX="139.0" layoutY="32.0" prefHeight="30.0" />
-                        <TextField fx:id="tfBanco" layoutX="139.0" layoutY="90.0" prefHeight="30.0" />
-                        <TextField fx:id="tfNumeroCuenta" layoutX="504.0" layoutY="65.0" prefHeight="30.0" />
-                        <ComboBox fx:id="cbUsuarios" layoutX="139.0" layoutY="152.0" prefHeight="30.0" prefWidth="200.0" promptText="Seleccione un usuario" />
+                        <TextField fx:id="tfIdCuenta" layoutX="139.0" layoutY="32.0" prefHeight="25.0" prefWidth="157.0" />
+                        <TextField fx:id="tfBanco" layoutX="139.0" layoutY="90.0" prefHeight="25.0" prefWidth="157.0" />
+                        <TextField fx:id="tfNumeroCuenta" layoutX="487.0" layoutY="28.0" prefHeight="25.0" prefWidth="157.0" />
+                        <ComboBox fx:id="cbUsuarios" layoutX="139.0" layoutY="147.0" prefHeight="30.0" prefWidth="157.0" promptText="Seleccione un usuario" />
 
 
-                        <ComboBox fx:id="cbTipoCuenta" layoutX="498.0" layoutY="128.0" prefHeight="30.0" prefWidth="149.0" promptText="Tipo de cuenta" />
+                        <ComboBox fx:id="cbTipoCuenta" layoutX="487.0" layoutY="85.0" prefHeight="25.0" prefWidth="157.0" promptText="Tipo de cuenta" />
 
-                        <Button fx:id="btAgregar" layoutX="154.0" layoutY="253.0" onAction="#agregarCuenta" text="Agregar" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" />
-                        <Button fx:id="btActualizar" layoutX="327.0" layoutY="253.0" onAction="#actualizarCuenta" text="Actualizar" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" />
-                        <Button fx:id="btDetalles" layoutX="505.0" layoutY="253.0" onAction="#mostrarDetallesCuenta" text="Detalles de la cuenta" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" />
-                        <Button fx:id="btEliminar" layoutX="636.0" layoutY="554.0" onAction="#eliminarCuenta" text="Eliminar" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" />
+                        <Button fx:id="btAgregar" layoutX="154.0" layoutY="253.0" onAction="#agregarCuenta" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" text="Agregar" />
+                        <Button fx:id="btActualizar" layoutX="327.0" layoutY="253.0" onAction="#actualizarCuenta" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Actualizar" />
+                        <Button fx:id="btDetalles" layoutX="505.0" layoutY="253.0" onAction="#mostrarDetallesCuenta" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Detalles de la cuenta" />
+                        <Button fx:id="btEliminar" layoutX="703.0" layoutY="531.0" onAction="#eliminarCuenta" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" text="Eliminar" />
                     </children>
                 </AnchorPane>
             </items>
