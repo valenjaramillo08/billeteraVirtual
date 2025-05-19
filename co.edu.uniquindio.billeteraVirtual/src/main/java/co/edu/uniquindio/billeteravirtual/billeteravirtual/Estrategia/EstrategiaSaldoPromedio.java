@@ -15,24 +15,36 @@ public class EstrategiaSaldoPromedio implements EstrategiaEstadistica{
 
     @Override
     public List<EstadisticaCategoria> calcular(List<Usuario> usuarios) {
-        double suma = 0;
-        int contador = 0;
+        double sumaSaldosUsuarios = 0;
+        int usuariosValidos = 0;
 
         for (Usuario usuario : usuarios) {
-            for (Cuenta cuenta : usuario.getListaCuentas()) {
+            List<Cuenta> cuentas = usuario.getListaCuentas();
+            if (cuentas == null || cuentas.isEmpty()) continue;
+
+            double saldoTotalUsuario = 0;
+            boolean tienePresupuesto = false;
+
+            for (Cuenta cuenta : cuentas) {
                 if (cuenta.getPresupuesto() != null) {
                     double saldo = cuenta.getPresupuesto().getMontoPresupuesto()
                             - cuenta.getPresupuesto().getMontoPresupuestoGastado();
-                    suma += saldo;
-                    contador++;
+                    saldoTotalUsuario += saldo;
+                    tienePresupuesto = true;
                 }
+            }
+
+            if (tienePresupuesto) {
+                sumaSaldosUsuarios += saldoTotalUsuario;
+                usuariosValidos++;
             }
         }
 
-        double promedio = (contador > 0) ? suma / contador : 0;
+        double promedio = (usuariosValidos > 0) ? sumaSaldosUsuarios / usuariosValidos : 0;
 
         List<EstadisticaCategoria> resultado = new ArrayList<>();
-        resultado.add(new EstadisticaCategoria("Saldo Promedio", promedio));
+        resultado.add(new EstadisticaCategoria("Saldo promedio por usuario", promedio));
         return resultado;
     }
+
 }

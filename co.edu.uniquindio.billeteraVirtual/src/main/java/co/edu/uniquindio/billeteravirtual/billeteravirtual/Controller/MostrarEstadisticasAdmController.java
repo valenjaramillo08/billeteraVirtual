@@ -38,13 +38,18 @@ public class MostrarEstadisticasAdmController {
         List<Usuario> usuarios = modelFactory.getListaUsuarios();
         List<EstadisticaCategoria> datos = estrategia.calcular(usuarios);
 
-        List<PieChart.Data> dataChart = new ArrayList<>();
+        ObservableList<PieChart.Data> lista = FXCollections.observableArrayList();
         for (EstadisticaCategoria dato : datos) {
-            dataChart.add(new PieChart.Data(dato.getNombre(), dato.getValor()));
+            String etiqueta = tipoEstadistica.equals("Saldo promedio de usuarios")
+                    ? String.format("%.2f", dato.getValor())
+                    : dato.getNombre();
+
+            lista.add(new PieChart.Data(etiqueta, dato.getValor()));
         }
 
-        return FXCollections.observableArrayList(dataChart);
+        return lista;
     }
+
 
     public String obtenerTituloEstadistica(String tipoEstadistica) {
         EstrategiaEstadistica estrategia = estrategias.get(tipoEstadistica);

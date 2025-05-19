@@ -208,13 +208,17 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
         List<Transaccion> transacciones = new ArrayList<>();
 
         for (Transaccion transaccion : listaTransacciones) {
-            if (transaccion.getCuentaDestino().getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario()) || 
-            transaccion.getCuentaOrigen().getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario())) {
+            if ((transaccion.getCuentaOrigen() != null &&
+                    transaccion.getCuentaOrigen().getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario()))
+                    ||
+                    (transaccion.getCuentaDestino() != null &&
+                            transaccion.getCuentaDestino().getUsuarioAsociado().getIdUsuario().equals(usuario.getIdUsuario()))) {
                 transacciones.add(transaccion);
             }
         }
         return transacciones;
     }
+
 
     public Cuenta obtenerCuenta(String idCuenta) {
         Cuenta cuentaEncontrada = null;
