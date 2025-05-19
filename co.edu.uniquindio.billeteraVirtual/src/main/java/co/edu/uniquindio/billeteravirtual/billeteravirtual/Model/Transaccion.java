@@ -1,11 +1,12 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.TransaccionD;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 
 import java.time.LocalDate;
 
-public class Transaccion implements IVisitable {
+public class Transaccion implements IVisitable, TransaccionD {
     private String idTransaccion;
     private Cuenta cuentaOrigen;
     private LocalDate fechaTransaccion;
@@ -15,6 +16,7 @@ public class Transaccion implements IVisitable {
     private TipoTransaccion tipoTransaccion;
     private Presupuesto presupuesto;
     private NombreCategoria categoriaProcesada;
+    
 
     public Transaccion() {}
 
@@ -26,6 +28,7 @@ public class Transaccion implements IVisitable {
             String descripcion,
             Cuenta cuentaDestino,
             TipoTransaccion tipoTransaccion
+          
     ) {
         this.idTransaccion = idTransaccion;
         this.cuentaOrigen = cuentaOrigen;
@@ -34,6 +37,7 @@ public class Transaccion implements IVisitable {
         this.descripcion = descripcion;
         this.cuentaDestino = cuentaDestino;
         this.tipoTransaccion = tipoTransaccion;
+        
     }
     public void procesar(NombreCategoria nombreCategoria) {
         this.categoriaProcesada = nombreCategoria;
@@ -138,6 +142,12 @@ public class Transaccion implements IVisitable {
     @Override
     public void aceptar(IVisitor visitor) {
         visitor.visitar(this);
+    }
+
+    @Override
+    public void ejecutar() {
+        this.procesar(this.categoriaProcesada);
+        System.out.println("Transaccion ejecutada correctamente.");
     }
 
 }

@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Presupuesto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.Observador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,7 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-public class ConsultarSaldoViewController {
+public class ConsultarSaldoViewController implements Observador {
 
     public Usuario usuario;
 
@@ -46,22 +48,32 @@ public class ConsultarSaldoViewController {
 
     @FXML
     void initialize() {
+        cbCuentas.valueProperty().addListener((obs, oldVal, newVal) -> mostrarSaldoActualCuenta());
         
     }
 
     public void setUsuarioActual(Usuario usuario){
         this.usuario= usuario;
-        mostrarSaldoActual();
         llenarComboCuentas();
     }
 
-    public void mostrarSaldoActual() {
-        double saldo = usuario.getSaldoDisponible();
-        txtSaldoActual.setText(String.valueOf(saldo));
+    private void mostrarSaldoActualCuenta() {
+    Cuenta cuentaSeleccionada = cbCuentas.getValue();
+    if (cuentaSeleccionada != null && cuentaSeleccionada.getPresupuesto() != null) {
+        txtSaldoActual.setText(String.valueOf(cuentaSeleccionada.getPresupuesto().getMontoPresupuesto()));
+    } else {
+        txtSaldoActual.setText("0.0");
     }
+}
+
+    
 
     public void llenarComboCuentas() {
         cbCuentas.getItems().addAll(usuario.getListaCuentas());
+        if (!cbCuentas.getItems().isEmpty()) {
+        cbCuentas.getSelectionModel().selectFirst();
+        mostrarSaldoActualCuenta();
+    }
     }
 
      @FXML
@@ -89,6 +101,15 @@ public class ConsultarSaldoViewController {
         error.showAndWait();
     }
 
+    }
+
+     @Override
+     public void actualizar(Presupuesto presupuesto) {
+        txtSaldoActual.setText(String.valueOf(presupuesto.getMontoPresupuesto()));
+    }
+
+    public void inicializarVista(Presupuesto presupuestoActual){
+        txtSaldoActual.setText(String.valueOf(presupuestoActual.getMontoPresupuesto()));
     }
         
 }

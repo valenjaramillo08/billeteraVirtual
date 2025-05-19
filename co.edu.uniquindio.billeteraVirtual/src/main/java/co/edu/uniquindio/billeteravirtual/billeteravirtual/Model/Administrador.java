@@ -1,5 +1,9 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.Exportador;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ExportadorCSV;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ExportadorPDF;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.Reporte;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.FabricaTransacciones;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Builder.UsuarioBuilder;
@@ -144,6 +148,8 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
 
         return usuarioEncontrado;
     }
+
+
 
 
     public String getIdAdministrador() {
@@ -424,6 +430,24 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
         }
         return saldo;
     }
+
+    public void generarReporte(String formato){
+        Exportador exportador;
+        String extension;
+
+        if("CSV".equalsIgnoreCase(formato)){
+            exportador = new ExportadorCSV();
+            extension = "csv";
+        }else{
+            exportador = new ExportadorPDF();
+            extension = "pdf";
+        }
+
+        /* Reporte reporte = new ReporteAdministrador(this,exportador);*/
+        /*reporte.generarYExportar("reporte_admin_" + getIdAdministrador() + "." + extension);*/
+    }
+
+
     
 
 }
