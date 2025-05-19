@@ -32,4 +32,9 @@ public class GestionCuentasController {
     public List<Cuenta> obtenerCuentas() {
         return modelFactory.obtenerCuentas();
     }
+
+    public List<Usuario> obtenerTodosLosUsuarios() {
+        return modelFactory.getListaUsuarios(); // Este método ya existe
+    }
+
 }

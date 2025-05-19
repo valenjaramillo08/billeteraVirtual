@@ -1,9 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Estrategia.EstrategiaEstadistica;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Estrategia.EstrategiaGastosPorCategoria;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Estrategia.EstrategiaSaldoPromedio;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Estrategia.EstrategiaUsuariosConMasTransacciones;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Estrategia.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 
 import java.util.List;
@@ -26,4 +23,23 @@ public class ReporteService {
         Reporte reporte = new ReporteEstadisticaGenerica(estrategia, exportador, usuarios);
         reporte.generarYExportar(nombreArchivo);
     }
+
+    public void generarReporteGastosUsuario(Usuario usuario, String nombreArchivo, Exportador exportador) {
+        EstrategiaEstadistica estrategia = new EstrategiaReporteGastos();
+        Reporte reporte = new ReporteUsuarioIndividual(usuario, estrategia, exportador);
+        reporte.generarYExportar(nombreArchivo);
+    }
+
+    public void generarReporteIngresosUsuario(Usuario usuario, String nombreArchivo, Exportador exportador) {
+        EstrategiaEstadistica estrategia = new EstrategiaReporteIngresos();
+        Reporte reporte = new ReporteUsuarioIndividual(usuario, estrategia, exportador);
+        reporte.generarYExportar(nombreArchivo);
+    }
+
+    public void generarReporteSaldosUsuario(Usuario usuario, String nombreArchivo, Exportador exportador) {
+        EstrategiaEstadistica estrategia = new EstrategiaSaldosPorCuenta();
+        Reporte reporte = new ReporteUsuarioIndividual(usuario, estrategia, exportador);
+        reporte.generarYExportar(nombreArchivo);
+    }
+
 }

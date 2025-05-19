@@ -5,7 +5,10 @@ module co.edu.uniquindio.billeteravirtual.billeteravirtual {
     requires org.controlsfx.controls;
     requires javafx.base;
     requires itextpdf;
+
     requires javafx.graphics;
+
+    requires java.desktop;
 
     opens co.edu.uniquindio.billeteravirtual.billeteravirtual to javafx.fxml;
     exports co.edu.uniquindio.billeteravirtual.billeteravirtual;

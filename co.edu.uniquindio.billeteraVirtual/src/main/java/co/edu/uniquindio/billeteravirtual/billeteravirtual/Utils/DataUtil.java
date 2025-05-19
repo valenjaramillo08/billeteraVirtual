@@ -38,7 +38,7 @@ public class DataUtil {
                 Cuenta cuenta4 = admin.obtenerCuenta("1234"); // Valentina
 
                 // Presupuesto para cuenta2 (Mateo)
-                Presupuesto presupuesto = new Presupuesto("1", 600000, 0);
+                Presupuesto presupuesto = new Presupuesto( 600000, 0);
                 presupuesto.agregarCategoria(NombreCategoria.COMIDA, "222", 200000);
                 presupuesto.agregarCategoria(NombreCategoria.TRANSPORTE, "333", 120000);
                 presupuesto.agregarCategoria(NombreCategoria.UNIVERSIDAD, "555", 200000);
@@ -47,17 +47,17 @@ public class DataUtil {
                 cuenta2.setPresupuesto(presupuesto);
 
                 // Presupuesto para cuenta1 (Mateo)
-                Presupuesto presupuesto2 = new Presupuesto("2", 1000000, 0);
+                Presupuesto presupuesto2 = new Presupuesto( 1000000, 0);
                 presupuesto2.agregarCategoria(NombreCategoria.HOGAR, "666", 300000);
                 cuenta1.setPresupuesto(presupuesto2);
 
                 // Presupuesto para cuenta3 (Laura)
-                Presupuesto presupuesto3 = new Presupuesto("3", 1500000, 0);
+                Presupuesto presupuesto3 = new Presupuesto(1500000, 0);
                 presupuesto3.agregarCategoria(NombreCategoria.OCIO, "777", 400000);
                 cuenta3.setPresupuesto(presupuesto3);
 
                 // Presupuesto para cuenta4 (Valentina)
-                Presupuesto presupuesto4 = new Presupuesto("4", 800000, 0);
+                Presupuesto presupuesto4 = new Presupuesto( 800000, 0);
                 presupuesto4.agregarCategoria(NombreCategoria.HOGAR, "888", 300000);
                 cuenta4.setPresupuesto(presupuesto4);
 

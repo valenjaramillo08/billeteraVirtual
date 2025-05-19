@@ -18,8 +18,8 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
     public List<Observador> observadores = new ArrayList<>();
     public List<RegistroPresupuesto> listaRegistros = new ArrayList<>();
 
-    public Presupuesto(String idPresupuesto, double montoPresupuesto, double montoPresupuestoGastado) {
-        this.idPresupuesto = idPresupuesto;
+    public Presupuesto( double montoPresupuesto, double montoPresupuestoGastado) {
+        this.idPresupuesto = java.util.UUID.randomUUID().toString();
         this.montoPresupuesto = montoPresupuesto;
         this.montoPresupuestoGastado = montoPresupuestoGastado;
     }
