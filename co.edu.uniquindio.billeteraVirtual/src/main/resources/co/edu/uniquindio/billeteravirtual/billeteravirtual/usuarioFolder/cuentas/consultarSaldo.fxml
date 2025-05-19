@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.ConsultarSaldoViewController">
+<AnchorPane prefHeight="420.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.ConsultarSaldoViewController"
+            style="-fx-background-color: #F4F4F4;">
    <children>
-      <Text layoutX="300.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar saldo">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Text>
-      <Text layoutX="67.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saldo Actual:">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Text>
-      <TextField fx:id="txtSaldoActual" layoutX="151.0" layoutY="81.0">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </TextField>
-      <Separator layoutX="38.0" layoutY="128.0" prefHeight="7.0" prefWidth="615.0" />
-      <ComboBox fx:id="cbCuentas" layoutX="38.0" layoutY="157.0" prefHeight="39.0" prefWidth="166.0" promptText="Cuentas" />
-      <Text layoutX="38.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Periodo:">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Text>
-      <DatePicker fx:id="dpDesde" layoutX="190.0" layoutY="222.0" prefHeight="39.0" prefWidth="181.0" />
-      <Text layoutX="133.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desde:">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Text>
-      <Text layoutX="417.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hasta:">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Text>
-      <DatePicker fx:id="dpHasta" layoutX="469.0" layoutY="224.0" prefHeight="39.0" prefWidth="181.0" />
-      <Button fx:id="btConsultar" layoutX="312.0" layoutY="321.0" mnemonicParsing="false" onAction="#consultarSaldo" text="Consultar">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Button>
+
+      <Label layoutX="270.0" layoutY="30.0" text="Consultar saldo"
+             style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+
+      <Label layoutX="60.0" layoutY="85.0" text="Saldo Actual:"
+             style="-fx-font-size: 14px; -fx-text-fill: #555;" />
+
+      <TextField fx:id="txtSaldoActual" layoutX="160.0" layoutY="80.0" prefWidth="200.0"
+                 editable="false"
+                 style="-fx-font-size: 14px; -fx-background-color: #EFEFEF;" />
+
+      <Separator layoutX="40.0" layoutY="130.0" prefWidth="620.0" />
+
+      <ComboBox fx:id="cbCuentas" layoutX="40.0" layoutY="150.0" prefWidth="220.0" promptText="Seleccione una cuenta"
+                style="-fx-font-size: 14px;" />
+
+      <Label layoutX="40.0" layoutY="235.0" text="Periodo:"
+             style="-fx-font-size: 14px; -fx-text-fill: #555;" />
+
+      <Label layoutX="120.0" layoutY="235.0" text="Desde:"
+             style="-fx-font-size: 14px; -fx-text-fill: #555;" />
+
+      <DatePicker fx:id="dpDesde" layoutX="180.0" layoutY="225.0" prefWidth="180.0"
+                  style="-fx-font-size: 14px;" />
+
+      <Label layoutX="410.0" layoutY="235.0" text="Hasta:"
+             style="-fx-font-size: 14px; -fx-text-fill: #555;" />
+
+      <DatePicker fx:id="dpHasta" layoutX="470.0" layoutY="225.0" prefWidth="180.0"
+                  style="-fx-font-size: 14px;" />
+
+      <Button fx:id="btConsultar" layoutX="290.0" layoutY="310.0" prefWidth="130.0" prefHeight="40.0"
+              text="Consultar" onAction="#consultarSaldo"
+              style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;" />
+
    </children>
-</Pane>
+</AnchorPane>

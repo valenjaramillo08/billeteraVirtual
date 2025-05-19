@@ -1,7 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Singleton;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ReporteService;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Facade.TransaccionFacade;
+
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Mapping.Mappers.AdministradorMapping;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;

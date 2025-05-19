@@ -92,6 +92,14 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
             return;
         }
 
+        // Asegurar que cuentas tengan presupuesto antes de la transacción
+        if (cuentaOrigen != null && cuentaOrigen.getPresupuesto() == null) {
+            cuentaOrigen.setPresupuesto(new Presupuesto(0, 0));
+        }
+        if (cuentaDestino != null && cuentaDestino.getPresupuesto() == null) {
+            cuentaDestino.setPresupuesto(new Presupuesto(0, 0));
+        }
+
         if ((tipo == TipoTransaccion.RETIRO || tipo == TipoTransaccion.TRANSFERENCIA)) {
             double saldoDisponible = controller.obtenerSaldoCuenta(cuentaOrigen);
             if (monto > saldoDisponible) {
@@ -105,7 +113,11 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
         if (creada) {
             mostrarAlerta("Transacción creada exitosamente.");
             tablaTransacciones.getItems().add(cuentaOrigen.getListaTransacciones().getLast());
-            labelSaldo.setText(String.valueOf(controller.obtenerSaldoCuenta(cuentaOrigen)));
+
+            if (cuentaOrigen != null) {
+                labelSaldo.setText(String.valueOf(controller.obtenerSaldoCuenta(cuentaOrigen)));
+            }
+
             limpiarCampos();
         } else {
             mostrarAlerta("No se pudo crear la transacción.");
