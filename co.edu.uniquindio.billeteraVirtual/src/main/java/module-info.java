@@ -7,6 +7,7 @@ module co.edu.uniquindio.billeteravirtual.billeteravirtual {
     requires itextpdf;
 
     requires javafx.graphics;
+    
 
     requires java.desktop;
 

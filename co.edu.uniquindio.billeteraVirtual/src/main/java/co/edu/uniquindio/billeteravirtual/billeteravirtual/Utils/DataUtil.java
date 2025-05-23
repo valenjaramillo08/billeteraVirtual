@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.TransaccionConNotificacion;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.TransaccionD;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.ValidacionSaldo;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.FabricaTransacciones;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
@@ -81,7 +84,6 @@ public class DataUtil {
                 Transaccion trans1 = FabricaTransacciones.crear(datos2);
                 trans1.setPresupuesto(presupuesto);
                 trans1.setCategoriaProcesada(NombreCategoria.TRANSPORTE);
-                trans1.procesar(NombreCategoria.TRANSPORTE);
                 cuenta2.getListaTransacciones().add(trans1);
                 cuenta2.getUsuarioAsociado().getListaTransacciones().add(trans1);
 
@@ -93,7 +95,6 @@ public class DataUtil {
                 Transaccion trans2 = FabricaTransacciones.crear(datos3);
                 trans2.setPresupuesto(presupuesto);
                 trans2.setCategoriaProcesada(NombreCategoria.UNIVERSIDAD);
-                trans2.procesar(NombreCategoria.UNIVERSIDAD);
                 cuenta2.getListaTransacciones().add(trans2);
                 cuenta2.getUsuarioAsociado().getListaTransacciones().add(trans2);
 
