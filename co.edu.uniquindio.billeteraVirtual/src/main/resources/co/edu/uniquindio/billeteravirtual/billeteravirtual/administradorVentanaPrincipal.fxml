@@ -1,67 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.AdministradorVentanaPrincipalViewController">
-   <children>
-      <Button fx:id="btn_cerrar_sesion" layoutX="785.0" layoutY="602.0" mnemonicParsing="false" onAction="#onCerrarSesionAdm" text="Cerrar sesion" />
-      <TabPane layoutX="20.0" layoutY="10.0" prefHeight="569.0" prefWidth="884.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab fx:id="gestionUsuariosTab" text="Gestionar Usuarios">
-             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
-                   <children>
-                      <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
-                         <items>
-                            <fx:include source="adminFolder/gestionUsuarios.fxml" />
-                         </items>
-                      </SplitPane>
-                   </children>
-                </AnchorPane>
-             </content>
-          </Tab>
-          <Tab fx:id="gestionCuentasTab" text="Gestionar Cuentas">
-              <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
-                      <children>
-                          <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
-                              <items>
-                                  <fx:include source="adminFolder/gestionCuentas.fxml" />
-                              </items>
-                          </SplitPane>
-                      </children>
-                  </AnchorPane>
-              </content>
-          </Tab>
-            <Tab fx:id="gestionTransaccionesTab" text="Gestionar Transacciones">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
-                        <children>
-                            <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
-                                <items>
-                                    <fx:include source="adminFolder/gestionTransacciones.fxml" />
-                                </items>
-                            </SplitPane>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-            <Tab fx:id="mostrarEstadisticasTab" text="Mostrar estadisticas">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
-                        <children>
-                            <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
-                                <items>
-                                    <fx:include source="adminFolder/mostrarEstadisticas.fxml" />
-                                </items>
-                            </SplitPane>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-   </children>
-</Pane>
+<AnchorPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.AdministradorVentanaPrincipalViewController"
+            prefWidth="916.0" prefHeight="642.0">
+
+    <children>
+
+        <!-- Botón de cerrar sesión (centrado y gris) -->
+        <Button fx:id="btn_cerrar_sesion"
+                layoutX="408.0" layoutY="602.0"
+                mnemonicParsing="false"
+                onAction="#onCerrarSesionAdm"
+                text="Cerrar sesión"
+                style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" />
+
+        <!-- TabPane principal del administrador -->
+        <TabPane fx:id="adminTabPane" layoutX="20.0" layoutY="10.0"
+                 prefWidth="884.0" prefHeight="569.0"
+                 tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+
+                <!-- TAB: Gestionar Usuarios -->
+                <Tab fx:id="gestionUsuariosTab" text="Gestionar Usuarios">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <fx:include source="adminFolder/gestionUsuarios.fxml"
+                                            AnchorPane.topAnchor="0.0"
+                                            AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- TAB: Gestionar Cuentas -->
+                <Tab fx:id="gestionCuentasTab" text="Gestionar Cuentas">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <fx:include source="adminFolder/gestionCuentas.fxml"
+                                            AnchorPane.topAnchor="0.0"
+                                            AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- TAB: Gestionar Transacciones -->
+                <Tab fx:id="gestionTransaccionesTab" text="Gestionar Transacciones">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <fx:include source="adminFolder/gestionTransacciones.fxml"
+                                            AnchorPane.topAnchor="0.0"
+                                            AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- TAB: Mostrar Estadísticas -->
+                <Tab fx:id="mostrarEstadisticasTab" text="Mostrar estadísticas">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <fx:include source="adminFolder/mostrarEstadisticas.fxml"
+                                            AnchorPane.topAnchor="0.0"
+                                            AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>

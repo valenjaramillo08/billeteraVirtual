@@ -1,84 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="603.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.UsuarioVentanaPrincipalViewController">
-   <children>
-      <Pane layoutX="185.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0" />
-      <TabPane layoutX="13.0" layoutY="8.0" prefHeight="549.0" prefWidth="844.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab fx:id="perfilTab" text="Perfil">
-           <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
-                   <children>
-                      <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
-                         <items>
-                            <fx:include source="perfilUsuario.fxml" />
-                         </items>
-                      </SplitPane>
-                   </children>
-                </AnchorPane>
-             </content>
-          </Tab>
-          <Tab fx:id="transaccionTab" text="Transacciones">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
-                   <children>
-                      <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
-                         <items>
-                            <fx:include source="usuarioFolder/transaccion/transaccion.fxml" />
-                         </items>
-                      </SplitPane>
-                   </children>
-                </AnchorPane>
-             </content>
-          </Tab>
-           
-            <Tab fx:id="categoriasTab" text="Categorías">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
-                        <children>
-                            <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
-                                <items>
-                                    <fx:include source="categoriasUsuario.fxml" />
-                                </items>
-                            </SplitPane>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-            <Tab fx:id="cuentasTab" text="Cuentas">
-              <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
-                        <children>
-                            <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
-                                <items>
-                                    <fx:include source="usuarioFolder/cuentas/cuenta.fxml" />
-                                </items>
-                            </SplitPane>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-            <Tab fx:id="reportesTab" text="Reportes">
-              <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="750.0">
-                        <children>
-                            <SplitPane layoutX="10.0" layoutY="5.0" orientation="VERTICAL" prefHeight="538.0" prefWidth="739.0">
-                                <items>
-                                    <fx:include source="reportes.fxml" />
-                                </items>
-                            </SplitPane>
-                        </children>
-                    </AnchorPane>
-                </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-      <Button layoutX="729.0" layoutY="565.0" mnemonicParsing="false" onAction="#OnCerrarSesionUsuario" text="Cerrar Sesión" />
-   </children>
+<AnchorPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.UsuarioVentanaPrincipalViewController"
+            prefWidth="870.0" prefHeight="603.0">
+
+    <children>
+
+        <!-- TabPane de navegación del usuario -->
+        <TabPane fx:id="usuarioTabPane"
+                 layoutX="13.0" layoutY="8.0"
+                 prefWidth="844.0" prefHeight="549.0"
+                 tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+
+                <!-- TAB: Perfil -->
+                <Tab fx:id="perfilTab" text="Perfil">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <fx:include source="perfilUsuario.fxml"
+                                            AnchorPane.topAnchor="0.0"
+                                            AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- TAB: Transacciones -->
+                <Tab fx:id="transaccionTab" text="Transacciones">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <fx:include source="usuarioFolder/transaccion/transaccion.fxml"
+                                            AnchorPane.topAnchor="0.0"
+                                            AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- TAB: Categorías -->
+                <Tab fx:id="categoriasTab" text="Categorías">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <fx:include source="categoriasUsuario.fxml"
+                                            AnchorPane.topAnchor="0.0"
+                                            AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- TAB: Cuentas -->
+                <Tab fx:id="cuentasTab" text="Cuentas">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <fx:include source="usuarioFolder/cuentas/cuenta.fxml"
+                                            AnchorPane.topAnchor="0.0"
+                                            AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- TAB: Reportes -->
+                <Tab fx:id="reportesTab" text="Reportes">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <fx:include source="reportes.fxml"
+                                            AnchorPane.topAnchor="0.0"
+                                            AnchorPane.bottomAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0"
+                                            AnchorPane.rightAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+            </tabs>
+        </TabPane>
+
+        <!-- Botón de cerrar sesión (centrado y gris) -->
+        <Button layoutX="385.0" layoutY="565.0"
+                mnemonicParsing="false"
+                onAction="#OnCerrarSesionUsuario"
+                text="Cerrar Sesión"
+                style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" />
+    </children>
 </AnchorPane>

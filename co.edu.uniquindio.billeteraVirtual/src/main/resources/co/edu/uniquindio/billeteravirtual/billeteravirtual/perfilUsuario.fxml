@@ -4,11 +4,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="560.0" prefWidth="750.0"
-            xmlns="http://javafx.com/javafx/8"
+<AnchorPane xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.perfilUsuarioViewController"
-            style="-fx-background-color: #f4f4f4;">
+            style="-fx-background-color: #f4f4f4;"
+            AnchorPane.topAnchor="0.0"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0">
 
    <children>
 
@@ -27,21 +30,21 @@
          <HBox spacing="10.0">
             <Label text="Nombre:" prefWidth="100.0" alignment="CENTER_RIGHT"
                    style="-fx-font-size: 14px;" />
-            <TextField fx:id="txtNombre" prefWidth="300.0" />
+            <TextField fx:id="txtNombre" HBox.hgrow="ALWAYS" />
          </HBox>
 
          <!-- Campo Apellido -->
          <HBox spacing="10.0">
             <Label text="Apellido:" prefWidth="100.0" alignment="CENTER_RIGHT"
                    style="-fx-font-size: 14px;" />
-            <TextField fx:id="txtApellido" prefWidth="300.0" />
+            <TextField fx:id="txtApellido" HBox.hgrow="ALWAYS" />
          </HBox>
 
          <!-- Campo Correo -->
          <HBox spacing="10.0">
             <Label text="Correo:" prefWidth="100.0" alignment="CENTER_RIGHT"
                    style="-fx-font-size: 14px;" />
-            <TextField fx:id="txtCorreo" prefWidth="300.0" />
+            <TextField fx:id="txtCorreo" HBox.hgrow="ALWAYS" />
          </HBox>
 
       </VBox>
@@ -50,7 +53,7 @@
       <Button fx:id="btnModificar" layoutX="315.0" layoutY="360.0"
               text="Guardar Cambios"
               onAction="#onModificarDatos"
-              style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8px;"/>
+              style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 8px;" />
 
    </children>
 </AnchorPane>

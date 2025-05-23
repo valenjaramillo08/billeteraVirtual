@@ -1,25 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 
-<AnchorPane prefHeight="450.0" prefWidth="680.0" style="-fx-background-color: #F4F4F4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.ReportesViewController">
+<AnchorPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.ReportesViewController"
+            style="-fx-background-color: #F4F4F4;"
+            AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 
    <children>
 
-      <Label layoutX="185.0" layoutY="40.0" style="-fx-font-size: 18px; -fx-text-fill: #333333; -fx-font-weight: bold;" text="Genere reportes de su cuenta" />
+      <!-- Título principal -->
+      <Label layoutX="185.0" layoutY="40.0"
+             style="-fx-font-size: 18px; -fx-text-fill: #333333; -fx-font-weight: bold;"
+             text="Genere reportes de su cuenta" />
 
-      <Label layoutX="245.0" layoutY="93.0" style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="Seleccione la cuenta:" />
+      <!-- Etiqueta: seleccionar cuenta -->
+      <Label layoutX="245.0" layoutY="93.0"
+             style="-fx-font-size: 14px; -fx-text-fill: #555555;"
+             text="Seleccione la cuenta:" />
 
-      <ComboBox fx:id="cbCuentas" layoutX="249.0" layoutY="128.0" prefHeight="30.0" prefWidth="121.0" promptText="Cuentas" style="-fx-font-size: 14px; -fx-background-radius: 8; -fx-border-radius: 8;" />
+      <!-- ComboBox de cuentas -->
+      <ComboBox fx:id="cbCuentas"
+                layoutX="249.0" layoutY="128.0"
+                prefHeight="30.0" prefWidth="121.0"
+                promptText="Cuentas"
+                style="-fx-font-size: 14px; -fx-background-radius: 8; -fx-border-radius: 8;" />
 
-      <Button fx:id="btExportarPDF" layoutX="185.0" layoutY="219.0" onAction="#onExportarPDF" prefHeight="30.0" prefWidth="107.0" style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;" text="Exportar PDF" />
+      <!-- Botón Exportar PDF -->
+      <Button fx:id="btExportarPDF"
+              layoutX="185.0" layoutY="219.0"
+              onAction="#onExportarPDF"
+              prefHeight="30.0" prefWidth="107.0"
+              style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;"
+              text="Exportar PDF" />
 
-      <Button fx:id="btExportarCSV" layoutX="340.0" layoutY="219.0" onAction="#exportarCSV" prefHeight="30.0" prefWidth="107.0" style="-fx-background-color: #7B8D8E; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;" text="Exportar CSV" />
+      <!-- Botón Exportar CSV -->
+      <Button fx:id="btExportarCSV"
+              layoutX="340.0" layoutY="219.0"
+              onAction="#exportarCSV"
+              prefHeight="30.0" prefWidth="107.0"
+              style="-fx-background-color: #7B8D8E; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;"
+              text="Exportar CSV" />
 
    </children>
-
 </AnchorPane>

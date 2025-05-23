@@ -5,64 +5,70 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.CategoriasUsuarioViewController">
+<AnchorPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.CategoriasUsuarioViewController"
+            style="-fx-background-color: #f4f4f4;"
+            AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 
     <children>
 
         <!-- Título -->
-        <Label layoutX="40.0" layoutY="25.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Gestión de Categorías" />
+        <Label layoutX="239.0" layoutY="19.0"
+               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
+               text="Gestión de Categorías" />
 
-        <!-- Cuenta + Presupuesto -->
-        <HBox layoutX="40.0" layoutY="65.0" spacing="20">
-            <children>
-                <Label style="-fx-font-size: 14px;" text="Cuenta:" />
-                <ComboBox fx:id="comboCuentas" onAction="#onComboCuenta" prefWidth="180.0" />
-                <Label style="-fx-font-size: 14px;" text="Presupuesto disponible:" />
-                <TextField fx:id="txtPresupuesto" editable="false" prefWidth="160.0" style="-fx-background-color: #e8e8e8;" />
-            </children>
-        </HBox>
+        <!-- Separador vertical -->
+        <Separator layoutX="300.0" layoutY="60.0" orientation="VERTICAL"
+                   prefHeight="436.0" prefWidth="1.0" />
 
         <!-- Tabla de categorías -->
-        <TableView fx:id="tableCategoria" layoutX="40.0" layoutY="110.0" prefHeight="260.0" prefWidth="330.0" style="-fx-background-color: white; -fx-border-color: #dcdcdc;">
+        <TableView fx:id="tableCategoria" layoutX="352.0" layoutY="116.0"
+                   prefHeight="299.0" prefWidth="364.0"
+                   style="-fx-background-color: white; -fx-border-color: #dcdcdc;">
             <columns>
-                <TableColumn fx:id="columNombre" prefWidth="150.0" text="Nombre" />
-                <TableColumn fx:id="columSaldo" prefWidth="150.0" text="Saldo" />
+                <TableColumn fx:id="columNombre" prefWidth="178.0" text="Nombre" />
+                <TableColumn fx:id="columSaldo" prefWidth="184.0" text="Saldo" />
             </columns>
         </TableView>
 
-        <!-- Botones Modificar/Eliminar -->
-        <HBox layoutX="40.0" layoutY="390.0" spacing="15">
-            <children>
-                <Button fx:id="btnModificar" onAction="#onModificarCategoria" prefWidth="100.0" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Modificar" />
-                <Button fx:id="btnEliminar" onAction="#onEliminarCategoria" prefWidth="100.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Eliminar" />
-            </children>
-        </HBox>
+        <!-- Label para la tabla -->
+        <Label layoutX="352.0" layoutY="85.0"
+               style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;"
+               text="Lista de categorías de la cuenta:" />
 
-        <!-- Separador visual -->
-        <Separator layoutX="390.0" layoutY="110.0" orientation="VERTICAL" prefHeight="270.0" />
+        <!-- Formulario Crear categoría -->
+        <Label layoutX="87.0" layoutY="246.0"
+               style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;"
+               text="Crear nueva categoría" />
 
-        <!-- Sección crear categoría -->
-        <VBox layoutX="430.0" layoutY="110.0" prefWidth="280.0" spacing="15.0">
-            <children>
-                <Label style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="Crear nueva categoría" />
+        <Label layoutX="40.0" layoutY="98.0" style="-fx-font-size: 14px;" text="Selecciona una cuenta:" />
+        <ComboBox fx:id="comboCuentas" layoutX="40.0" layoutY="120.0"
+                  onAction="#onComboCuenta" prefHeight="25.0" prefWidth="160.0" />
 
-                <HBox spacing="10.0">
-                    <children>
-                        <Label prefWidth="70.0" text="Nombre:" />
-                        <ComboBox fx:id="comboNombreCategoria" prefWidth="180.0" />
-                    </children>
-                </HBox>
+        <Label layoutX="40.0" layoutY="159.0" style="-fx-font-size: 14px;" text="Presupuesto disponible en la cuenta:" />
+        <TextField fx:id="txtPresupuesto" layoutX="40.0" layoutY="184.0"
+                   editable="false" prefWidth="160.0"
+                   style="-fx-background-color: #e8e8e8;" />
 
-                <HBox spacing="10.0">
-                    <children>
-                        <Label prefWidth="70.0" text="Saldo:" />
-                        <TextField fx:id="txtSaldoCategoria" prefWidth="180.0" />
-                    </children>
-                </HBox>
+        <Label layoutX="40.0" layoutY="294.0" prefWidth="70.0" text="Nombre:" />
+        <ComboBox fx:id="comboNombreCategoria" layoutX="40.0" layoutY="319.0" prefHeight="25.0" prefWidth="160.0" />
 
-                <Button fx:id="btnCrear" onAction="#onCrearCategoria" prefWidth="100.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Crear" />
-            </children>
-        </VBox>
+        <Label layoutX="40.0" layoutY="360.0" text="Saldo a agregar:" />
+        <TextField fx:id="txtSaldoCategoria" layoutX="40.0" layoutY="378.0" prefHeight="25.0" prefWidth="160.0" />
+
+        <Button fx:id="btnCrear" layoutX="90.0" layoutY="432.0"
+                onAction="#onCrearCategoria" prefWidth="100.0"
+                style="-fx-background-color: #2ecc71; -fx-text-fill: white;" text="Crear" />
+
+        <Button fx:id="btnModificar" layoutX="416.0" layoutY="432.0"
+                onAction="#onModificarCategoria" prefWidth="100.0"
+                style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Modificar" />
+
+        <Button fx:id="btnEliminar" layoutX="544.0" layoutY="432.0"
+                onAction="#onEliminarCategoria" prefWidth="100.0"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Eliminar" />
 
     </children>
 </AnchorPane>

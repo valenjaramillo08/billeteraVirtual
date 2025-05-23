@@ -1,48 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
 
-<Pane prefHeight="621.0" prefWidth="843.0" style="-fx-background-color: #f4f4f4; -fx-padding: 20;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.GestionCuentasViewController">
+<AnchorPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.GestionCuentasViewController"
+            prefWidth="739.0" prefHeight="538.0"
+            style="-fx-background-color: #f4f4f4;">
+
     <children>
-        <SplitPane layoutX="13.0" layoutY="13.0" orientation="VERTICAL" prefHeight="587.0" prefWidth="790.0">
-            <items>
-                <AnchorPane prefHeight="568.0" prefWidth="783.0" style="-fx-background-color: #ffffff; -fx-padding: 20;">
+        <VBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"
+              AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="45.0">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Formulario -->
+            <GridPane hgap="20" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="130"/>
+                    <ColumnConstraints prefWidth="200"/>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="130"/>
+                    <ColumnConstraints prefWidth="200"/>
+                </columnConstraints>
+
+                <Label text="Id Cuenta:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfIdCuenta" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Número cuenta:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="tfNumeroCuenta" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Nombre del banco:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfBanco" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Tipo de Cuenta:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <ComboBox fx:id="cbTipoCuenta" promptText="Tipo de cuenta" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Id Usuario Asociado:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbUsuarios" promptText="Seleccione un usuario" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <HBox spacing="20" alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="4">
                     <children>
-                        <TableView fx:id="tabCuenta" layoutY="293.0" prefHeight="230.0" prefWidth="779.0" style="-fx-border-color: #dcdcdc; -fx-border-radius: 5px;">
-                            <columns>
-                                <TableColumn fx:id="columIdCuenta" prefWidth="133.0" text="Id Cuenta " />
-                                <TableColumn fx:id="columBanco" minWidth="2.0" prefWidth="159.0" text="Nombre del banco" />
-                                <TableColumn fx:id="columNCuenta" minWidth="0.0" prefWidth="168.0" text="Número cuenta " />
-                                <TableColumn fx:id="ColumTpoCuenta" minWidth="0.0" prefWidth="171.0" text="Tipo de Cuenta" />
-                                <TableColumn fx:id="columIdUsuario" prefWidth="147.0" text="ID Usuario" />
-                            </columns>
-                        </TableView>
+                        <Button fx:id="btAgregar" text="Agregar"
+                                onAction="#agregarCuenta"
+                                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;"/>
 
-                        <Label fx:id="lbBanco" layoutX="8.0" layoutY="90.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Nombre del banco:" />
-                        <Label fx:id="lbIdCuenta" layoutX="8.0" layoutY="33.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Id Cuenta:" />
-                        <Label fx:id="lbNumeroCuenta" layoutX="363.0" layoutY="33.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Número cuenta:" />
-                        <Label fx:id="lbNumeroCuenta1" layoutX="366.0" layoutY="86.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Tipo de Cuenta" />
-                        <Label fx:id="lbBanco1" layoutX="8.0" layoutY="152.0" style="-fx-font-size: 13px; -fx-text-fill: #2c3e50;" text="Id Usuario Asociado:" />
+                        <Button fx:id="btActualizar" text="Actualizar"
+                                onAction="#actualizarCuenta"
+                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;"/>
 
-                        <TextField fx:id="tfIdCuenta" layoutX="139.0" layoutY="32.0" prefHeight="25.0" prefWidth="157.0" />
-                        <TextField fx:id="tfBanco" layoutX="139.0" layoutY="90.0" prefHeight="25.0" prefWidth="157.0" />
-                        <TextField fx:id="tfNumeroCuenta" layoutX="487.0" layoutY="28.0" prefHeight="25.0" prefWidth="157.0" />
-                        <ComboBox fx:id="cbUsuarios" layoutX="139.0" layoutY="147.0" prefHeight="30.0" prefWidth="157.0" promptText="Seleccione un usuario" />
-
-
-                        <ComboBox fx:id="cbTipoCuenta" layoutX="487.0" layoutY="85.0" prefHeight="25.0" prefWidth="157.0" promptText="Tipo de cuenta" />
-
-                        <Button fx:id="btAgregar" layoutX="154.0" layoutY="253.0" onAction="#agregarCuenta" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" text="Agregar" />
-                        <Button fx:id="btActualizar" layoutX="327.0" layoutY="253.0" onAction="#actualizarCuenta" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Actualizar" />
-                        <Button fx:id="btDetalles" layoutX="505.0" layoutY="253.0" onAction="#mostrarDetallesCuenta" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Detalles de la cuenta" />
-                        <Button fx:id="btEliminar" layoutX="703.0" layoutY="531.0" onAction="#eliminarCuenta" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;" text="Eliminar" />
+                        <Button fx:id="btDetalles" text="Detalles de la cuenta"
+                                onAction="#mostrarDetallesCuenta"
+                                style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;"/>
                     </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
+                </HBox>
+            </GridPane>
+
+            <!-- Separador visual -->
+            <Separator/>
+
+            <!-- Título de la tabla -->
+            <Label text="Lista de cuentas"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
+                   alignment="CENTER" maxWidth="Infinity"/>
+
+            <!-- Tabla -->
+            <TableView fx:id="tabCuenta" prefHeight="200.0"
+                       style="-fx-border-color: #dcdcdc; -fx-border-radius: 5px;">
+                <columns>
+                    <TableColumn fx:id="columIdCuenta" text="Id Cuenta" prefWidth="133.0"/>
+                    <TableColumn fx:id="columBanco" text="Nombre del banco" prefWidth="159.0"/>
+                    <TableColumn fx:id="columNCuenta" text="Número cuenta" prefWidth="168.0"/>
+                    <TableColumn fx:id="ColumTpoCuenta" text="Tipo de Cuenta" prefWidth="171.0"/>
+                    <TableColumn fx:id="columIdUsuario" text="ID Usuario" prefWidth="147.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Botón Eliminar centrado -->
+        <HBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" alignment="CENTER">
+            <children>
+                <Button fx:id="btEliminar" text="Eliminar"
+                        onAction="#eliminarCuenta"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </children>
+        </HBox>
     </children>
-</Pane>
+</AnchorPane>
