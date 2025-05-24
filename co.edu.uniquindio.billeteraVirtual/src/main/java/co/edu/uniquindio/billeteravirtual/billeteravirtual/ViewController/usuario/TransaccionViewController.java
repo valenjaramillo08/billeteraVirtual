@@ -91,8 +91,14 @@ public class TransaccionViewController {
             transaccion.setPresupuesto(presupuesto);
             transaccion.setCategoriaProcesada(nombreCategoria);
               // --- DECORATOR ---
-            TransaccionD t = new ValidacionSaldo(transaccion);
-            t = new TransaccionConNotificacion(t);
+            // Adaptar la transacción concreta
+            TransaccionD t = new Transaccion(transaccion);
+
+            // Decoradores
+            t = new ValidacionSaldo(transaccion); // Si necesita datos extra
+            t = new TransaccionConNotificacion(transaccion); // O el correo que corresponda
+
+            // Ejecutar decorada
             t.ejecutar();
             transacciones.add(transaccion); 
             usuarioActual.getListaTransacciones().add(transaccion);
@@ -126,7 +132,8 @@ public class TransaccionViewController {
             transaccion.setPresupuesto(presupuesto);
 
             // --- DECORATOR SOLO NOTIFICACIÓN ---
-            TransaccionD t = new TransaccionConNotificacion(transaccion);
+            TransaccionD t = new Transaccion(transaccion);
+            t = new TransaccionConNotificacion(transaccion);
             t.ejecutar();
 
             // -----------------------------------
