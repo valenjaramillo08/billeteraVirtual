@@ -157,11 +157,15 @@ public class TransaccionViewController {
         cbCuentaOrigen.setValue(null);
         cbCuentaDestino.setValue(null);
         txtSaldoActual.clear();
-        comboPlata.getItems().clear();
-        comboPlata.setDisable(false);
-        cbCuentaOrigen.setVisible(false);
-        cbCuentaDestino.setVisible(false);
+        comboPlata.setValue(null);
+        comboPlata.setItems(FXCollections.observableArrayList());
+        comboPlata.setDisable(true);
+
+        // Restaurar visibilidad
+        cbCuentaOrigen.setDisable(true);
+        cbCuentaDestino.setDisable(true);
     }
+
 
     @FXML
     public void initialize() {
@@ -182,22 +186,28 @@ public class TransaccionViewController {
     @FXML
     private void onTipoSeleccionado(ActionEvent e) {
         TipoTransaccion tipo = cbTipo.getValue();
-        cbCuentaOrigen.setVisible(false);
-        cbCuentaDestino.setVisible(false);
-        comboPlata.setDisable(true);
+
+        cbCuentaOrigen.setDisable(true);
+        cbCuentaDestino.setDisable(true);
+        cbCuentaOrigen.setVisible(true);
+        cbCuentaDestino.setVisible(true);
+
+        comboPlata.setDisable(true); // Por defecto deshabilitado
 
         if (tipo == TipoTransaccion.RETIRO) {
-            cbCuentaOrigen.setVisible(true);
-            comboPlata.setDisable(false);
+            cbCuentaOrigen.setDisable(false);
+            comboPlata.setDisable(false); // Habilitado en RETIRO
         } else if (tipo == TipoTransaccion.DEPOSITO) {
-            cbCuentaDestino.setVisible(true);
+            cbCuentaDestino.setDisable(false);
+            comboPlata.setDisable(true); // Deshabilitado en DEPÓSITO
         } else if (tipo == TipoTransaccion.TRANSFERENCIA) {
-            cbCuentaOrigen.setVisible(true);
-            cbCuentaDestino.setVisible(true);
-            comboPlata.setDisable(false);
+            cbCuentaOrigen.setDisable(false);
+            cbCuentaDestino.setDisable(false);
+            comboPlata.setDisable(false); // Habilitado en TRANSFERENCIA
             filtrarCuentasDestino();
         }
     }
+
 
     @FXML
     private void onCuentaOrigenSeleccionada(ActionEvent e) {
