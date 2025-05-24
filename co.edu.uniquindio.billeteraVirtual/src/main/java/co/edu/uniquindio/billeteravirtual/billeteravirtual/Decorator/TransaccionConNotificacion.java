@@ -5,7 +5,7 @@ import javafx.scene.control.Alert;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Transaccion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils.EmailUtil;
 
-public class TransaccionConNotificacion extends DecoratorTransaccion {
+public class TransaccionConNotificacion extends DecoratorTransaccion  {
 
     public TransaccionConNotificacion(TransaccionD transaccion){
         super(transaccion);

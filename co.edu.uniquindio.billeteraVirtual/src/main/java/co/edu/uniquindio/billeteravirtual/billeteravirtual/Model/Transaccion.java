@@ -39,6 +39,17 @@ public class Transaccion implements IVisitable, TransaccionD {
         this.tipoTransaccion = tipoTransaccion;
         
     }
+    public Transaccion(Transaccion otra){
+       this.idTransaccion = otra.idTransaccion;
+        this.cuentaOrigen = otra.cuentaOrigen;
+        this.cuentaDestino = otra.cuentaDestino;
+        this.fechaTransaccion = otra.fechaTransaccion;
+        this.monto = otra.monto;
+        this.descripcion = otra.descripcion;
+        this.tipoTransaccion = otra.tipoTransaccion; 
+
+    }
+
     public void procesar(NombreCategoria nombreCategoria) {
         this.categoriaProcesada = nombreCategoria;
 
