@@ -3,7 +3,6 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuar
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Controller.GestionTransaccionesController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.TransaccionConNotificacion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.TransaccionD;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.ValidacionSaldo;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.FabricaTransacciones;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
@@ -95,7 +94,6 @@ public class TransaccionViewController {
             TransaccionD t = new Transaccion(transaccion);
 
             // Decoradores
-            t = new ValidacionSaldo(transaccion); // Si necesita datos extra
             t = new TransaccionConNotificacion(transaccion); // O el correo que corresponda
 
             // Ejecutar decorada
