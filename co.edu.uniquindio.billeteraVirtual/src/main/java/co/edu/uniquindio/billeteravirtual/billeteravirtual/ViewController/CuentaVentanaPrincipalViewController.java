@@ -63,7 +63,7 @@ public class CuentaVentanaPrincipalViewController {
     private void cargarVistaConsulTransaccion() {
         if (usuarioLogueado == null) {
             System.err.println("[Error] usuarioLogueado es null al cargar la vista consultar transacciones.");
-            // Mostrar un mensaje al usuario
+           
             new Alert(Alert.AlertType.ERROR, "El usuario no está logueado. Por favor, inicie sesión nuevamente.").showAndWait();
             return;
         }
@@ -73,7 +73,7 @@ public class CuentaVentanaPrincipalViewController {
             Parent vistaCuentasGestion = loader.load();
 
             ConsulTransaccionViewController controller = loader.getController();
-            controller.setUsuarioLogueado(usuarioLogueado);  // Ahora seguro no es null
+            controller.setUsuarioLogueado(usuarioLogueado);  
 
             ConsultarTransaccionesTab.setContent(vistaCuentasGestion);
         } catch (IOException e) {
@@ -85,7 +85,7 @@ public class CuentaVentanaPrincipalViewController {
     private void cargarVistaSaldo() {
 		 if (usuarioLogueado == null) {
         System.err.println("[Error] usuarioLogueado es null al cargar la vista consultar saldo.");
-        // Mostrar un mensaje al usuario
+        
         new Alert(Alert.AlertType.ERROR, "El usuario no está logueado. Por favor, inicie sesión nuevamente.").showAndWait();
         return;
     }
@@ -95,16 +95,16 @@ public class CuentaVentanaPrincipalViewController {
         Parent vistaCuentasGestion = loader.load();
 
         ConsultarSaldoViewController controller = loader.getController();
-        controller.setUsuarioActual(usuarioLogueado);  // Ahora seguro no es null
+        controller.setUsuarioActual(usuarioLogueado);  
         presupuestoObservable.agregarObserver(controller);
         
-         // Sumar los montos de todos los presupuestos
+         
         double sumaPresupuestos = usuarioLogueado.getListaPresupuestos()
             .stream()
             .mapToDouble(Presupuesto::getMontoPresupuesto)
             .sum();
 
-        // Puedes crear un Presupuesto "total" solo para mostrar la suma
+       
         Presupuesto presupuestoTotal = new Presupuesto( sumaPresupuestos, 0);
         presupuestoObservable.setPresupuesto(presupuestoTotal);
 
@@ -125,7 +125,7 @@ public class CuentaVentanaPrincipalViewController {
     private void cargarVistaGestionCuentas() {
      if (usuarioLogueado == null) {
         System.err.println("[Error] usuarioLogueado es null al cargar la vista de gestionar cuentas.");
-        // Mostrar un mensaje al usuario
+        
         new Alert(Alert.AlertType.ERROR, "El usuario no está logueado. Por favor, inicie sesión nuevamente.").showAndWait();
         return;
     }
@@ -135,7 +135,7 @@ public class CuentaVentanaPrincipalViewController {
         Parent vistaCuentasGestion = loader.load();
 
         GestionarCuentaViewController controller = loader.getController();
-        controller.setUsuarioActual(usuarioLogueado);  // Ahora seguro no es null
+        controller.setUsuarioActual(usuarioLogueado);  
 
         GestionarCuentasTab.setContent(vistaCuentasGestion);
     } catch (IOException e) {

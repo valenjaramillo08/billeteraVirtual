@@ -43,7 +43,7 @@ public class ReportesViewController {
 
     @FXML
     void initialize() {
-        // Inicializaciones si es necesario
+        
     }
 
     public void setUsuarioActual(Usuario usuario) {
@@ -53,9 +53,7 @@ public class ReportesViewController {
         }
     }
 
-    /**
-     * Exporta un reporte general de gastos del usuario usando el patrón Command.
-     */
+    
     @FXML
     void exportarCSV() {
         File archivo = mostrarDialogoGuardar("csv", "Archivo CSV (*.csv)");
@@ -71,9 +69,7 @@ public class ReportesViewController {
         }
     }
 
-    /**
-     * Exporta un reporte detallado de la cuenta seleccionada en PDF usando Strategy + Bridge + Command.
-     */
+    
     @FXML
     void onExportarPDF(ActionEvent event) {
         Cuenta cuentaSeleccionada = cbCuentas.getValue();

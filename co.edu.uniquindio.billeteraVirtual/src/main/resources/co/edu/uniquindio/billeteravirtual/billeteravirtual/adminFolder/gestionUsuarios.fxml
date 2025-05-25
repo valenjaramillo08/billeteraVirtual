@@ -18,7 +18,7 @@
                 <AnchorPane style="-fx-background-color: #f9f9f9; -fx-padding: 20;">
                     <children>
 
-                        <!-- Formulario en 2 columnas -->
+                        
                         <GridPane layoutX="50" layoutY="10" hgap="20" vgap="15">
                             <columnConstraints>
                                 <ColumnConstraints halignment="RIGHT" prefWidth="100"/>
@@ -49,10 +49,10 @@
                             <TextField fx:id="txtContrasena" prefWidth="172" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
                         </GridPane>
 
-                        <!-- Separador -->
+                        
                         <Separator layoutX="20" layoutY="160" prefWidth="800"/>
 
-                        <!-- Botones Agregar / Actualizar centrados y equilibrados -->
+                        
                         <HBox layoutX="0" layoutY="180"
                               spacing="60" alignment="CENTER"
                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -72,7 +72,7 @@
                     </children>
                 </AnchorPane>
 
-                <!-- Tabla -->
+               
                 <AnchorPane style="-fx-background-color: #ffffff;">
                     <children>
                         <TableView fx:id="tableUsuarios"
@@ -91,7 +91,7 @@
             </items>
         </SplitPane>
 
-        <!-- Botón Eliminar centrado bajo la tabla -->
+        
         <HBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               alignment="CENTER">
             <children>

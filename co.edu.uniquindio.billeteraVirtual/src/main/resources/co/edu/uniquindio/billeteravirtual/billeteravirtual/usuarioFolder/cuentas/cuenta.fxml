@@ -12,7 +12,7 @@
          style="-fx-background-color: #F8F8F8;">
 
     <tabs>
-        <!-- Gestionar Cuentas -->
+        
         <Tab fx:id="GestionarCuentasTab" text="Gestionar cuentas">
             <content>
                 <AnchorPane prefHeight="540.0" prefWidth="780.0">
@@ -30,7 +30,7 @@
             </content>
         </Tab>
 
-        <!-- Consultar Transacciones -->
+        
         <Tab fx:id="ConsultarTransaccionesTab" text="Consultar transacciones">
             <content>
                 <AnchorPane prefHeight="540.0" prefWidth="780.0">
@@ -48,7 +48,7 @@
             </content>
         </Tab>
 
-        <!-- Consultar Saldo -->
+        
         <Tab fx:id="ConsultarSaldoTab" text="Consultar saldo">
             <content>
                 <AnchorPane prefHeight="540.0" prefWidth="780.0">

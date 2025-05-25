@@ -93,7 +93,7 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
             nueva.setNombreCategoria(nombreCategoria);
             nueva.setSaldo(saldo);
             listaCategorias.add(nueva);
-            gastar(saldo); // Descontar del presupuesto automáticamente
+            gastar(saldo); 
             return true;
         }
         return false;

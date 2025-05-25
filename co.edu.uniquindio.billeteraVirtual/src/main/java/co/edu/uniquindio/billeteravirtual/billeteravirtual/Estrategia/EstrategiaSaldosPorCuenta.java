@@ -16,7 +16,7 @@ public class EstrategiaSaldosPorCuenta implements EstrategiaEstadistica{
     public List<EstadisticaCategoria> calcular(List<Usuario> usuarios) {
         List<EstadisticaCategoria> resultado = new ArrayList<>();
 
-        Usuario usuario = usuarios.get(0); // Solo se espera un usuario
+        Usuario usuario = usuarios.get(0); 
 
         for (Cuenta cuenta : usuario.getListaCuentas()) {
             if (cuenta.getPresupuesto() != null) {

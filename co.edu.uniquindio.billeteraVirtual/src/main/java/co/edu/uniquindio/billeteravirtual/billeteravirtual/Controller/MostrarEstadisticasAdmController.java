@@ -15,7 +15,7 @@ import java.util.Map;
 public class MostrarEstadisticasAdmController {
     private final ModelFactory modelFactory = ModelFactory.getInstancia();
 
-    // Mapa que asocia el nombre visible en el ComboBox con una estrategia
+    
     private final Map<String, EstrategiaEstadistica> estrategias = new HashMap<>();
 
     public MostrarEstadisticasAdmController() {

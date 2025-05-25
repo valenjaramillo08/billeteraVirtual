@@ -10,7 +10,7 @@
 
     <children>
 
-        <!-- Botón de cerrar sesión (centrado y gris) -->
+        
         <Button fx:id="btn_cerrar_sesion"
                 layoutX="408.0" layoutY="602.0"
                 mnemonicParsing="false"
@@ -18,13 +18,13 @@
                 text="Cerrar sesión"
                 style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;" />
 
-        <!-- TabPane principal del administrador -->
+        
         <TabPane fx:id="adminTabPane" layoutX="20.0" layoutY="10.0"
                  prefWidth="884.0" prefHeight="569.0"
                  tabClosingPolicy="UNAVAILABLE">
             <tabs>
 
-                <!-- TAB: Gestionar Usuarios -->
+                
                 <Tab fx:id="gestionUsuariosTab" text="Gestionar Usuarios">
                     <content>
                         <AnchorPane>
@@ -39,7 +39,7 @@
                     </content>
                 </Tab>
 
-                <!-- TAB: Gestionar Cuentas -->
+                
                 <Tab fx:id="gestionCuentasTab" text="Gestionar Cuentas">
                     <content>
                         <AnchorPane>
@@ -54,7 +54,7 @@
                     </content>
                 </Tab>
 
-                <!-- TAB: Gestionar Transacciones -->
+               
                 <Tab fx:id="gestionTransaccionesTab" text="Gestionar Transacciones">
                     <content>
                         <AnchorPane>
@@ -69,7 +69,7 @@
                     </content>
                 </Tab>
 
-                <!-- TAB: Mostrar Estadísticas -->
+                
                 <Tab fx:id="mostrarEstadisticasTab" text="Mostrar estadísticas">
                     <content>
                         <AnchorPane>

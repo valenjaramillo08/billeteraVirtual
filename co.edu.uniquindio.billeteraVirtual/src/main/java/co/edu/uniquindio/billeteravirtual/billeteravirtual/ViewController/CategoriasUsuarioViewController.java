@@ -105,7 +105,7 @@ public class CategoriasUsuarioViewController implements Observador {
             categoria.setNombreCategoria(nuevoNombre);
 
             tableCategoria.refresh();
-            presupuesto.notificarObservers(); // <- IMPORTANTE
+            presupuesto.notificarObservers(); 
             mostrarAlertaInfo("Categoría modificada.");
         } catch (NumberFormatException e) {
             mostrarAlertaError("El saldo debe ser un número válido.");

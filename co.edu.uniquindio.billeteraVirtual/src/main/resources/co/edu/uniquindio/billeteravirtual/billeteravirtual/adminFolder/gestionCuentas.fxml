@@ -17,7 +17,7 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <!-- Formulario -->
+            
             <GridPane hgap="20" vgap="15">
                 <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" prefWidth="130"/>
@@ -58,15 +58,15 @@
                 </HBox>
             </GridPane>
 
-            <!-- Separador visual -->
+            
             <Separator/>
 
-            <!-- Título de la tabla -->
+            
             <Label text="Lista de cuentas"
                    style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
                    alignment="CENTER" maxWidth="Infinity"/>
 
-            <!-- Tabla -->
+            
             <TableView fx:id="tabCuenta" prefHeight="200.0"
                        style="-fx-border-color: #dcdcdc; -fx-border-radius: 5px;">
                 <columns>
@@ -79,7 +79,7 @@
             </TableView>
         </VBox>
 
-        <!-- Botón Eliminar centrado -->
+       
         <HBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" alignment="CENTER">
             <children>

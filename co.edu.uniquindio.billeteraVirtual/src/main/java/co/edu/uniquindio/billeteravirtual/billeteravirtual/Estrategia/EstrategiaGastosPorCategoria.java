@@ -19,7 +19,7 @@ public class EstrategiaGastosPorCategoria implements EstrategiaEstadistica {
                 for (Transaccion transaccion : cuenta.getListaTransacciones()) {
                     NombreCategoria categoria = transaccion.getCategoriaProcesada();
                     if (categoria != null) {
-                        String nombreCategoria = categoria.name(); // O también: categoria.toString();
+                        String nombreCategoria = categoria.name(); 
                         double monto = transaccion.getMonto();
 
                         boolean encontrada = false;

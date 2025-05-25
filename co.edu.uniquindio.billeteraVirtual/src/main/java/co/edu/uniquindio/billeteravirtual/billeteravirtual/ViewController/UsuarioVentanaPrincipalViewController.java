@@ -24,7 +24,7 @@ public class UsuarioVentanaPrincipalViewController {
 
     public void setApp(HelloApplication helloApplication) {
         this.helloApp = helloApplication;
-        // ✅ Asegúrate de esta línea
+        
 
     }
 
@@ -59,10 +59,10 @@ public class UsuarioVentanaPrincipalViewController {
     @FXML
     void OnCerrarSesionUsuario(ActionEvent event)  throws IOException {
         if (helloApp != null) {
-            // Mostrar la vista principal (inicial.fxml)
+            
             helloApp.onCallVentanaPrincipal(event);
 
-            // Cerrar la ventana actual (ventana de Usuario)
+            
             ((javafx.stage.Stage) perfilTab.getTabPane().getScene().getWindow()).close();
         } else {
             System.err.println("Error: helloApp es null. No se pudo cerrar sesión correctamente.");
@@ -75,9 +75,9 @@ public class UsuarioVentanaPrincipalViewController {
             Parent vistaReportes = loader.load();
 
             ReportesViewController controller = loader.getController();
-            controller.setUsuarioActual(usuarioLogueado); // ✅ Pasa el usuario al controlador
+            controller.setUsuarioActual(usuarioLogueado); 
 
-            reportesTab.setContent(vistaReportes); // ✅ Muestra la vista dentro del tab
+            reportesTab.setContent(vistaReportes); 
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,7 +93,7 @@ public class UsuarioVentanaPrincipalViewController {
             AnchorPane vistaPerfil = loader.load();
     
             perfilUsuarioViewController controller = loader.getController();
-            controller.setUsuarioLogueado(usuarioLogueado);  // Asegúrate de que este método exista
+            controller.setUsuarioLogueado(usuarioLogueado);  
 
     
             perfilTab.setContent(vistaPerfil);
@@ -108,9 +108,9 @@ public class UsuarioVentanaPrincipalViewController {
             Pane vistaTransacciones = loader.load();
 
             TransaccionViewController controller = loader.getController();
-            controller.setUsuarioLogueado(usuarioLogueado);  // ✅ Aquí se pasa el usuario
+            controller.setUsuarioLogueado(usuarioLogueado); 
 
-            transaccionTab.setContent(vistaTransacciones); // Reemplazas el contenido del Tab
+            transaccionTab.setContent(vistaTransacciones); 
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,9 +122,9 @@ public class UsuarioVentanaPrincipalViewController {
         TabPane vistaCuentas = loader.load();
 
         CuentaVentanaPrincipalViewController controller = loader.getController();
-        controller.setUsuarioLogueado(usuarioLogueado);  // ¡Este método pasa el usuario correctamente!
+        controller.setUsuarioLogueado(usuarioLogueado);  
         System.out.println("Usuario actual: " + usuarioLogueado);
-        cuentasTab.setContent(vistaCuentas);  // o donde quieras mostrar la vista
+        cuentasTab.setContent(vistaCuentas);  
 
     } catch (IOException e) {
         e.printStackTrace();
@@ -137,9 +137,9 @@ public class UsuarioVentanaPrincipalViewController {
             AnchorPane vistaCategorias = loader.load();
 
             CategoriasUsuarioViewController controller = loader.getController();
-            controller.setUsuarioLogueado(usuarioLogueado); // ✅ Pasa el usuario al controlador
+            controller.setUsuarioLogueado(usuarioLogueado); 
 
-            categoriasTab.setContent(vistaCategorias); // ✅ Muestra la vista dentro del tab
+            categoriasTab.setContent(vistaCategorias); 
         } catch (IOException e) {
             e.printStackTrace();
         }

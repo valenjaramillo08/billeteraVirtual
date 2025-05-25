@@ -74,7 +74,7 @@ public class GestionarCuentaViewController {
     this.usuarioActual = usuario;
     System.out.println("Usuario actual: " + usuario.getNombre());
 
-    // Cargamos las cuentas del usuario en la tabla
+    
     cargarCuentas();
     }
 

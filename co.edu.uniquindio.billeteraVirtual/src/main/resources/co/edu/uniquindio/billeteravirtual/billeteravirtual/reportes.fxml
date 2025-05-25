@@ -14,24 +14,24 @@
 
    <children>
 
-      <!-- Título principal -->
+      
       <Label layoutX="185.0" layoutY="40.0"
              style="-fx-font-size: 18px; -fx-text-fill: #333333; -fx-font-weight: bold;"
              text="Genere reportes de su cuenta" />
 
-      <!-- Etiqueta: seleccionar cuenta -->
+      
       <Label layoutX="245.0" layoutY="93.0"
              style="-fx-font-size: 14px; -fx-text-fill: #555555;"
              text="Seleccione la cuenta:" />
 
-      <!-- ComboBox de cuentas -->
+      
       <ComboBox fx:id="cbCuentas"
                 layoutX="249.0" layoutY="128.0"
                 prefHeight="30.0" prefWidth="121.0"
                 promptText="Cuentas"
                 style="-fx-font-size: 14px; -fx-background-radius: 8; -fx-border-radius: 8;" />
 
-      <!-- Botón Exportar PDF -->
+      
       <Button fx:id="btExportarPDF"
               layoutX="185.0" layoutY="219.0"
               onAction="#onExportarPDF"
@@ -39,7 +39,7 @@
               style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;"
               text="Exportar PDF" />
 
-      <!-- Botón Exportar CSV -->
+      
       <Button fx:id="btExportarCSV"
               layoutX="340.0" layoutY="219.0"
               onAction="#exportarCSV"

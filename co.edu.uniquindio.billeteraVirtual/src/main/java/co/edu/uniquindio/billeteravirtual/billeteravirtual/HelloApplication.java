@@ -138,7 +138,7 @@ public class HelloApplication extends Application {
         Pane root = loader.load();
 
         UsuarioVentanaPrincipalViewController controller = loader.getController();
-        controller.setApp(this); // <--- ESTA LÍNEA ES OBLIGATORIA
+        controller.setApp(this); 
         controller.setUsuarioLogueado(usuario);
 
         Scene scene = new Scene(root);

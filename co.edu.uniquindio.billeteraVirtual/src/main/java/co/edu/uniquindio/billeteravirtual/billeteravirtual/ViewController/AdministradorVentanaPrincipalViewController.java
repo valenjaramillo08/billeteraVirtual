@@ -35,7 +35,7 @@ public class AdministradorVentanaPrincipalViewController {
     @FXML
     private Tab gestionUsuariosTab;
 
-    @FXML private AnchorPane placeholder; // un <AnchorPane fx:id="placeholder"/> en tu FXML
+    @FXML private AnchorPane placeholder; 
 
 
 
@@ -45,10 +45,10 @@ public class AdministradorVentanaPrincipalViewController {
     @FXML
     void onCerrarSesionAdm(ActionEvent event) throws IOException {
         if (helloApp != null) {
-            // Mostrar la vista principal (inicial.fxml)
+            
             helloApp.onCallVentanaPrincipalAdm(event);
 
-            // Cerrar la ventana actual (ventana de Usuario)
+            
             ((javafx.stage.Stage) gestionCuentasTab.getTabPane().getScene().getWindow()).close();
         } else {
             System.err.println("Error: helloApp es null. No se pudo cerrar sesión correctamente.");

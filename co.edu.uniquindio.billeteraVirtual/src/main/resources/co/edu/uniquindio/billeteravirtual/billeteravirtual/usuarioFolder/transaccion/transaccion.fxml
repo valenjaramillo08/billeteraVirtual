@@ -15,13 +15,13 @@
 
     <children>
 
-        <!-- Título -->
+        
         <Label layoutX="20.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" text="Gestión de Transacciones" />
 
-        <!-- Contenedor de campos -->
+       
         <VBox layoutX="20.0" layoutY="60.0" spacing="15.0" prefWidth="820.0">
 
-            <!-- Fila 1 -->
+            
             <HBox spacing="20.0">
                 <VBox spacing="5.0">
                     <Label text="Tipo de Transacción" />
@@ -39,7 +39,7 @@
                 </VBox>
             </HBox>
 
-            <!-- Fila 2 -->
+            
             <HBox spacing="20.0">
                 <VBox spacing="5.0">
                     <Label text="La plata sale de:" />
@@ -57,7 +57,7 @@
                 </VBox>
             </HBox>
 
-            <!-- Botón -->
+            
             <HBox alignment="CENTER">
                 <Button fx:id="btTransaccion"
                         text="Realizar Transacción"
@@ -67,7 +67,7 @@
 
         </VBox>
 
-        <!-- Tabla -->
+        
         <TableView fx:id="tablaTransacciones"
                    AnchorPane.leftAnchor="20.0"
                    AnchorPane.rightAnchor="20.0"

@@ -201,7 +201,7 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             cuenta.setAdministradorAsociado(administradorAsociado);
             getListaCuentas().add(cuenta);
 
-            usuarioAsociado.getListaCuentas().add(cuenta); // ✅ Asegura que el usuario conozca su cuenta
+            usuarioAsociado.getListaCuentas().add(cuenta); 
 
 
 
@@ -249,15 +249,15 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     }
 
     public boolean crearTransaccion(
-            Cuenta cuentaOrigen, // puede ser null
-            Cuenta cuentaDestino, // puede ser null
+            Cuenta cuentaOrigen, 
+            Cuenta cuentaDestino, 
             double monto,
             String descripcion,
             TipoTransaccion tipoTransaccion) {
         String idTransaccion = UUID.randomUUID().toString();
         LocalDate fecha = LocalDate.now();
 
-        // Validación según tipo de transacción
+        
         if (tipoTransaccion == TipoTransaccion.RETIRO && cuentaOrigen == null) {
             System.out.println("Error: Cuenta origen requerida para retiro.");
             return false;
@@ -326,7 +326,7 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     @Override
     public boolean agregarUsuarioRegistro(String nombre, String correo, String idUsuario, String contrasena) {
         if (obtenerUsuario(idUsuario) != null) {
-            return false; // El ID ya está en uso
+            return false; 
         }
 
         Usuario nuevoUsuario = new UsuarioBuilder()
@@ -346,28 +346,28 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
     public boolean agregarTransaccion(Transaccion transaccion) {
         if (transaccion != null) {
             listaTransacciones.add(transaccion);
-            return true; // Indica que se agregó exitosamente
+            return true; 
         } else {
-            return false; // No se pudo agregar porque la transacción es nula
+            return false; 
         }
     }
     public boolean registrarTransaccion(DatosTransaccion datos) {
         if (datos == null) return false;
 
-        // Crear la transacción con la fábrica
+        
         Transaccion transaccion = FabricaTransacciones.crear(datos);
 
-// Guardar en lista global del administrador
+
         agregarTransaccion(transaccion);
 
-// Obtener cuentas y presupuestos involucrados
+
         Cuenta cuentaOrigen = transaccion.getCuentaOrigen();
         Cuenta cuentaDestino = transaccion.getCuentaDestino();
 
         Presupuesto presupuestoOrigen = (cuentaOrigen != null) ? cuentaOrigen.getPresupuesto() : null;
         Presupuesto presupuestoDestino = (cuentaDestino != null) ? cuentaDestino.getPresupuesto() : null;
 
-// Actualizar montos según el tipo de transacción
+
         switch (transaccion.getTipoTransaccion()) {
             case DEPOSITO -> {
                 if (presupuestoDestino != null) {
@@ -409,7 +409,7 @@ public class Administrador extends Persona implements IUsuarioServices, ICuentaS
             }
         }
 
-// Registrar la transacción en las cuentas involucradas
+
         if (cuentaOrigen != null) {
             cuentaOrigen.getListaTransacciones().add(transaccion);
         }

@@ -97,12 +97,12 @@ public class Cuenta {
     public double calcularSaldo(LocalDate desde, LocalDate hasta) {
         double saldo = 0;
 
-       // Si tienes un presupuesto inicial, úsalo como base
+       
         if (presupuesto != null) {
         saldo = presupuesto.getMontoPresupuesto();
     }
 
-      // Suma/resta las transacciones en el rango
+      
       for (Transaccion t : listaTransacciones) {
         LocalDate fechaT = t.getFechaTransaccion();
         if ((fechaT.isEqual(desde) || fechaT.isAfter(desde)) && (fechaT.isEqual(hasta) || fechaT.isBefore(hasta))) {

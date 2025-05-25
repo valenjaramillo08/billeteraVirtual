@@ -53,7 +53,7 @@ public class perfilUsuarioViewController {
         String apellido = txtApellido.getText().trim();
         String correo = txtCorreo.getText().trim();
 
-        // Validaciones
+        
         if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty()) {
             mostrarAlertaError("Todos los campos son obligatorios.");
             return;
@@ -64,12 +64,12 @@ public class perfilUsuarioViewController {
             return;
         }
 
-        // Si pasa todas las validaciones, actualizar
+        
         usuarioActual.setNombre(nombre);
         usuarioActual.setApellido(apellido);
         usuarioActual.setCorreo(correo);
 
-        // Puedes guardar en base de datos aquí si lo necesitas
+        
 
         mostrarAlertaInfo("Datos actualizados correctamente.");
         System.out.println("Usuario actualizado: " + usuarioActual);

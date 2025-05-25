@@ -92,7 +92,7 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
             return;
         }
 
-        // Asegurar que cuentas tengan presupuesto antes de la transacción
+       
         if (cuentaOrigen != null && cuentaOrigen.getPresupuesto() == null) {
             cuentaOrigen.setPresupuesto(new Presupuesto(0, 0));
         }
