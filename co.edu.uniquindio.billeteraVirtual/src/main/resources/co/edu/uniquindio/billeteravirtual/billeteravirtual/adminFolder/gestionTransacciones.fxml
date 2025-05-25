@@ -1,55 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.AdminTransaccionesViewController"
-            style="-fx-background-color: #f4f4f4;"
-            AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+<AnchorPane prefHeight="579.0" prefWidth="722.0" style="-fx-background-color: #f4f4f4;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.AdminTransaccionesViewController">
 
    <children>
      
       <Label layoutX="20" layoutY="20" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Seleccionar Usuario:" />
       <ComboBox fx:id="comboUsuarios" layoutX="160" layoutY="15" prefWidth="200" />
 
-      <Label layoutX="20" layoutY="60" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Cuenta Origen:" />
-      <ComboBox fx:id="comboCuentaOrigen" layoutX="160" layoutY="55" prefWidth="200" />
+      <Label layoutX="20.0" layoutY="98.0" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Cuenta Origen:" />
+      <ComboBox fx:id="comboCuentaOrigen" layoutX="160.0" layoutY="95.0" prefWidth="200" />
 
-      <Label layoutX="400" layoutY="60" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Saldo Disponible:" />
-      <Label fx:id="labelSaldo" layoutX="520" layoutY="60" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="0" />
+      <Label layoutX="400.0" layoutY="98.0" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Saldo Disponible:" />
+      <Label fx:id="labelSaldo" layoutX="513.0" layoutY="99.0" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="0" />
 
-      <Label layoutX="20" layoutY="100" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Cuenta Destino:" />
-      <ComboBox fx:id="comboCuentaDestino" layoutX="160" layoutY="95" prefWidth="200" />
+      <Label layoutX="18.0" layoutY="136.0" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Cuenta Destino:" />
+      <ComboBox fx:id="comboCuentaDestino" layoutX="160.0" layoutY="133.0" prefWidth="200" />
 
-      <Label layoutX="20" layoutY="140" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Tipo Transacción:" />
-      <ComboBox fx:id="comboTipoTransaccion" layoutX="160" layoutY="135" prefWidth="200" />
+      <Label layoutX="20.0" layoutY="59.0" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Tipo Transacción:" />
+      <ComboBox fx:id="comboTipoTransaccion" layoutX="160.0" layoutY="56.0" prefWidth="200" />
 
-      <Label layoutX="20" layoutY="180" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Monto:" />
+      <Label layoutX="20.0" layoutY="178.0" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Monto:" />
       <TextField fx:id="txtMonto" layoutX="160" layoutY="175" prefWidth="200" />
 
       <Label layoutX="20" layoutY="220" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Descripción:" />
       <TextField fx:id="txtDescripcion" layoutX="160" layoutY="215" prefWidth="200" />
 
-      <Button fx:id="btnCrearTransaccion" layoutX="160" layoutY="260" onAction="#onCrearTransaccion"
-              style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" text="Crear Transacción" />
+      <Button fx:id="btnCrearTransaccion" layoutX="187.0" layoutY="248.0" onAction="#onCrearTransaccion" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" text="Crear Transacción" />
 
-      <Button fx:id="btnExportarCSV" layoutX="400" layoutY="15"
-              style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Exportar CSV" />
-      <Button fx:id="btnExportarPDF" layoutX="520" layoutY="15"
-              style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Exportar PDF" />
+      <Button fx:id="btnExportarCSV" layoutX="500.0" layoutY="248.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;" text="Exportar CSV" />
+      <Button fx:id="btnExportarPDF" layoutX="609.0" layoutY="248.0" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Exportar PDF" />
 
       
-      <TableView fx:id="tablaTransacciones"
-                 AnchorPane.leftAnchor="14.0"
-                 AnchorPane.rightAnchor="14.0"
-                 AnchorPane.bottomAnchor="10.0"
-                 layoutY="312.0"
-                 prefHeight="230.0"
-                 style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 5px;">
+      <TableView fx:id="tablaTransacciones" layoutX="14.0" layoutY="313.0" prefHeight="230.0" style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 5px;" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
          <columns>
             <TableColumn fx:id="colFecha" prefWidth="100" text="Fecha" />
             <TableColumn fx:id="colDescripcion" prefWidth="150" text="Descripción" />
