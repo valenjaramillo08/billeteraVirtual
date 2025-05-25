@@ -12,7 +12,7 @@
             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 
    <children>
-      <!-- FORMULARIO -->
+     
       <Label layoutX="20" layoutY="20" style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" text="Seleccionar Usuario:" />
       <ComboBox fx:id="comboUsuarios" layoutX="160" layoutY="15" prefWidth="200" />
 
@@ -42,7 +42,7 @@
       <Button fx:id="btnExportarPDF" layoutX="520" layoutY="15"
               style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;" text="Exportar PDF" />
 
-      <!-- TABLA -->
+      
       <TableView fx:id="tablaTransacciones"
                  AnchorPane.leftAnchor="14.0"
                  AnchorPane.rightAnchor="14.0"

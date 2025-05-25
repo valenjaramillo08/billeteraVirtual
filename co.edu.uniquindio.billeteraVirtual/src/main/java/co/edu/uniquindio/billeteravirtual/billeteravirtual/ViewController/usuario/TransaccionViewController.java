@@ -89,20 +89,20 @@ public class TransaccionViewController {
             /*Transaccion*/ transaccion = FabricaTransacciones.crear(datos);
             transaccion.setPresupuesto(presupuesto);
             transaccion.setCategoriaProcesada(nombreCategoria);
-              // --- DECORATOR ---
-            // Adaptar la transacción concreta
+            // --- DECORATOR ---
+           
             TransaccionD t = new Transaccion(transaccion);
 
-            // Decoradores
-            t = new TransaccionConNotificacion(transaccion); // O el correo que corresponda
+            
+            t = new TransaccionConNotificacion(transaccion); 
 
-            // Ejecutar decorada
+            
             t.ejecutar();
             transacciones.add(transaccion); 
             usuarioActual.getListaTransacciones().add(transaccion);
             // -----------------
 
-            // Si es transferencia, también incrementar el presupuesto de la cuenta destino
+           
             if (tipo == TipoTransaccion.TRANSFERENCIA && destino != null && destino.getPresupuesto() != null) {
                 Presupuesto destinoPresupuesto = destino.getPresupuesto();
                 destinoPresupuesto.setMontoPresupuesto(destinoPresupuesto.getMontoPresupuesto() + monto);
@@ -136,7 +136,7 @@ public class TransaccionViewController {
 
             // -----------------------------------
 
-            // Aumentar el presupuesto con el monto depositado
+            
             presupuesto.setMontoPresupuesto(presupuesto.getMontoPresupuesto() + monto);
             presupuesto.notificarObservers();
 
@@ -264,7 +264,7 @@ public class TransaccionViewController {
             cbCuentaOrigen.setItems(cuentasUsuario);
             cbCuentaDestino.setItems(cuentas);
             /*transacciones.addAll(controller.listarTransacciones(usuario));*/
-            // ¡AQUÍ! Carga todas las transacciones existentes del usuario
+            
             transacciones.clear();
             transacciones.addAll(usuarioActual.getListaTransacciones());
             tablaTransacciones.setItems(transacciones);

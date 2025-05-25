@@ -27,7 +27,7 @@ public class ReporteUsuarioIndividual extends Reporte {
 
         List<String[]> filas = new ArrayList<>();
 
-        // ✅ Encabezado
+        
         filas.add(new String[]{"Categoría", "Valor"});
 
         for (EstadisticaCategoria dato : datos) {

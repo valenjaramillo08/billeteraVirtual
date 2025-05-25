@@ -48,7 +48,7 @@ public class GestionUsuariosViewController implements ObservadorAdministrador {
         if(datosValidos(usuarioDto)){
             if(gestionUsuariosController.agregarUsuario(usuarioDto)){
                 listaUsuarios.add(usuarioDto);
-                UsuarioObservable.notificarObservadores(); // 🔔 Notificar cambios
+                UsuarioObservable.notificarObservadores(); 
                 mostrarMensaje(AdministradorConstantes.TITULO_USUARIO_AGREGADO,AdministradorConstantes.HEADER,AdministradorConstantes.BODY_USUARIO_AGREGADO, Alert.AlertType.INFORMATION);
             }
         }else {
@@ -114,7 +114,7 @@ public class GestionUsuariosViewController implements ObservadorAdministrador {
     @FXML
     void initialize() {
         gestionUsuariosController = new GestionUsuariosController();
-        UsuarioObservable.agregarObservador(this); // 🔁 Registro como observador
+        UsuarioObservable.agregarObservador(this); 
         initView();
     }
 

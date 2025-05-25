@@ -12,7 +12,7 @@ public class CreadorTransaccionRetiro implements CreadorTransaccion {
             datos.fechaTransaccion,
             datos.monto,
             datos.descripcion,
-            null, // Sin cuenta destino
+            null, 
             TipoTransaccion.RETIRO
         );
     }

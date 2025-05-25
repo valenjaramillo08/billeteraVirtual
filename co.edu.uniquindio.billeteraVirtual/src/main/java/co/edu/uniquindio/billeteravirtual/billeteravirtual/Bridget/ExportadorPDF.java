@@ -20,7 +20,7 @@ public class ExportadorPDF implements Exportador {
             BaseFont baseFont = BaseFont.createFont(rutaArial, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             return new Font(baseFont, tamano, estilo);
         } catch (Exception e) {
-            // Fallback
+            
             System.out.println("⚠️ No se pudo cargar Arial, usando Helvetica");
             return FontFactory.getFont(FontFactory.HELVETICA, tamano, estilo);
         }
@@ -38,12 +38,12 @@ public class ExportadorPDF implements Exportador {
             Font fontNormal = cargarArial(12, Font.NORMAL);
             Font fontBold = cargarArial(12, Font.BOLD);
 
-            // Título
+            
             Paragraph parrafoTitulo = new Paragraph(titulo, fontTitulo);
             parrafoTitulo.setAlignment(Element.ALIGN_LEFT);
             documento.add(parrafoTitulo);
 
-            // Fecha
+        
             Paragraph fecha = new Paragraph("Fecha Reporte: " + LocalDate.now(), fontNormal);
             fecha.setAlignment(Element.ALIGN_RIGHT);
             fecha.setSpacingAfter(10);
@@ -57,7 +57,7 @@ public class ExportadorPDF implements Exportador {
                 return;
             }
 
-            // Tabla info usuario
+            
             PdfPTable tablaUsuario = new PdfPTable(2);
             tablaUsuario.setWidthPercentage(100);
             tablaUsuario.setSpacingBefore(10);
@@ -80,7 +80,7 @@ public class ExportadorPDF implements Exportador {
             }
             documento.add(tablaUsuario);
 
-            // Validar que queda contenido
+            
             if (i >= contenido.size()) {
                 documento.add(new Paragraph("No hay tabla de datos para mostrar.", fontNormal));
                 documento.close();
@@ -92,7 +92,7 @@ public class ExportadorPDF implements Exportador {
             tablaDatos.setWidthPercentage(100);
             tablaDatos.setSpacingBefore(15);
 
-            // Encabezados
+            
             for (String header : headers) {
                 PdfPCell celda = new PdfPCell(new Phrase(header, fontBold));
                 celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -102,7 +102,7 @@ public class ExportadorPDF implements Exportador {
             }
             i++;
 
-            // Datos
+           
             for (; i < contenido.size(); i++) {
                 for (String dato : contenido.get(i)) {
                     PdfPCell celda = new PdfPCell(new Phrase(dato, fontNormal));

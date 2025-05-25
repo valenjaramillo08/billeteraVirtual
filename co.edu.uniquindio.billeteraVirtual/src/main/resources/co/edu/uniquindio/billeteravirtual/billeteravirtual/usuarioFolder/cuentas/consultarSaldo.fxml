@@ -17,7 +17,7 @@
 
       <Separator layoutX="40.0" layoutY="130.0" prefWidth="620.0" />
 
-      <ComboBox fx:id="cbCuentas" layoutX="40.0" layoutY="150.0" prefHeight="30.0" prefWidth="191.0" promptText="Seleccione una cuenta" style="-fx-font-size: 14px;" />
+      <ComboBox fx:id="cbCuentas" layoutX="40.0" layoutY="150.0" prefHeight="30.0" prefWidth="200.0" promptText="Seleccione una cuenta" style="-fx-font-size: 14px;" />
 
       <Label layoutX="40.0" layoutY="235.0" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Periodo:" />
 

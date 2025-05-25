@@ -58,7 +58,7 @@ public class Transaccion implements IVisitable, TransaccionD {
                 if (categoria.getNombreCategoria().equals(nombreCategoria)) {
                     if (categoria.getSaldo() >= monto) {
                         categoria.setSaldo(categoria.getSaldo() - monto);
-                        presupuesto.notificarObservers(); // Para actualizar la UI
+                        presupuesto.notificarObservers(); 
                         return;
                     } else {
                         throw new IllegalArgumentException("Saldo insuficiente en la categoría.");
@@ -76,7 +76,7 @@ public class Transaccion implements IVisitable, TransaccionD {
     }
 
 
-// Getters y Setters
+
 
     public String getIdTransaccion() {
         return idTransaccion;

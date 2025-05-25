@@ -12,8 +12,8 @@ public class ReporteEstadisticaGenerica extends Reporte {
     private List<Usuario> listaUsuarios;
 
     public ReporteEstadisticaGenerica(EstrategiaEstadistica estrategia, Exportador exportador, List<Usuario> usuarios) {
-        super(exportador);                 // BRIDGE
-        this.estrategia = estrategia;      // STRATEGY
+        super(exportador);                 
+        this.estrategia = estrategia;      
         this.listaUsuarios = usuarios;
     }
 

@@ -89,7 +89,7 @@ public class LoginAdminViewController {
 
             AdministradorVentanaPrincipalViewController controller = loader.getController();
             controller.setApp(helloApp);
-            controller.setAdministradorLogueado(admin); // este método se encarga de pasar el usuario a las pestañas
+            controller.setAdministradorLogueado(admin); 
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));

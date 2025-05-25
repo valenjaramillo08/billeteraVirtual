@@ -17,7 +17,7 @@ public class EstrategiaReporteIngresos implements EstrategiaEstadistica {
     @Override
     public List<EstadisticaCategoria> calcular(List<Usuario> usuarios) {
         List<EstadisticaCategoria> resultado = new ArrayList<>();
-        Usuario usuario = usuarios.get(0); // Solo se espera uno
+        Usuario usuario = usuarios.get(0); 
 
         double totalIngresos = usuario.getListaTransacciones().stream()
                 .filter(t -> t.getTipoTransaccion() == TipoTransaccion.DEPOSITO)

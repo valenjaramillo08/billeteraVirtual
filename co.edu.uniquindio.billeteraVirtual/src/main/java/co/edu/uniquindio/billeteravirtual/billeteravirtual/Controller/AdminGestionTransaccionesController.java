@@ -21,13 +21,13 @@ public class AdminGestionTransaccionesController {
     }
 
     public List<Usuario> obtenerUsuarios() {
-        return modelFactory.getListaUsuarios(); // O el método correspondiente
+        return modelFactory.getListaUsuarios(); 
     }
 
     public void crearTransaccion(Usuario usuario, String tipoStr, double monto, String descripcion) {
         TipoTransaccion tipo = TipoTransaccion.valueOf(tipoStr);
 
-        // Obtener cuenta origen (asumimos que hay una primera cuenta)
+        
         Cuenta cuentaOrigen = usuario.getListaCuentas().isEmpty() ? null : usuario.getListaCuentas().get(0);
 
         Transaccion transaccion = new Transaccion();
@@ -37,13 +37,13 @@ public class AdminGestionTransaccionesController {
         transaccion.setMonto(monto);
         transaccion.setDescripcion(descripcion);
         transaccion.setTipoTransaccion(tipo);
-        transaccion.setCuentaDestino(null); // puedes ajustar esto según el tipo
+        transaccion.setCuentaDestino(null); 
 
         modelFactory.agregarTransaccion(transaccion);
     }
 
     public List<Transaccion> obtenerTransacciones(Usuario usuario) {
-        return usuario.getListaTransacciones(); // asumimos que Usuario tiene este método
+        return usuario.getListaTransacciones(); 
     }
 
     public void exportarReporte(Usuario usuario, Exportador exportador, String nombreArchivo) {

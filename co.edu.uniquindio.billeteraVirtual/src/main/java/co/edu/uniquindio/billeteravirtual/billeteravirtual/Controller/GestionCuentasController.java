@@ -34,7 +34,7 @@ public class GestionCuentasController {
     }
 
     public List<Usuario> obtenerTodosLosUsuarios() {
-        return modelFactory.getListaUsuarios(); // Este método ya existe
+        return modelFactory.getListaUsuarios(); 
     }
 
 }

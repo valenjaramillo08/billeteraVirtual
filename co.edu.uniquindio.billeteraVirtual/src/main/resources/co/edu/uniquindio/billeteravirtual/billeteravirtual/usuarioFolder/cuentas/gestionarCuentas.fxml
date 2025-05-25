@@ -11,11 +11,11 @@
             fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtual.ViewController.usuario.cuentas.GestionarCuentaViewController">
 
     <children>
-        <!-- Título -->
+        
         <Label layoutX="20.0" layoutY="25.0" text="Gestión de Cuentas"
                style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" />
 
-        <!-- Tabla de cuentas -->
+        
         <TableView fx:id="tableCuentas" layoutX="17.0" layoutY="70.0" prefHeight="340.0" prefWidth="655.0">
             <columns>
                 <TableColumn fx:id="tcNombreBanco" prefWidth="231.0" text="Nombre Banco" />
@@ -24,7 +24,7 @@
             </columns>
         </TableView>
 
-        <!-- Botón de detalles -->
+        
         <Button fx:id="btDetallesCuenta"
                 layoutX="270.0"
                 layoutY="430.0"
