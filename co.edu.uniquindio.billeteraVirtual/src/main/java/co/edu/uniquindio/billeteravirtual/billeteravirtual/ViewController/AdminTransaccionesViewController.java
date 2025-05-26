@@ -54,12 +54,49 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
             public String toString(Usuario usuario) {
                 return usuario != null ? usuario.getNombre() : "";
             }
+
             @Override
-            public Usuario fromString(String s) { return null; }
+            public Usuario fromString(String s) {
+                return null;
+            }
         });
 
         comboUsuarios.setOnAction(e -> cargarCuentasUsuario());
-        comboCuentaOrigen.setOnAction(e -> filtrarCuentaDestino());
+
+        comboCuentaOrigen.setOnAction(e -> {
+            actualizarSaldoCuentaOrigen();
+            filtrarCuentaDestino();
+        });
+
+        comboTipoTransaccion.setOnAction(e -> {
+            TipoTransaccion tipo = comboTipoTransaccion.getValue();
+
+            if (tipo == null) {
+                // Restaurar ambos combos por defecto si no hay selección
+                comboCuentaOrigen.setDisable(false);
+                comboCuentaDestino.setDisable(false);
+                return;
+            }
+
+            switch (tipo) {
+                case DEPOSITO -> {
+                    comboCuentaOrigen.setDisable(true);
+                    comboCuentaOrigen.getSelectionModel().clearSelection();
+                    comboCuentaDestino.setDisable(false);
+                }
+                case RETIRO -> {
+                    comboCuentaOrigen.setDisable(false);
+                    comboCuentaDestino.setDisable(true);
+                    comboCuentaDestino.getSelectionModel().clearSelection();
+                }
+                case TRANSFERENCIA -> {
+                    comboCuentaOrigen.setDisable(false);
+                    comboCuentaDestino.setDisable(false);
+                }
+            }
+
+            actualizarSaldoCuentaOrigen();
+        });
 
         btnExportarCSV.setOnAction(e -> exportarCSV());
         btnExportarPDF.setOnAction(e -> exportarPDFConCommand());
@@ -67,6 +104,7 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
         configurarComboBoxCuentas();
         configurarTabla();
     }
+
 
     @FXML
     void onCrearTransaccion() {
@@ -92,7 +130,6 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
             return;
         }
 
-       
         if (cuentaOrigen != null && cuentaOrigen.getPresupuesto() == null) {
             cuentaOrigen.setPresupuesto(new Presupuesto(0, 0));
         }
@@ -112,12 +149,11 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
 
         if (creada) {
             mostrarAlerta("Transacción creada exitosamente.");
-            tablaTransacciones.getItems().add(cuentaOrigen.getListaTransacciones().getLast());
+            tablaTransacciones.getItems().add(cuentaOrigen != null
+                    ? cuentaOrigen.getListaTransacciones().getLast()
+                    : cuentaDestino.getListaTransacciones().getLast());
 
-            if (cuentaOrigen != null) {
-                labelSaldo.setText(String.valueOf(controller.obtenerSaldoCuenta(cuentaOrigen)));
-            }
-
+            actualizarSaldoCuentaOrigen();
             limpiarCampos();
         } else {
             mostrarAlerta("No se pudo crear la transacción.");
@@ -170,6 +206,9 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
         comboTipoTransaccion.getSelectionModel().clearSelection();
         comboCuentaOrigen.getSelectionModel().clearSelection();
         comboCuentaDestino.getSelectionModel().clearSelection();
+        comboCuentaOrigen.setDisable(false);
+        comboCuentaDestino.setDisable(false);
+        labelSaldo.setText("Saldo: $0.0");
     }
 
     private void cargarCuentasUsuario() {
@@ -187,17 +226,30 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
                     .filter(c -> !c.getNumeroCuenta().equals(origen.getNumeroCuenta()))
                     .toList();
             comboCuentaDestino.setItems(FXCollections.observableArrayList(cuentasFiltradas));
-            labelSaldo.setText(String.valueOf(controller.obtenerSaldoCuenta(origen)));
+        }
+    }
+
+    private void actualizarSaldoCuentaOrigen() {
+        Cuenta cuentaSeleccionada = comboCuentaOrigen.getValue();
+        if (cuentaSeleccionada != null) {
+            double saldo = controller.obtenerSaldoCuenta(cuentaSeleccionada);
+            labelSaldo.setText("Saldo: $" + saldo);
+        } else {
+            labelSaldo.setText("Saldo: $0.0");
         }
     }
 
     private void configurarComboBoxCuentas() {
         comboCuentaOrigen.setConverter(new StringConverter<>() {
-            @Override public String toString(Cuenta cuenta) { return cuenta != null ? cuenta.getNumeroCuenta() : ""; }
+            @Override public String toString(Cuenta cuenta) {
+                return cuenta != null ? cuenta.getNumeroCuenta() : "";
+            }
             @Override public Cuenta fromString(String s) { return null; }
         });
         comboCuentaDestino.setConverter(new StringConverter<>() {
-            @Override public String toString(Cuenta cuenta) { return cuenta != null ? cuenta.getNumeroCuenta() : ""; }
+            @Override public String toString(Cuenta cuenta) {
+                return cuenta != null ? cuenta.getNumeroCuenta() : "";
+            }
             @Override public Cuenta fromString(String s) { return null; }
         });
     }

@@ -15,24 +15,12 @@ public class GestionTransaccionesController {
         modelFactory = ModelFactory.getInstancia();
     }
 
-    public List<Transaccion> listarTransacciones(Usuario usuario) {
-        return modelFactory.getAdministrador().listarTransaccionesUsuario(usuario);
-    }
-
     public List<Cuenta> listarCuentas() {
         return modelFactory.getAdministrador().getListaCuentas();
     }
 
     public List<Cuenta> listarCuentasUsuario(Usuario usuario) {
         return modelFactory.getAdministrador().listarCuentasUsuarios(usuario);
-    }
-
-    public boolean crearTransaccion(Cuenta cuentaOrigen,Cuenta cuentaDestino,double monto,String descripcion,TipoTransaccion tipoTransaccion) {
-        return modelFactory.getAdministrador().crearTransaccion(cuentaOrigen, cuentaDestino, monto, descripcion, tipoTransaccion);
-    }
-
-    public double saldoCuenta(Cuenta cuenta){
-        return modelFactory.getAdministrador().saldoCuenta(cuenta);
     }
 
 }
