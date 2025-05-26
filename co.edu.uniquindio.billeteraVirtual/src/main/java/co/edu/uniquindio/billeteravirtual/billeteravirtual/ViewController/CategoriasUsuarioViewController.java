@@ -156,6 +156,8 @@ public class CategoriasUsuarioViewController implements Observador {
     public void setUsuarioLogueado(Usuario usuario) {
         this.usuarioActual = usuario;
         cargarCuentas();
+
+
     }
 
     private void cargarCuentas() {

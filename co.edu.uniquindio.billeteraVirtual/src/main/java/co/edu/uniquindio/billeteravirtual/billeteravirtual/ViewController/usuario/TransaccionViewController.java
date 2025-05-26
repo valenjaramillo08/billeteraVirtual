@@ -6,6 +6,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.Transaccion
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.DatosTransaccion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.FactoryMethod.FabricaTransacciones;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.*;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.Observador;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -17,7 +18,7 @@ import javafx.scene.control.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class TransaccionViewController {
+public class TransaccionViewController implements Observador {
 
     @FXML
     private TextField txtMonto, txtSaldoActual;
@@ -47,109 +48,122 @@ public class TransaccionViewController {
     @FXML
     void onCrearTransaccion(ActionEvent event) {
         try {
-        String id = UUID.randomUUID().toString();
-        LocalDate fecha = LocalDate.now();
-        double monto = Double.parseDouble(txtMonto.getText());
-        TipoTransaccion tipo = cbTipo.getValue();
-        Cuenta origen = cbCuentaOrigen.getValue();
-        Cuenta destino = cbCuentaDestino.getValue();
-        NombreCategoria nombreCategoria = comboPlata.getValue();
+            String id = UUID.randomUUID().toString();
+            LocalDate fecha = LocalDate.now();
+            double monto = Double.parseDouble(txtMonto.getText());
+            TipoTransaccion tipo = cbTipo.getValue();
+            Cuenta origen = cbCuentaOrigen.getValue();
+            Cuenta destino = cbCuentaDestino.getValue();
+            NombreCategoria nombreCategoria = comboPlata.getValue();
 
-        if (tipo == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar un tipo de transacción.");
-            return;
+            if (tipo == null) {
+                mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar un tipo de transacción.");
+                return;
+            }
+
+            Transaccion transaccion = null;
+            Presupuesto presupuesto = null;
+
+            if (tipo == TipoTransaccion.RETIRO || tipo == TipoTransaccion.TRANSFERENCIA) {
+                if (origen == null || nombreCategoria == null) {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar la cuenta origen y la categoría.");
+                    return;
+                }
+
+                presupuesto = origen.getPresupuesto();
+                if (presupuesto == null) {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Sin presupuesto", "La cuenta seleccionada no tiene un presupuesto.");
+                    return;
+                }
+
+                Categoria categoria = presupuesto.obtenerCategoriaPorNombre(nombreCategoria);
+                if (categoria == null || monto > categoria.getSaldo()) {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Saldo insuficiente en la categoría",
+                            "No puedes retirar más de lo que tienes en esta categoría.");
+                    return;
+                }
+
+                DatosTransaccion datos = new DatosTransaccion(
+                        id, origen, fecha, monto, "Generada por usuario", destino,
+                        tipo, presupuesto
+                );
+
+                transaccion = FabricaTransacciones.crear(datos);
+                transaccion.setPresupuesto(presupuesto);
+                transaccion.setCategoriaProcesada(nombreCategoria);
+
+                // --- DECORATOR ---
+                TransaccionD t = new Transaccion(transaccion);
+                t = new TransaccionConNotificacion(transaccion);
+                t.ejecutar();
+                // -----------------
+
+                transacciones.add(transaccion);
+                usuarioActual.getListaTransacciones().add(transaccion);
+
+                // ✅ TRANSFERENCIA: actualizar presupuesto de cuenta destino
+                if (tipo == TipoTransaccion.TRANSFERENCIA && destino != null) {
+                    if (destino.getPresupuesto() == null) {
+                        destino.setPresupuesto(new Presupuesto(0, 0));
+                    }
+                    Presupuesto destinoPresupuesto = destino.getPresupuesto();
+
+                    destinoPresupuesto.setMontoPresupuesto(destinoPresupuesto.getMontoPresupuesto() + monto);
+                    destinoPresupuesto.agregarObserver(this); // asegurar observador
+                    destinoPresupuesto.notificarObservers();
+                    destino.setPresupuesto(destinoPresupuesto);
+                }
+
+            } else if (tipo == TipoTransaccion.DEPOSITO) {
+                if (destino == null) {
+                    mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar la cuenta destino.");
+                    return;
+                }
+
+                // ✅ Crear presupuesto si no existe
+                if (destino.getPresupuesto() == null) {
+                    destino.setPresupuesto(new Presupuesto(0, 0));
+                }
+
+                presupuesto = destino.getPresupuesto();
+                presupuesto.agregarObserver(this); // ✅ registrar observer
+
+                DatosTransaccion datos = new DatosTransaccion(
+                        id, null, fecha, monto, "Generada por usuario", destino,
+                        tipo, presupuesto
+                );
+
+                transaccion = FabricaTransacciones.crear(datos);
+                transaccion.setPresupuesto(presupuesto);
+
+                // --- DECORATOR ---
+                TransaccionD t = new Transaccion(transaccion);
+                t = new TransaccionConNotificacion(transaccion);
+                //t.ejecutar();
+                // -----------------
+
+                // ✅ Sumar al presupuesto total
+                presupuesto.setMontoPresupuesto(presupuesto.getMontoPresupuesto() + monto);
+                // ✅ Sumar al saldo de la cuenta destino
+                destino.setPresupuesto(presupuesto);
+
+                presupuesto.notificarObservers(); // 🔔 Notifica correctamente
+                transacciones.add(transaccion);
+
+                usuarioActual.getListaTransacciones().add(transaccion);
+            }
+
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Transacción registrada correctamente.");
+            limpiarCampos();
+
+        } catch (Exception e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Campos inválidos o incompletos: " + e.getMessage());
         }
-
-        Transaccion transaccion = null;
-        Presupuesto presupuesto = null;
-
-        if (tipo == TipoTransaccion.RETIRO || tipo == TipoTransaccion.TRANSFERENCIA) {
-            if (origen == null || nombreCategoria == null) {
-                mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar la cuenta origen y la categoría.");
-                return;
-            }
-              presupuesto /*presupuesto*/ = origen.getPresupuesto();
-            if (presupuesto == null) {
-                mostrarAlerta(Alert.AlertType.WARNING, "Sin presupuesto", "La cuenta seleccionada no tiene un presupuesto.");
-                return;
-            }
-
-            Categoria categoria = presupuesto.obtenerCategoriaPorNombre(nombreCategoria);
-            if (categoria == null || monto > categoria.getSaldo()) {
-                mostrarAlerta(Alert.AlertType.WARNING, "Saldo insuficiente en la categoría",
-                        "No puedes retirar más de lo que tienes en esta categoría.");
-                return;
-            }
-
-            DatosTransaccion datos = new DatosTransaccion(
-                    id, origen, fecha, monto, "Generada por usuario", destino,
-                    tipo, presupuesto
-            );
-
-            /*Transaccion*/ transaccion = FabricaTransacciones.crear(datos);
-            transaccion.setPresupuesto(presupuesto);
-            transaccion.setCategoriaProcesada(nombreCategoria);
-            // --- DECORATOR ---
-           
-            TransaccionD t = new Transaccion(transaccion);
-
-            
-            t = new TransaccionConNotificacion(transaccion); 
-
-            
-            t.ejecutar();
-            transacciones.add(transaccion); 
-            usuarioActual.getListaTransacciones().add(transaccion);
-            // -----------------
-
-           
-            if (tipo == TipoTransaccion.TRANSFERENCIA && destino != null && destino.getPresupuesto() != null) {
-                Presupuesto destinoPresupuesto = destino.getPresupuesto();
-                destinoPresupuesto.setMontoPresupuesto(destinoPresupuesto.getMontoPresupuesto() + monto);
-                destinoPresupuesto.notificarObservers();
-            }
-
-        } else if (tipo == TipoTransaccion.DEPOSITO) {
-            if (destino == null) {
-                mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Debe seleccionar la cuenta destino.");
-                return;
-            }
-
-            /*Presupuesto*/ presupuesto = destino.getPresupuesto();
-             if (presupuesto == null) {
-                mostrarAlerta(Alert.AlertType.WARNING, "Sin presupuesto", "La cuenta destino no tiene un presupuesto asociado.");
-                return;
-            }
-
-            DatosTransaccion datos = new DatosTransaccion(
-                    id, null, fecha, monto, "Generada por usuario", destino,
-                    tipo, presupuesto
-            );
-
-            /*Transaccion*/ transaccion = FabricaTransacciones.crear(datos);
-            transaccion.setPresupuesto(presupuesto);
-
-            // --- DECORATOR SOLO NOTIFICACIÓN ---
-            TransaccionD t = new Transaccion(transaccion);
-            t = new TransaccionConNotificacion(transaccion);
-            t.ejecutar();
-
-            // -----------------------------------
-
-            
-            presupuesto.setMontoPresupuesto(presupuesto.getMontoPresupuesto() + monto);
-            presupuesto.notificarObservers();
-
-            transacciones.add(transaccion);
-            usuarioActual.getListaTransacciones().add(transaccion);
-        }
-
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Transacción registrada correctamente.");
-        limpiarCampos();
-    } catch (Exception e) {
-        mostrarAlerta(Alert.AlertType.ERROR, "Error", "Campos inválidos o incompletos: " + e.getMessage());
     }
-    }
+
+
+
+
 
     private void limpiarCampos() {
         txtMonto.clear();
@@ -273,13 +287,20 @@ public class TransaccionViewController {
             cuentas = FXCollections.observableArrayList(controller.listarCuentas());
             cbCuentaOrigen.setItems(cuentasUsuario);
             cbCuentaDestino.setItems(cuentas);
-            /*transacciones.addAll(controller.listarTransacciones(usuario));*/
-            
+
+            // ✅ Registrar este controlador como observador de cada presupuesto
+            for (Cuenta cuenta : usuarioActual.getListaCuentas()) {
+                if (cuenta.getPresupuesto() != null) {
+                    cuenta.getPresupuesto().agregarObserver(this);
+                }
+            }
+
             transacciones.clear();
             transacciones.addAll(usuarioActual.getListaTransacciones());
             tablaTransacciones.setItems(transacciones);
         }
     }
+
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alerta = new Alert(tipo);
@@ -290,5 +311,10 @@ public class TransaccionViewController {
 
     public void actualizarSaldoActual(String saldo) {
         txtSaldoActual.setText(saldo);
+    }
+
+    @Override
+    public void actualizar(Presupuesto presupuesto) {
+        tablaTransacciones.refresh();
     }
 }
