@@ -10,6 +10,7 @@ module co.edu.uniquindio.billeteravirtual.billeteravirtual {
     
 
     requires java.desktop;
+    
 
     opens co.edu.uniquindio.billeteravirtual.billeteravirtual to javafx.fxml;
     exports co.edu.uniquindio.billeteravirtual.billeteravirtual;

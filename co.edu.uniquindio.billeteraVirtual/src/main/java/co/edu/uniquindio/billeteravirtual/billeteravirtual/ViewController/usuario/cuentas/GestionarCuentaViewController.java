@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Cuenta;
+import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Transaccion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Utils.DataUtil;
 import javafx.collections.FXCollections;
@@ -107,6 +108,26 @@ public class GestionarCuentaViewController {
            Cuenta cuentaSeleccionada = tableCuentas.getSelectionModel().getSelectedItem();
 
     if (cuentaSeleccionada != null) {
+        // Obtener TODAS las transacciones (quemadas + del usuario)
+       List<Transaccion> transaccionesDeCuenta = usuarioActual.getListaTransacciones().stream()
+                .filter(t ->
+                        (t.getCuentaOrigen() != null &&
+                         cuentaSeleccionada.getNumeroCuenta().equals(t.getCuentaOrigen().getNumeroCuenta())) ||
+                        (t.getCuentaDestino() != null &&
+                         cuentaSeleccionada.getNumeroCuenta().equals(t.getCuentaDestino().getNumeroCuenta()))
+                )
+                .collect(Collectors.toList());
+
+        // Calcular el presupuesto (ya está en la cuenta)
+        String presupuestoStr = (cuentaSeleccionada.getPresupuesto() != null)
+            ? String.valueOf(cuentaSeleccionada.getPresupuesto().getMontoPresupuesto())
+            : "No asignado";
+
+        // Calcular lo gastado (sumar todas las transacciones de esa cuenta)
+        double totalGastado = transaccionesDeCuenta.stream()
+                .mapToDouble(Transaccion::getMonto)
+                .sum();
+        String totalGastadoStr = String.format("$ %.2f", totalGastado);
         // Crear labels con los datos
         Label labelTitulo = new Label("Detalles de la Cuenta");
         labelTitulo.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
@@ -115,13 +136,14 @@ public class GestionarCuentaViewController {
         Label labelNumero = new Label("Número: " + cuentaSeleccionada.getNumeroCuenta());
         Label labelTipo = new Label("Tipo: " + cuentaSeleccionada.getTipoCuenta().toString());
         Label labelId = new Label("ID de Cuenta: " + cuentaSeleccionada.getIdCuenta());
-        Label labelPresupuesto = new Label("Presupuesto: " + (cuentaSeleccionada.getPresupuesto() != null ? cuentaSeleccionada.getPresupuesto().toString() : "No asignado"));
-        Label labelTransacciones = new Label("Transacciones: " + cuentaSeleccionada.getListaTransacciones().size());
+        Label labelPresupuesto = new Label("Presupuesto: " + presupuestoStr);
+        Label labelGastado = new Label("Monto Gastado: " + totalGastadoStr);
+        Label labelTransacciones = new Label("Transacciones: " + transaccionesDeCuenta.size());
 
         // Crear layout y agregar elementos
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(15));
-        vbox.getChildren().addAll(labelTitulo, labelBanco, labelNumero, labelTipo,labelId,labelPresupuesto,labelTransacciones);
+        vbox.getChildren().addAll(labelTitulo, labelBanco, labelNumero, labelTipo,labelId,labelPresupuesto,labelGastado,labelTransacciones);
         // Crear escena y mostrar en una nueva ventana
         Scene scene = new Scene(vbox);
         Stage stage = new Stage();
