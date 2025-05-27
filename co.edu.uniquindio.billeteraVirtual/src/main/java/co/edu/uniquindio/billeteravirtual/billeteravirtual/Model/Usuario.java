@@ -5,17 +5,11 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ExportadorCSV
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.ExportadorPDF;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Bridget.Reporte;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Model.Builder.UsuarioBuilder;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Usuario extends Persona implements IVisitable {
-    @Override
-    public void aceptar(IVisitor visitor) {
-        visitor.visitar(this);
-    }
+public class Usuario extends Persona {
 
     public String telefono;
     public String idUsuario;

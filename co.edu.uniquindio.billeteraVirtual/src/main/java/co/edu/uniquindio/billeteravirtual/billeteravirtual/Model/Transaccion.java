@@ -1,12 +1,10 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Decorator.TransaccionD;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
 
 import java.time.LocalDate;
 
-public class Transaccion implements IVisitable, TransaccionD {
+public class Transaccion implements TransaccionD {
     private String idTransaccion;
     private Cuenta cuentaOrigen;
     private LocalDate fechaTransaccion;
@@ -150,10 +148,6 @@ public class Transaccion implements IVisitable, TransaccionD {
         this.categoriaProcesada = categoriaProcesada;
     }
 
-    @Override
-    public void aceptar(IVisitor visitor) {
-        visitor.visitar(this);
-    }
 
     @Override
     public void ejecutar() {
