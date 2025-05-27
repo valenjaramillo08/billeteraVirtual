@@ -72,7 +72,7 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
             TipoTransaccion tipo = comboTipoTransaccion.getValue();
 
             if (tipo == null) {
-                // Restaurar ambos combos por defecto si no hay selección
+                
                 comboCuentaOrigen.setDisable(false);
                 comboCuentaDestino.setDisable(false);
                 return;
