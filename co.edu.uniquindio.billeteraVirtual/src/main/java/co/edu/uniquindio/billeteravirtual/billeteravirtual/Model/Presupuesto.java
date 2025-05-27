@@ -3,14 +3,11 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtual.Model;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.Observador;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Observador.ObservadorMetodos;
 import co.edu.uniquindio.billeteravirtual.billeteravirtual.Service.ICategoriaServices;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitable;
-import co.edu.uniquindio.billeteravirtual.billeteravirtual.Visitor.IVisitor;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaServices {
+public class Presupuesto implements  ObservadorMetodos, ICategoriaServices {
     private String idPresupuesto;
     private double montoPresupuesto;
     private double montoPresupuestoGastado;
@@ -33,10 +30,6 @@ public class Presupuesto implements IVisitable, ObservadorMetodos, ICategoriaSer
         notificarObservers();
     }
 
-    @Override
-    public void aceptar(IVisitor visitor) {
-        visitor.visitar(this);
-    }
 
     @Override
     public void agregarObserver(Observador observador) {
