@@ -280,7 +280,11 @@ public class AdminTransaccionesViewController implements ObservadorAdministrador
         colDescripcion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion()));
         colMonto.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getMonto()));
         colTipo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipoTransaccion().toString()));
-        colCuentaOrigen.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCuentaOrigen().getNumeroCuenta()));
+        colCuentaOrigen.setCellValueFactory(cellData -> {
+            Cuenta cuentaOrigen = cellData.getValue().getCuentaOrigen();
+            return new SimpleStringProperty(cuentaOrigen != null ? cuentaOrigen.getNumeroCuenta() : "N/A");
+        });
+
         colCuentaDestino.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().getCuentaDestino() != null ? cellData.getValue().getCuentaDestino().getNumeroCuenta() : "N/A"
         ));
